@@ -19,7 +19,7 @@ export default function Home() {
                         />
                         <div className="body-text text-center absolute top-0 bottom-0 right-0 left-0 m-auto flex flex-col justify-center items-center ms-0 md:right-auto md:text-start md:items-start md:ms-32 md:max-w-2xl">
                             <h2 className="text-2xl sm:text-4xl md:text-6xl font-inter font-semibold text-third sm:mb-5 md:mb-5">
-                                Joker
+                                Spider-Man: Into the Spider-Verse
                             </h2>
                             <h4 className="release text-third font-inter font-medium text-base sm:text-xl md:text-2xl">2018</h4>
                         </div>
