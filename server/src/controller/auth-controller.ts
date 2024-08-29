@@ -1,0 +1,79 @@
+import { Request, Response, NextFunction } from "express";
+import { PrismaClient, Prisma } from "@prisma/client";
+import { genSalt, hash, compare } from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const prisma = new PrismaClient();
+
+// Register user
+export async function register(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { name, email, password } = req.body;
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser)
+      return res.status(409).json({ message: "Email has already been used" });
+
+    const salt = await genSalt(10);
+    const hashedPassword = await hash(password, salt);
+
+    const uniqueId = `user-${Date.now().toString().slice(-9)}`;
+
+    await prisma.user.create({
+      data: {
+        id: uniqueId,
+        name,
+        email,
+        password: hashedPassword,
+      },
+    });
+
+    return res.status(201).json({ message: "User successfully created" });
+  } catch (error) {
+    next(error);
+  }
+}
+
+// Login
+export async function login(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password)
+      return res.status(400).json({ message: "Required field is missing" });
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user)
+      return res.status(404).json({ message: "Invalid Email / Password" });
+
+    const isValidPassword = await compare(password, user?.password!);
+
+    if (!isValidPassword)
+      return res.status(401).json({ message: "Invalid Email / Password" });
+
+    const jwtPayload = { email, userId: user?.id };
+    const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
+      expiresIn: "1h",
+    });
+
+    return res
+      .cookie("token", token, {
+        httpOnly: true,
+        sameSite: "none", // need to change on production to be true
+        secure: true, // turn off while check on thunderclient
+      })
+      .status(200)
+      .json({ message: "Login success" });
+  } catch (error) {
+    next(error);
+  }
+}

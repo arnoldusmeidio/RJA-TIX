@@ -1,0 +1,38 @@
+import express from "express";
+
+import authRouter from "./routes/auth-route";
+import movieRouter from "./routes/movie-route";
+import adminRouter from "./routes/admin-route";
+import superAdminRouter from "./routes/super-admin-route";
+import managerRouter from "./routes/manager-route";
+import userRouter from "./routes/user-route";
+import { notFoundMiddleware } from "./middlewares/not-found-middleware";
+import { error } from "./middlewares/error-middleware";
+import cookieParser from "cookie-parser";
+import {
+  adminGuard,
+  managerGuard,
+  superAdminGuard,
+  verifyToken,
+} from "./middlewares/auth-middleware";
+
+const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+
+const PORT = 8000;
+
+app.use("/api/v1/movies", movieRouter);
+app.use("/api/v1/super-admins", verifyToken, superAdminGuard, superAdminRouter);
+app.use("/api/v1/admins", verifyToken, adminGuard, adminRouter);
+app.use("/api/v1/managers", verifyToken, managerGuard, managerRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/auth", authRouter);
+
+app.use(notFoundMiddleware);
+app.use(error);
+
+app.listen(PORT, () => {
+  console.log("Server started and listening on port ", PORT);
+});

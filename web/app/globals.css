@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #191919;
+  --secondary: #252525;
+  --third: #FFC107;
+  --fourth: #EEEEEE;
+  --fifth: #1E1E1E;
+}
+
+body {
+  background: var(--primary);
+  scroll-behavior: smooth;
+}
+
+/* Carousel */
+.slider .carousel .body-text {
+  text-shadow:
+    -1px -1px 0 #090909,
+    1px -1px 0 #090909,
+    -1px 1px 0 #090909,
+    1px 1px 0 #090909;
+}
+
+.slider .info {
+  background-image: linear-gradient(to bottom, #191919, #1f1f1f, #242424, #2a2a2a, #303030);
+}
+/* Carousel */
