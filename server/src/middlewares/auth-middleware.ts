@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient, Prisma } from "@prisma/client";
-import jwt from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
+import { AuthenticatedUser, RequestWithUserId } from "../types";
 
 const prisma = new PrismaClient();
 
@@ -17,13 +18,16 @@ export function verifyToken(req: Request, res: Response, next: NextFunction) {
 
     const verifiedUser = jwt.verify(
       token,
-      process.env.JWT_SECRET_KEY as string
+      process.env.JWT_SECRET_KEY as Secret
     );
 
     if (!verifiedUser)
       return res.status(403).json({ message: "Invalid Token" });
 
-    (req as any).user = verifiedUser;
+    if (typeof verifiedUser !== "string") {
+      (req as RequestWithUserId).user = verifiedUser as AuthenticatedUser;
+    }
+
     next();
   } catch (error) {
     next(error);
@@ -38,7 +42,7 @@ export async function adminGuard(
 ) {
   try {
     const admin = await prisma.admin.findUnique({
-      where: { id: (req as any).user.userId },
+      where: { id: (req as RequestWithUserId).user?.userId },
     });
 
     if (!admin)
@@ -57,8 +61,8 @@ export async function superAdminGuard(
   next: NextFunction
 ) {
   try {
-    if ((req as any).user.userId !== process.env.SUPER_ADMIN_ID)
-      return res.status(401).json({ message: "You do not have authorization" });
+    if ((req as RequestWithUserId).user?.userId !== process.env.SUPER_ADMIN_ID)
+      return res.status(401).json({ message: "You are not authorized" });
 
     next();
   } catch (error) {
@@ -74,11 +78,35 @@ export async function managerGuard(
 ) {
   try {
     const manager = await prisma.manager.findUnique({
-      where: { id: (req as any).user.userId },
+      where: { id: (req as RequestWithUserId).user?.userId },
     });
 
     if (!manager)
       return res.status(401).json({ message: "You are not a manager" });
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+}
+
+// User authorization
+export async function userGuard(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const isManager = await prisma.admin.findUnique({
+      where: { id: (req as RequestWithUserId).user?.userId },
+    });
+
+    const isAdmin = await prisma.admin.findUnique({
+      where: { id: (req as RequestWithUserId).user?.userId },
+    });
+
+    if (isManager || isAdmin)
+      return res.status(401).json({ message: "You are not authorized" });
 
     next();
   } catch (error) {

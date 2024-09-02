@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -25,9 +25,9 @@ export async function searchSingleMovie(
   res: Response,
   next: NextFunction
 ) {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
     const movie = await prisma.movie.findUnique({
       where: {
         id: Number(id),
@@ -124,6 +124,7 @@ export async function updateMovieInfo(
 ) {
   try {
     const { id } = req.params;
+
     const { title, director, genre, rated, duration, releaseYear } = req.body;
 
     await prisma.movie.update({
@@ -156,11 +157,21 @@ export async function deleteMovie(
   try {
     const { id } = req.params;
 
+    const existingMovie = await prisma.movie.findUnique({
+      where: {
+        id: Number(id),
+      },
+    });
+
+    if (!existingMovie)
+      return res.status(404).json({ message: "Movie not found" });
+
     await prisma.movie.delete({
       where: {
         id: Number(id),
       },
     });
+
     return res.status(200).json({ message: "Movie deleted" });
   } catch (error) {
     next(error);

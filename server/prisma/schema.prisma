@@ -65,7 +65,7 @@ model Address {
   updateAt  DateTime @updatedAt
 
   cinemaId Int    @unique
-  cinema   Cinema @relation(fields: [cinemaId], references: [id])
+  cinema   Cinema @relation(fields: [cinemaId], references: [id], onDelete: Cascade)
   address  String
   lat      Float
   lng      Float
@@ -78,7 +78,7 @@ model Studio {
 
   number          Int
   cinemaId        Int
-  cinema          Cinema          @relation(fields: [cinemaId], references: [id])
+  cinema          Cinema          @relation(fields: [cinemaId], references: [id], onDelete: Cascade)
   seats           Seat[]
   showtimes       Showtime[]
   projectionType  ProjectionType  @default(STANDARD)
@@ -92,7 +92,7 @@ model Seat {
   row      Int
   column   Int
   studioId Int
-  studio   Studio    @relation(fields: [studioId], references: [id])
+  studio   Studio    @relation(fields: [studioId], references: [id], onDelete: Cascade)
   bookings Booking[]
 
   @@id([studioId, row, column])
@@ -106,6 +106,7 @@ model Movie {
   title       String
   director    String
   genre       Genre
+  synopsis    String?
   rated       Rated
   duration    Int // duration in minutes
   releaseYear Int        @db.Year

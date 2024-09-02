@@ -3,12 +3,13 @@ import {
   createAdmin,
   deleteAdmin,
   getAllAdmin,
-  searchSingleAdmin,
+  getSingleAdminParams,
 } from "../controller/admin-controller";
 
 const router = express.Router();
 
-router.route("/").get(getAllAdmin).post(createAdmin).delete(deleteAdmin);
-router.route("/search/admins/:id").get(searchSingleAdmin);
+// Manage Admin
+router.route("/admins").get(getAllAdmin).post(createAdmin);
+router.route("/admins/:id").get(getSingleAdminParams).delete(deleteAdmin);
 
 export default router;

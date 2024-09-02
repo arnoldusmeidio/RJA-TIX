@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+import { RequestWithUserId } from "../types";
 
 const prisma = new PrismaClient();
 
 // GET METHOD --
-// Get all Admin
+// Get all Admin (for Super Admin only)
 export async function getAllAdmin(
   req: Request,
   res: Response,
@@ -19,15 +20,38 @@ export async function getAllAdmin(
   }
 }
 
-// Search Admin by ID
-export async function searchSingleAdmin(
+// Search Admin by ID (for Super Admin only)
+export async function getSingleAdminParams(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
+    const admin = await prisma.admin.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!admin) return res.status(404).json({ message: "Admin not found" });
+
+    return res.status(200).json({ data: admin });
+  } catch (error) {
+    next(error);
+  }
+}
+
+// Search Admin by ID
+export async function getSingleAdmin(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const id = (req as RequestWithUserId).user?.userId;
+
     const admin = await prisma.admin.findUnique({
       where: {
         id,
@@ -43,7 +67,7 @@ export async function searchSingleAdmin(
 }
 
 // POST METHOD --
-// Create new Admin
+// Create new Admin (for Super Admin only)
 export async function createAdmin(
   req: Request,
   res: Response,
@@ -52,6 +76,15 @@ export async function createAdmin(
   try {
     const { id } = req.body;
 
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!existingUser)
+      return res.status(404).json({ message: "User not found" });
+
     const existingAdmin = await prisma.admin.findUnique({
       where: {
         id,
@@ -59,7 +92,7 @@ export async function createAdmin(
     });
 
     if (existingAdmin)
-      return res.status(409).json({ message: "This user already an admin" });
+      return res.status(409).json({ message: "This user is already an admin" });
 
     await prisma.admin.create({
       data: {
@@ -74,7 +107,7 @@ export async function createAdmin(
 }
 
 // DELETE METHOD --
-// Delete Admin
+// Delete Admin (for Super Admin only)
 export async function deleteAdmin(
   req: Request,
   res: Response,
@@ -82,6 +115,18 @@ export async function deleteAdmin(
 ) {
   try {
     const { id } = req.params;
+
+    const existingAdmin = await prisma.admin.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!existingAdmin)
+      return res.status(404).json({ message: "Admin not found" });
+
+    if (id === process.env.SUPER_ADMIN_ID)
+      return res.status(403).json({ message: "Cannot delete Super Admin" });
 
     await prisma.admin.delete({
       where: {
