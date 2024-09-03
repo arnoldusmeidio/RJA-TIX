@@ -23,7 +23,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 // Public Route
 app.use("/api/v1/movies", movieRouter);

@@ -1,3 +1,4 @@
+import LoginForm from "@/components/LoginForm";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,35 +24,7 @@ export default function Login() {
                 Register
               </Link>
             </h4>
-            <span className="label-text font-semibold text-fourth align-middle text-base ms-2">
-              Email Address
-            </span>
-            <input
-              type="text"
-              placeholder="Type your email"
-              className="input input-bordered w-full lg:w-4/5 bg-secondary border-third border-2"
-            />
-            <span className="label-text font-semibold text-fourth align-middle text-base ms-2">
-              Password
-            </span>
-            <input
-              type="text"
-              placeholder="Type your pass"
-              className="input input-bordered w-full lg:w-4/5 bg-secondary border-third border-2"
-            />
-            <div className="inline-flex align-middle mt-1">
-              <input
-                type="checkbox"
-                defaultChecked
-                className="checkbox checkbox-warning border-third border-2"
-              />
-              <span className="label-text font-medium text-fourth ms-2">
-                Remember me
-              </span>
-            </div>
-            <button className="btn w-full lg:w-4/5 bg-third hover:bg-secondary mt-20 font-semibold text-base text-fifth hover:text-white">
-              Register Account
-            </button>
+            <LoginForm />
           </div>
           <figure className="border-l-4 border-third ps-7">
             <Image
