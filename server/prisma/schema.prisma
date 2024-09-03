@@ -106,11 +106,11 @@ model Movie {
   title       String
   director    String
   genre       Genre
-  synopsis    String?
+  synopsis    String? @db.VarChar(1000)
   rated       Rated
   duration    Int // duration in minutes
   releaseYear Int        @db.Year
-  posterUrl   String?
+  posterUrl   String? 
   showtimes   Showtime[]
   review      Review[]
 
