@@ -15,7 +15,7 @@ import { IoIosHelpCircle } from "react-icons/io";
 export default function Navbar() {
 
     return (
-        <div className="navbar bg-secondary">
+        <nav className="navbar bg-secondary">
             <div className="navbar-start">
                 <div className="drawer lg:hidden z-20">
                     <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -205,6 +205,6 @@ export default function Navbar() {
                 </div>
                 {/* Profiles */}
             </div>
-        </div>
+        </nav>
     )
 }
