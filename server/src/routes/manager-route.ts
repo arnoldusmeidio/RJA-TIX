@@ -1,18 +1,21 @@
 import express from "express";
 import {
-  createMovie,
-  deleteMovie,
-  updateMovieInfo,
-} from "../controller/movie-controller";
-import { getSingleManager } from "../controller/manager-controller";
+  createManager,
+  deleteManager,
+  getAllManager,
+  getSingleManager,
+  getSingleManagerParams,
+} from "../controller/manager-controller";
+import { adminGuard } from "../middlewares/auth-middleware";
 
 const router = express.Router();
 
-// Manager Info
-router.route("/").get(getSingleManager);
+router.route("/").get(getSingleManager).post(adminGuard, createManager);
 
-// Manage Movie
-router.route("/movies").post(createMovie);
-router.route("/movies/:id").put(updateMovieInfo).delete(deleteMovie);
+router.route("/search").get(adminGuard, getAllManager);
+router
+  .route("/search/:id")
+  .get(adminGuard, getSingleManagerParams)
+  .delete(adminGuard, deleteManager);
 
 export default router;

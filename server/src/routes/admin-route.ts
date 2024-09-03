@@ -1,38 +1,21 @@
 import express from "express";
-import { getSingleAdmin } from "../controller/admin-controller";
 import {
-  deleteUserParams,
-  getAllUser,
-  getSingleUserParams,
-  updateUserInfoParams,
-} from "../controller/user-controller";
-import {
-  createManager,
-  deleteManager,
-  getAllManager,
-  getSingleManagerParams,
-} from "../controller/manager-controller";
-import { createCinema, deleteCinema } from "../controller/cinema-controller";
+  createAdmin,
+  deleteAdmin,
+  getAllAdmin,
+  getSingleAdmin,
+  getSingleAdminParams,
+} from "../controller/admin-controller";
+import { superAdminGuard } from "../middlewares/auth-middleware";
 
 const router = express.Router();
 
-// Admin Info
-router.route("/").get(getSingleAdmin);
+router.route("/").get(getSingleAdmin).post(superAdminGuard, createAdmin);
 
-// Manage Manager
-router.route("/managers").get(getAllManager).post(createManager);
-router.route("/managers/:id").get(getSingleManagerParams).delete(deleteManager);
-
-// Manage Cinema
-router.route("/cinema").post(createCinema);
-router.route("/cinema/:id").delete(deleteCinema);
-
-// Manage User
-router.route("/users").get(getAllUser);
+router.route("/search").get(superAdminGuard, getAllAdmin);
 router
-  .route("/users/:id")
-  .get(getSingleUserParams)
-  .put(updateUserInfoParams)
-  .delete(deleteUserParams);
+  .route("/search/:id")
+  .get(superAdminGuard, getSingleAdminParams)
+  .delete(superAdminGuard, deleteAdmin);
 
 export default router;

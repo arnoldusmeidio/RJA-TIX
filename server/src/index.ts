@@ -3,9 +3,8 @@ import express from "express";
 import authRouter from "./routes/auth-route";
 import movieRouter from "./routes/movie-route";
 import adminRouter from "./routes/admin-route";
-import superAdminRouter from "./routes/super-admin-route";
 import managerRouter from "./routes/manager-route";
-import userRouter from "./routes/profile-route";
+import userRouter from "./routes/user-route";
 import cinemaRouter from "./routes/cinema-route";
 import { notFoundMiddleware } from "./middlewares/not-found-middleware";
 import { error } from "./middlewares/error-middleware";
@@ -30,10 +29,9 @@ app.use("/api/v1/movies", movieRouter);
 app.use("/api/v1/cinemas", cinemaRouter);
 
 // User Route
-app.use("/api/v1/profile", verifyToken, userRouter);
+app.use("/api/v1/users", verifyToken, userRouter);
 
 // Admin & Manager Route
-app.use("/api/v1/super-admins", verifyToken, superAdminGuard, superAdminRouter);
 app.use("/api/v1/admins", verifyToken, adminGuard, adminRouter);
 app.use("/api/v1/managers", verifyToken, managerGuard, managerRouter);
 
