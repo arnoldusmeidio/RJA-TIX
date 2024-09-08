@@ -23,11 +23,11 @@ export default function Footer() {
                     </Link>
                 </nav>
                 <nav className="mx-auto md:ms-auto md:mx-0 font-lato md:flex my-auto text-base gap-5 md:gap-7 capitalize">
-                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Home</Link>
-                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Motorcycles</Link>
-                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Services</Link>
-                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">About</Link>
-                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Others</Link>
+                    <Link href="/" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Home</Link>
+                    <Link href="/movies" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Movies</Link>
+                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Cinemas</Link>
+                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Offers</Link>
+                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Help</Link>
                 </nav>
             </div>
             <div className="footer bg-secondary items-center  border-t py-3">
