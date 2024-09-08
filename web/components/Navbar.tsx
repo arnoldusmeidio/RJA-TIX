@@ -22,17 +22,18 @@ export default function Navbar() {
                     <div className="drawer-content">
                         <label htmlFor="my-drawer" className="btn btn-ghost text-xl drawer-button"><FaBars /></label>
                     </div>
-                    {/* Sidebar */}
+                    {/* Sidebar Phone */}
                     <div className="drawer-side">
                         <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                         <ul className="menu bg-base-200 text-base-content min-h-full w-80">
                             <label htmlFor="my-drawer" className="text-2xl drawer-button px-4 pt-3 pb-3"><IoClose /></label>
                             <h3 className='text-xl px-5 py-3 text-third divider divider-neutral'>Pages</h3>
-                            <Link href="#" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><FaHome /></span>Home</Link>
-                            <Link href="#" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><MdLocalMovies /></span>Movies</Link>
+                            <Link href="/" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><FaHome /></span>Home</Link>
+                            <Link href="/movies" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><MdLocalMovies /></span>Movies</Link>
                             <Link href="#" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><BiSolidCameraMovie /></span>Cinemas</Link>
                             <Link href="#" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><RiDiscountPercentLine /></span>Offers</Link>
                             <Link href="#" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><IoIosHelpCircle /></span>Help</Link>
+                            {/* Cart Phone */}
                             <div className="collapse collapse-arrow bg-base-200">
                                 <input type="checkbox" />
                                 <div className="collapse-title text-xl font-medium">Tickets Orders:</div>
@@ -44,7 +45,11 @@ export default function Navbar() {
                                         <button className="btn bg-secondary btn-sm btn-block border-none">View cart</button>
                                     </div>
                                 </div>
+                            
                             </div>
+                            {/* Cart Phone */}
+
+                            {/* Profile Phone */}
                             <div className="dropdown dropdown-top dropdown-hover sm:hidden profile mt-auto mb-3 p-3 px-4 bg-secondary rounded-2xl shadow-lg transition-all ease-in">
                                 <div tabIndex={0} role="button" className="flex">
                                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -59,14 +64,15 @@ export default function Navbar() {
                                     </div>
                                 </div>
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow delay-100">
-                                    <li><a className="justify-between">Profile</a></li>
-                                    <li><a>Settings</a></li>
-                                    <li><a>Login / Register</a></li>
+                                    <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/">Profile</Link>
+                                    <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/">Settings</Link>
+                                    <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/login">Login / Register</Link>
                                 </ul>
                             </div>
+                            {/* Profile Phone */}
                         </ul>
                     </div>
-                    {/* Sidebar */}
+                    {/* Sidebar Phone */}
                 </div>
                 {/* Brand */}
                 <a className="btn btn-ghost hidden lg:block">
@@ -93,8 +99,8 @@ export default function Navbar() {
                     />
                 </a>
                 <ul className="hidden lg:flex menu menu-horizontal px-1 gap-12 font-lato text-base text-fourth">
-                    <Link href="#" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Home</Link>
-                    <Link href="#" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Movies</Link>
+                    <Link href="/" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Home</Link>
+                    <Link href="/movies" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Movies</Link>
                     <Link href="#" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Cinemas</Link>
                     <Link href="#" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Offers</Link>
                     <Link href="#" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Help</Link>
@@ -186,7 +192,7 @@ export default function Navbar() {
                 </div>
                 {/* Cart */}
 
-                {/* Profiles */}
+                {/* Profiles Desktop & Tablet */}
                 <div className="dropdown dropdown-end hidden sm:block">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
@@ -198,12 +204,12 @@ export default function Navbar() {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                        <li><a className="justify-between">Profile</a></li>
-                        <li><a>Settings</a></li>
-                        <li><a>Login / Register</a></li>
+                        <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/">Profile</Link>
+                        <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/">Settings</Link>
+                        <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/login">Login / Register</Link>
                     </ul>
                 </div>
-                {/* Profiles */}
+                {/* Profiles Desktop & Tablet */}
             </div>
         </nav>
     )
