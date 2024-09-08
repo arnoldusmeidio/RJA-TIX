@@ -1,25 +1,40 @@
-import LoginForm from "@/components/LoginForm";
+import RegisterForm from "@/components/RegisterForm";
+import Image from "next/image";
 import Link from "next/link";
 
-export default function Page() {
+export default function Register() {
   return (
-    <div className="card-body">
-      <h2 className="font-lato font-semibold text-5xl text-fourth">
-        Welcome back to{" "}
-        <span className="hover:text-third transition-all ease-linear cursor-pointer">
-          RJA.TIX
-        </span>
-      </h2>
-      <h4 className="font-lato font-medium text-xl text-fourth cursor-pointer mb-10">
-        Don't have a account?{" "}
-        <Link
-          href="/register"
-          className="text-third hover:underline underline-offset-2"
-        >
-          Register
-        </Link>
-      </h4>
-      <LoginForm />
-    </div>
+    <main>
+      <section className="w-full h-full bg-primary md:p-20">
+        <div className="card lg:card-side bg-primary">
+          <figure className="border-r-4 border-third pe-7">
+            <Image
+              src="/Register.png"
+              alt="Login Image"
+              width={530}
+              height={630}
+              className="rounded hidden lg:block"
+              loading="lazy"
+            />
+          </figure>
+          <div className="card-body ms-0 lg:ms-10">
+            <h2 className="font-lato font-semibold text-5xl text-fourth">
+              Create an account
+            </h2>
+            <h4 className="font-lato font-medium text-xl text-fourth cursor-pointer mb-10">
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="text-third hover:underline underline-offset-2"
+              >
+                {" "}
+                Login
+              </Link>
+            </h4>
+            <RegisterForm />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

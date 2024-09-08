@@ -1,10 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import {
-  Prisma,
-  PrismaClient,
-  ProjectionType,
-  SoundSystemType,
-} from "@prisma/client";
+import { Prisma, PrismaClient, StudioType } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -98,14 +93,21 @@ export async function createCinema(
     const cinemaStudio = studios?.map((item: Prisma.StudioCreateInput) => {
       return {
         number: item.number,
-        projectionType: item.projectionType,
-        soundSystemType: item.soundSystemType,
+        studioType: item.studioType,
         price: Number(item.price),
         seats: {
           create: item.seats,
         },
       };
     });
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: managerId,
+      },
+    });
+
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     await prisma.cinema.create({
       data: {

@@ -20,6 +20,12 @@ async function inputData() {
       manager: {
         create: {},
       },
+      referral: {
+        create: {},
+      },
+      wallet: {
+        create: {},
+      },
     },
     {
       id: "admin-000000001",
@@ -27,6 +33,12 @@ async function inputData() {
       email: "admin@admin.com",
       password: hashedPassword,
       admin: {
+        create: {},
+      },
+      referral: {
+        create: {},
+      },
+      wallet: {
         create: {},
       },
     },
@@ -38,24 +50,48 @@ async function inputData() {
       manager: {
         create: {},
       },
+      referral: {
+        create: {},
+      },
+      wallet: {
+        create: {},
+      },
     },
     {
       id: "user-234567890",
       name: "Roy",
       email: "roy@chen.com",
       password: hashedPassword,
+      referral: {
+        create: {},
+      },
+      wallet: {
+        create: {},
+      },
     },
     {
       id: "user-345678909",
       name: "Roni",
       email: "roni@josh.com",
       password: hashedPassword,
+      referral: {
+        create: {},
+      },
+      wallet: {
+        create: {},
+      },
     },
     {
       id: "user-456789098",
       name: "David",
       email: "david@chris.com",
       password: hashedPassword,
+      referral: {
+        create: {},
+      },
+      wallet: {
+        create: {},
+      },
     },
   ];
 
@@ -77,9 +113,11 @@ async function inputData() {
       genre: "ACTION",
       rated: "PG_13",
       duration: 122,
-      synopsis: "Kate Carter bekerja di Oklahoma bersama teman-teman pemburu badainya Javi Addy  Praveen, dan pacarnya, Jeb. Bersama dengan Doppler Dorothy V, tim tersebut meluncurkan barel manik-manik natrium poliakrilat ke tornado dengan harapan dapat mengurangi intensitasnya dan mengamankan pendanaan untuk penelitian lebih lanjut.",
+      synopsis:
+        "Kate Carter bekerja di Oklahoma bersama teman-teman pemburu badainya Javi Addy  Praveen, dan pacarnya, Jeb. Bersama dengan Doppler Dorothy V, tim tersebut meluncurkan barel manik-manik natrium poliakrilat ke tornado dengan harapan dapat mengurangi intensitasnya dan mengamankan pendanaan untuk penelitian lebih lanjut.",
       releaseYear: 2024,
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330042/movie rja_tix/Action_1.jpg",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330042/movie rja_tix/Action_1.jpg",
     },
     {
       title: "Godzilla x Kong",
@@ -88,9 +126,10 @@ async function inputData() {
       rated: "PG_13",
       duration: 115,
       releaseYear: 2024,
-      synopsis:"Film ini berlatar belakang dunia yang damai setelah pertarungan terakhir antara Godzilla dan Kong. Film dimulai dengan adegan Kong yang berburu monster lain yang bernama Wartdogs. Sementara Dr. Ilene Andrews sedang bekerja untuk memisahkan Godzilla dan Kong. Di tempat lain Godzilla mempertahankan kekuasaannya dengan membunuh monster yang menyebabkan kekacauan.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330153/movie%20rja_tix/Action_2.jpg",
-
+      synopsis:
+        "Film ini berlatar belakang dunia yang damai setelah pertarungan terakhir antara Godzilla dan Kong. Film dimulai dengan adegan Kong yang berburu monster lain yang bernama Wartdogs. Sementara Dr. Ilene Andrews sedang bekerja untuk memisahkan Godzilla dan Kong. Di tempat lain Godzilla mempertahankan kekuasaannya dengan membunuh monster yang menyebabkan kekacauan.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330153/movie%20rja_tix/Action_2.jpg",
     },
     {
       title: "Damsel",
@@ -99,8 +138,10 @@ async function inputData() {
       rated: "PG_13",
       duration: 110,
       releaseYear: 2024,
-      synopsis:"Elodie merupakan seorang bangsawan yang terperangkap di kehidupannya sendiri. Elodie sudah memiliki garis tangan masa depan yang sudah dituliskan oleh orang tuanya. Sang putri mesti menikahi seorang pangeran tampan yang mau tak mau dia setujui. Pangeran tampan yang bakal menjadi suaminya kelak itu bernama Henry. Ia merupakan anak dari Sang Raja (Ray Winstone) dan Ratu Isabelle. Elodie pun dipertemukan dengan Henry dan keduanya hubungan mereka mulai terjalin. Hingga akhirnya keduanya pun sepakat untuk menikah.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330194/movie%20rja_tix/Action_3.jpg"
+      synopsis:
+        "Elodie merupakan seorang bangsawan yang terperangkap di kehidupannya sendiri. Elodie sudah memiliki garis tangan masa depan yang sudah dituliskan oleh orang tuanya. Sang putri mesti menikahi seorang pangeran tampan yang mau tak mau dia setujui. Pangeran tampan yang bakal menjadi suaminya kelak itu bernama Henry. Ia merupakan anak dari Sang Raja (Ray Winstone) dan Ratu Isabelle. Elodie pun dipertemukan dengan Henry dan keduanya hubungan mereka mulai terjalin. Hingga akhirnya keduanya pun sepakat untuk menikah.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330194/movie%20rja_tix/Action_3.jpg",
     },
     {
       title: "Bad Boys : Ride Or Die",
@@ -109,8 +150,10 @@ async function inputData() {
       rated: "PG_13",
       duration: 115,
       releaseYear: 2024,
-      synopsis:"Detektif Mike Lowrey menikah dengan ahli terapi fisiknya, Christine. Selama resepsi, rekannya, Detektif Marcus Burnett, menderita serangan jantung ringan dan mengalami koma, di mana dia mendapat penglihatan mendiang Kapten Conrad Howard yang mengatakan kepadanya bahwa ini bukan waktunya.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330238/movie%20rja_tix/Action_4.jpg"
+      synopsis:
+        "Detektif Mike Lowrey menikah dengan ahli terapi fisiknya, Christine. Selama resepsi, rekannya, Detektif Marcus Burnett, menderita serangan jantung ringan dan mengalami koma, di mana dia mendapat penglihatan mendiang Kapten Conrad Howard yang mengatakan kepadanya bahwa ini bukan waktunya.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330238/movie%20rja_tix/Action_4.jpg",
     },
     {
       title: "Fighter",
@@ -119,8 +162,10 @@ async function inputData() {
       rated: "PG",
       duration: 166,
       releaseYear: 2024,
-      synopsis:"Detektif Mike Lowrey menikah dengan ahli terapi fisiknya, Christine. Selama resepsi, rekannya, Detektif Marcus Burnett, menderita serangan jantung ringan dan mengalami koma, di mana dia mendapat penglihatan mendiang Kapten Conrad Howard yang mengatakan kepadanya bahwa ini bukan waktunya.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330266/movie%20rja_tix/Action_5.jpg"
+      synopsis:
+        "Detektif Mike Lowrey menikah dengan ahli terapi fisiknya, Christine. Selama resepsi, rekannya, Detektif Marcus Burnett, menderita serangan jantung ringan dan mengalami koma, di mana dia mendapat penglihatan mendiang Kapten Conrad Howard yang mengatakan kepadanya bahwa ini bukan waktunya.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330266/movie%20rja_tix/Action_5.jpg",
     },
     {
       title: "Inside Out 2",
@@ -129,8 +174,10 @@ async function inputData() {
       rated: "G",
       duration: 96,
       releaseYear: 2024,
-      synopsis:"Disney and Pixar’s “Inside Out 2” menelusuri kembali benak Riley yang sudah remaja saat headquarter mengalami pembongkaran mendadak untuk memberi ruang bagi sesuatu yang sama sekali tidak terduga: Emosi baru! Joy, Sadness, Anger, Fear, dan Disgust, yang telah lama menjalankan operasinya dengan sukses, tidak yakin bagaimana perasaan mereka ketika Anxiety muncul. Dan sepertinya dia tidak sendirian.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330404/movie%20rja_tix/Animasi_1.jpg"
+      synopsis:
+        "Disney and Pixar’s “Inside Out 2” menelusuri kembali benak Riley yang sudah remaja saat headquarter mengalami pembongkaran mendadak untuk memberi ruang bagi sesuatu yang sama sekali tidak terduga: Emosi baru! Joy, Sadness, Anger, Fear, dan Disgust, yang telah lama menjalankan operasinya dengan sukses, tidak yakin bagaimana perasaan mereka ketika Anxiety muncul. Dan sepertinya dia tidak sendirian.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330404/movie%20rja_tix/Animasi_1.jpg",
     },
     {
       title: "Despicable Me 4",
@@ -139,8 +186,10 @@ async function inputData() {
       rated: "G",
       duration: 94,
       releaseYear: 2024,
-      synopsis:"Despicable Me 4 adalah film komedi animasi Amerika yang akan datang diproduksi oleh Illumination dan didistribusikan oleh Universal Pictures. Film ini akan bertindak sebagai sekuel bagi film Despicable Me 3, film utama keempat, dan film keenam secara keseluruhan di waralaba Despicable Me.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330437/movie%20rja_tix/Animasi_2.jpg"
+      synopsis:
+        "Despicable Me 4 adalah film komedi animasi Amerika yang akan datang diproduksi oleh Illumination dan didistribusikan oleh Universal Pictures. Film ini akan bertindak sebagai sekuel bagi film Despicable Me 3, film utama keempat, dan film keenam secara keseluruhan di waralaba Despicable Me.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330437/movie%20rja_tix/Animasi_2.jpg",
     },
     {
       title: "Garfield Movie",
@@ -149,8 +198,10 @@ async function inputData() {
       rated: "G",
       duration: 101,
       releaseYear: 2024,
-      synopsis:"Saat mempersiapkan pencurian, Garfield dan Vic sering bentrok satu sama lain, memaksa Odie dan Otto mengikat keduanya ke pohon. Selama perdebatan sengit, Vic dengan sedih mengungkapkan apa yang terjadi pada malam dia meninggalkannya: dia sebenarnya mendapatkan makanan untuk Garfield di seberang gang tetapi butuh waktu terlalu lama untuk kembali kepadanya. Ketika akhirnya dia melakukannya, dia melihat dia dirawat oleh Jon di restoran Italia tempat dia pergi.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330465/movie%20rja_tix/Animasi_3.jpg"
+      synopsis:
+        "Saat mempersiapkan pencurian, Garfield dan Vic sering bentrok satu sama lain, memaksa Odie dan Otto mengikat keduanya ke pohon. Selama perdebatan sengit, Vic dengan sedih mengungkapkan apa yang terjadi pada malam dia meninggalkannya: dia sebenarnya mendapatkan makanan untuk Garfield di seberang gang tetapi butuh waktu terlalu lama untuk kembali kepadanya. Ketika akhirnya dia melakukannya, dia melihat dia dirawat oleh Jon di restoran Italia tempat dia pergi.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330465/movie%20rja_tix/Animasi_3.jpg",
     },
     {
       title: "Kungfu Panda 4",
@@ -159,8 +210,10 @@ async function inputData() {
       rated: "G",
       duration: 94,
       releaseYear: 2024,
-      synopsis:"Setelah Po ditunjuk untuk menjadi Pemimpin Spiritual Lembah Damai, dia perlu menemukan dan melatih Prajurit Naga baru, sementara seorang penyihir jahat berencana memanggil kembali semua penjahat ulung yang telah dikalahkan Po ke alam roh.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330492/movie%20rja_tix/Animasi_4.jpg"
+      synopsis:
+        "Setelah Po ditunjuk untuk menjadi Pemimpin Spiritual Lembah Damai, dia perlu menemukan dan melatih Prajurit Naga baru, sementara seorang penyihir jahat berencana memanggil kembali semua penjahat ulung yang telah dikalahkan Po ke alam roh.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330492/movie%20rja_tix/Animasi_4.jpg",
     },
     {
       title: "Flow",
@@ -169,8 +222,10 @@ async function inputData() {
       rated: "G",
       duration: 85,
       releaseYear: 2024,
-      synopsis:"low adalah film fantasi petualangan animasi tahun 2024 yang disutradarai oleh Gints Zilbalodis dan ditulis oleh Zilbalodis dan Matīss Kaža.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330529/movie%20rja_tix/Animasi_5.jpg"
+      synopsis:
+        "low adalah film fantasi petualangan animasi tahun 2024 yang disutradarai oleh Gints Zilbalodis dan ditulis oleh Zilbalodis dan Matīss Kaža.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330529/movie%20rja_tix/Animasi_5.jpg",
     },
     {
       title: "Incoming",
@@ -179,8 +234,10 @@ async function inputData() {
       rated: "PG",
       duration: 91,
       releaseYear: 2024,
-      synopsis:"Benj adalah anak kutu buku yang tiba-tiba naksir kakak kelasnya dan akan melakukan apa saja untuk menjadi keren. Dia memiliki seorang kakak perempuan yang jahat, Alyssa (Ali Gallo). Bailey (Isabella Ferreira), gadis yang ditaksir Benj, adalah satu-satunya yang menoleransi sisi jahat Alyssa dan menjadi sahabatnya.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330658/movie%20rja_tix/comedy_1.jpg"
+      synopsis:
+        "Benj adalah anak kutu buku yang tiba-tiba naksir kakak kelasnya dan akan melakukan apa saja untuk menjadi keren. Dia memiliki seorang kakak perempuan yang jahat, Alyssa (Ali Gallo). Bailey (Isabella Ferreira), gadis yang ditaksir Benj, adalah satu-satunya yang menoleransi sisi jahat Alyssa dan menjadi sahabatnya.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330658/movie%20rja_tix/comedy_1.jpg",
     },
     {
       title: "Jackpot",
@@ -189,8 +246,10 @@ async function inputData() {
       rated: "R",
       duration: 106,
       releaseYear: 2024,
-      synopsis:"pemerintah California yang putus asa secara finansial menciptakan Lotere Besar yang mematikan: setiap Hari Lotere, pemenang yang dipilih secara acak harus bertahan hingga matahari terbenam; siapa pun yang tiketnya kalah dapat membunuh pemenangnya untuk mengklaim hadiah jutaan dolar, tetapi tidak seorang pun boleh menggunakan senjata.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725330700/movie%20rja_tix/comedy_2.jpg"
+      synopsis:
+        "pemerintah California yang putus asa secara finansial menciptakan Lotere Besar yang mematikan: setiap Hari Lotere, pemenang yang dipilih secara acak harus bertahan hingga matahari terbenam; siapa pun yang tiketnya kalah dapat membunuh pemenangnya untuk mengklaim hadiah jutaan dolar, tetapi tidak seorang pun boleh menggunakan senjata.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725330700/movie%20rja_tix/comedy_2.jpg",
     },
     {
       title: "FallGuy",
@@ -199,8 +258,10 @@ async function inputData() {
       rated: "PG",
       duration: 124,
       releaseYear: 2024,
-      synopsis:"kehidupan seorang stuntman bernama Colt Seavers yang diperankan oleh Ryan Gosling. Layaknya stuntman, dia diledakkan, ditembak, ditabrak, dilempar melalui jendela dan dijatuhkan dari ketinggian, semua demi menghibur penonton.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350150/movie%20rja_tix/comedy_3.jpg"
+      synopsis:
+        "kehidupan seorang stuntman bernama Colt Seavers yang diperankan oleh Ryan Gosling. Layaknya stuntman, dia diledakkan, ditembak, ditabrak, dilempar melalui jendela dan dijatuhkan dari ketinggian, semua demi menghibur penonton.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350150/movie%20rja_tix/comedy_3.jpg",
     },
     {
       title: "Agak Laen",
@@ -209,8 +270,10 @@ async function inputData() {
       rated: "PG_13",
       duration: 110,
       releaseYear: 2024,
-      synopsis:"Empat teman yang menjalankan sebuah rumah hantu mencari cara-cara baru untuk menakuti pengunjung. Namun, berbagai masalah muncul setelah mereka bertindak terlalu jauh.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350175/movie%20rja_tix/comedy_4.jpg"
+      synopsis:
+        "Empat teman yang menjalankan sebuah rumah hantu mencari cara-cara baru untuk menakuti pengunjung. Namun, berbagai masalah muncul setelah mereka bertindak terlalu jauh.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350175/movie%20rja_tix/comedy_4.jpg",
     },
     {
       title: "Pasutri Gaje",
@@ -219,8 +282,10 @@ async function inputData() {
       rated: "PG",
       duration: 110,
       releaseYear: 2024,
-      synopsis:"Pasangan pengantin baru menjalani naik turunnya kehidupan pernikahan sambil menghadapi tantangan dalam memulai sebuah keluarga.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350209/movie%20rja_tix/comedy_5.jpg"
+      synopsis:
+        "Pasangan pengantin baru menjalani naik turunnya kehidupan pernikahan sambil menghadapi tantangan dalam memulai sebuah keluarga.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350209/movie%20rja_tix/comedy_5.jpg",
     },
     {
       title: "The Killer",
@@ -229,8 +294,10 @@ async function inputData() {
       rated: "NC_17",
       duration: 118,
       releaseYear: 2024,
-      synopsis:"Penyendiri, dingin, metodis, dan tak terbebani oleh rasa ragu ataupun penyesalan, sang pembunuh menunggu dalam bayang-bayang, mengintai target berikutnya. Namun semakin lama menunggu, ia semakin merasa kehilangan akal sehatnya, bahkan ketenangannya.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350245/movie%20rja_tix/crime_1.jpg"
+      synopsis:
+        "Penyendiri, dingin, metodis, dan tak terbebani oleh rasa ragu ataupun penyesalan, sang pembunuh menunggu dalam bayang-bayang, mengintai target berikutnya. Namun semakin lama menunggu, ia semakin merasa kehilangan akal sehatnya, bahkan ketenangannya.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350245/movie%20rja_tix/crime_1.jpg",
     },
     {
       title: "No_Body",
@@ -239,8 +306,10 @@ async function inputData() {
       rated: "NC_17",
       duration: 92,
       releaseYear: 2024,
-      synopsis:"Pemenang Emmy Bob Odenkirk (Better Call Saul, The Post, Nebraska) berperan sebagai Hutch Mansell, ayah dan suami yang sering diremehkan dan diabaikan, namun Ketika dua pencuri masuk ke rumahnya di pinggiran kota pada suatu malam, Hutch menolak untuk membela diri atau keluarganya, berharap untuk mencegah kekerasan yang serius.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350278/movie%20rja_tix/crime_2.jpg"
+      synopsis:
+        "Pemenang Emmy Bob Odenkirk (Better Call Saul, The Post, Nebraska) berperan sebagai Hutch Mansell, ayah dan suami yang sering diremehkan dan diabaikan, namun Ketika dua pencuri masuk ke rumahnya di pinggiran kota pada suatu malam, Hutch menolak untuk membela diri atau keluarganya, berharap untuk mencegah kekerasan yang serius.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350278/movie%20rja_tix/crime_2.jpg",
     },
     {
       title: "The Raid",
@@ -249,8 +318,10 @@ async function inputData() {
       rated: "NC_17",
       duration: 102,
       releaseYear: 2024,
-      synopsis:"jauh di jantung daerah kumuh Jakarta berdiri sebuah gedung apartemen teantar yang tak tertembus dan menjadi rumah aman bagi gangster, penjahat dan pembunuh yang paling berbahaya. Blok apartemen kumuh tersebut dianggap tak terjangkau oleh para rival gembong narkoba terkenal Tama Riyadi (Ray Sahetapy), bahkan untuk petugas polisi paling berani sekalipun.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350308/movie%20rja_tix/crime_3.jpg"
+      synopsis:
+        "jauh di jantung daerah kumuh Jakarta berdiri sebuah gedung apartemen teantar yang tak tertembus dan menjadi rumah aman bagi gangster, penjahat dan pembunuh yang paling berbahaya. Blok apartemen kumuh tersebut dianggap tak terjangkau oleh para rival gembong narkoba terkenal Tama Riyadi (Ray Sahetapy), bahkan untuk petugas polisi paling berani sekalipun.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350308/movie%20rja_tix/crime_3.jpg",
     },
     {
       title: "Baby Driver",
@@ -259,8 +330,10 @@ async function inputData() {
       rated: "NC_17",
       duration: 115,
       releaseYear: 2024,
-      synopsis:"Baby (Ansel Elgort) adalah seorang pemuda yang bekerja sebagai pengemudi untuk kelompok bank di Atlanta, Georgia. Ketika ia masih kecil, sebuah kecelakaan mobil membunuh orang tua dan meninggalkannya bersama tinitus, yang ia blokir dengan mendengarkan musik di iPod. Ia membawa anggota meringkuk yang dikerahkan oleh Doc (Kevin Spacey).",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350337/movie%20rja_tix/crime_4.jpg"
+      synopsis:
+        "Baby (Ansel Elgort) adalah seorang pemuda yang bekerja sebagai pengemudi untuk kelompok bank di Atlanta, Georgia. Ketika ia masih kecil, sebuah kecelakaan mobil membunuh orang tua dan meninggalkannya bersama tinitus, yang ia blokir dengan mendengarkan musik di iPod. Ia membawa anggota meringkuk yang dikerahkan oleh Doc (Kevin Spacey).",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350337/movie%20rja_tix/crime_4.jpg",
     },
     {
       title: "Get Out",
@@ -269,8 +342,10 @@ async function inputData() {
       rated: "NC_17",
       duration: 104,
       releaseYear: 2024,
-      synopsis:"Seorang fotografer berkulit hitam bernama Chris Washington (Daniel Kaluuya) terpaksa menyetujui keinginan kekasihnya yang berkulit putih, Rose Armitage (Allison Williams), untuk bertemu dengan orang tua dari sang kekasih. Chris tidak yakin mereka tidak menyambutnya dengan hangat.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350360/movie%20rja_tix/crime_5.jpg"
+      synopsis:
+        "Seorang fotografer berkulit hitam bernama Chris Washington (Daniel Kaluuya) terpaksa menyetujui keinginan kekasihnya yang berkulit putih, Rose Armitage (Allison Williams), untuk bertemu dengan orang tua dari sang kekasih. Chris tidak yakin mereka tidak menyambutnya dengan hangat.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350360/movie%20rja_tix/crime_5.jpg",
     },
     {
       title: "It End With Us",
@@ -279,8 +354,10 @@ async function inputData() {
       rated: "PG_13",
       duration: 131,
       releaseYear: 2024,
-      synopsis:"Lily Bloom mengunjungi kampung halamannya di Plethora, Maine, untuk menyampaikan pidato di pemakaman ayahnya. Di podium, dia berkata bahwa dia akan menyebutkan lima hal favoritnya tentang suaminya, lalu berdiri diam selama beberapa detik sebelum pergi. ",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350574/movie%20rja_tix/romance_1.jpg"
+      synopsis:
+        "Lily Bloom mengunjungi kampung halamannya di Plethora, Maine, untuk menyampaikan pidato di pemakaman ayahnya. Di podium, dia berkata bahwa dia akan menyebutkan lima hal favoritnya tentang suaminya, lalu berdiri diam selama beberapa detik sebelum pergi. ",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350574/movie%20rja_tix/romance_1.jpg",
     },
     {
       title: "Secret Hidden Score",
@@ -289,8 +366,10 @@ async function inputData() {
       rated: "PG",
       duration: 120,
       releaseYear: 2024,
-      synopsis:"Keduanya pun mulai menjalin hubungan pertemanan setelah pertemuan itu. Tidak disangka, Minato mulai jatuh hati terhadap Yukino yang terlihat ceria dari luar namun tampak menyimpan rahasia dalam dirinya. Minato juga jatuh cinta dengan Yukino karena permainan pianonya yang indah.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350598/movie%20rja_tix/romance_2.jpg"
+      synopsis:
+        "Keduanya pun mulai menjalin hubungan pertemanan setelah pertemuan itu. Tidak disangka, Minato mulai jatuh hati terhadap Yukino yang terlihat ceria dari luar namun tampak menyimpan rahasia dalam dirinya. Minato juga jatuh cinta dengan Yukino karena permainan pianonya yang indah.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350598/movie%20rja_tix/romance_2.jpg",
     },
     {
       title: "Badarawuhi Di Desa Penari",
@@ -299,8 +378,10 @@ async function inputData() {
       rated: "PG_13",
       duration: 122,
       releaseYear: 2024,
-      synopsis:"Mila, bersama dengan sepupunya, Yuda, dan sahabat mereka, Arya dan Jito, pergi menuju ke sebuah desa terpencil di tengah hutan yang dikenal sebagai Desa Penari. Mila percaya bahwa jika dia mengembalikan sebuah gelang antik milik Badarawuhi, sesosok entitas gaib yang menguasai desa tersebut, dapat menyembuhkan penyakit ibunya. Namun, setelah Mila berhasil mengembalikan gelang tersebut, keadaan justru malah semakin memburuk.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350387/movie%20rja_tix/horror_1.jpg"
+      synopsis:
+        "Mila, bersama dengan sepupunya, Yuda, dan sahabat mereka, Arya dan Jito, pergi menuju ke sebuah desa terpencil di tengah hutan yang dikenal sebagai Desa Penari. Mila percaya bahwa jika dia mengembalikan sebuah gelang antik milik Badarawuhi, sesosok entitas gaib yang menguasai desa tersebut, dapat menyembuhkan penyakit ibunya. Namun, setelah Mila berhasil mengembalikan gelang tersebut, keadaan justru malah semakin memburuk.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350387/movie%20rja_tix/horror_1.jpg",
     },
     {
       title: "Evil Dead Rise",
@@ -309,8 +390,10 @@ async function inputData() {
       rated: "R",
       duration: 92,
       releaseYear: 2024,
-      synopsis:"Evil Dead Rise menceritakan kisah mengejutkan tentang dua saudara perempuan yang terasing yang reuninya dipersingkat oleh munculnya setan yang merasuki manusia, mendorong mereka ke dalam pertempuran utama untuk bertahan hidup saat mereka menghadapi versi keluarga paling mengerikan yang bisa dibayangkan.",
-      posterUrl:"https://res.cloudinary.com/dowznhveo/image/upload/v1725350442/movie%20rja_tix/horror_3.jpg"
+      synopsis:
+        "Evil Dead Rise menceritakan kisah mengejutkan tentang dua saudara perempuan yang terasing yang reuninya dipersingkat oleh munculnya setan yang merasuki manusia, mendorong mereka ke dalam pertempuran utama untuk bertahan hidup saat mereka menghadapi versi keluarga paling mengerikan yang bisa dibayangkan.",
+      posterUrl:
+        "https://res.cloudinary.com/dowznhveo/image/upload/v1725350442/movie%20rja_tix/horror_3.jpg",
     },
   ];
 

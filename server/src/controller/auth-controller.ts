@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import { genSalt, hash, compare } from "bcrypt";
 import jwt from "jsonwebtoken";
+import { loginSchema, registerSchema } from "../schemas/auth-schema";
+import { ZodError } from "zod";
 
 const prisma = new PrismaClient();
 
@@ -12,13 +14,25 @@ export async function register(
   next: NextFunction
 ) {
   try {
-    const { name, email, password } = req.body;
+    const parsedData = registerSchema.parse(req.body);
+    const { name, email, referralCode, password } = parsedData;
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
     if (existingUser)
       return res.status(409).json({ message: "Email has already been used" });
+
+    if (referralCode) {
+      const checkReferral = await prisma.referral.findUnique({
+        where: {
+          id: referralCode,
+        },
+      });
+
+      if (!checkReferral)
+        return res.status(404).json({ message: "Invalid referral code" });
+    }
 
     const salt = await genSalt(10);
     const hashedPassword = await hash(password, salt);
@@ -31,22 +45,30 @@ export async function register(
         name,
         email,
         password: hashedPassword,
+        referral: {
+          create: {},
+        },
+        wallet: {
+          create: {},
+        },
       },
     });
 
     return res.status(201).json({ message: "User successfully created" });
   } catch (error) {
-    next(error);
+    if (error instanceof ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    } else {
+      next(error);
+    }
   }
 }
 
 // Login
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const { email, password } = req.body;
-
-    if (!email || !password)
-      return res.status(400).json({ message: "Required field is missing" });
+    const parsedData = loginSchema.parse(req.body);
+    const { email, password } = parsedData;
 
     const user = await prisma.user.findUnique({
       where: { email },
@@ -74,6 +96,10 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       .status(200)
       .json({ message: "Login success" });
   } catch (error) {
-    next(error);
+    if (error instanceof ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    } else {
+      next(error);
+    }
   }
 }

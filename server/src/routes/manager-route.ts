@@ -6,11 +6,14 @@ import {
   getSingleManager,
   getSingleManagerParams,
 } from "../controller/manager-controller";
-import { adminGuard } from "../middlewares/auth-middleware";
+import { adminGuard, managerGuard } from "../middlewares/auth-middleware";
 
 const router = express.Router();
 
-router.route("/").get(getSingleManager).post(adminGuard, createManager);
+router
+  .route("/")
+  .get(managerGuard, getSingleManager)
+  .post(adminGuard, createManager);
 
 router.route("/search").get(adminGuard, getAllManager);
 router

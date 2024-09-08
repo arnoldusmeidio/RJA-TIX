@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import { RequestWithUserId } from "../types";
+import { createAdminManagerSchema } from "../schemas/admin-manager-schema";
+import { ZodError } from "zod";
 
 const prisma = new PrismaClient();
 
@@ -74,7 +76,8 @@ export async function createAdmin(
   next: NextFunction
 ) {
   try {
-    const { id } = req.body;
+    const parsedData = createAdminManagerSchema.parse(req.body);
+    const { id } = parsedData;
 
     const existingUser = await prisma.user.findUnique({
       where: {
@@ -102,7 +105,11 @@ export async function createAdmin(
 
     return res.status(201).json({ message: "Admin successfully created" });
   } catch (error) {
-    next(error);
+    if (error instanceof ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    } else {
+      next(error);
+    }
   }
 }
 

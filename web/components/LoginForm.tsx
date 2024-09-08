@@ -1,22 +1,30 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
-import { useFormLogin, FormTypeLogin } from "./schema/LoginSchema";
+import { SubmitHandler } from "react-hook-form";
+import { useFormLogin, FormTypeLogin } from "./schema/AuthSchema";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isSubmitting },
   } = useFormLogin();
 
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<FormTypeLogin> = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log(data);
+      await fetch(`http://localhost:8000/api/v1/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        credentials: "include",
+      });
+      router.push("/test-page");
+      router.refresh();
     } catch (error) {
       console.error(error);
     }
