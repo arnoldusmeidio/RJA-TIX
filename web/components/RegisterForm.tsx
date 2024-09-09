@@ -3,6 +3,7 @@
 import { SubmitHandler } from "react-hook-form";
 import { useFormRegister, FormTypeRegister } from "./schema/AuthSchema";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function RegisterForm() {
   const {
@@ -13,20 +14,53 @@ export default function RegisterForm() {
 
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<FormTypeRegister> = async (data) => {
+  // const onSubmit: SubmitHandler<FormTypeRegister> = async (formData) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:8000/api/v1/auth/register`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(formData),
+  //         credentials: "include",
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     console.log(response);
+  //     console.log(data);
+  //     console.log(formData);
+  //     // router.push("/login");
+  //     router.refresh();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const onSubmit: SubmitHandler<FormTypeRegister> = async (formData) => {
     try {
-      const user = await fetch(`http://localhost:8000/api/v1/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        credentials: "include",
-      });
-      const response = await user.json();
-      console.log(response);
-      console.log(data);
-      // router.push("/login");
+      const response = await fetch(
+        `http://localhost:8000/api/v1/auth/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        toast.error(data.message);
+      } else {
+        toast.success(data.message);
+        router.push("/login");
+      }
+      // console.log(response);
+      // console.log(data);
+      // console.log(formData);
       router.refresh();
     } catch (error) {
       console.error(error);

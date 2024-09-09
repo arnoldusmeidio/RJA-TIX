@@ -3,6 +3,7 @@
 import { SubmitHandler } from "react-hook-form";
 import { useFormLogin, FormTypeLogin } from "./schema/AuthSchema";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const {
@@ -13,17 +14,26 @@ export default function LoginForm() {
 
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<FormTypeLogin> = async (data) => {
+  const onSubmit: SubmitHandler<FormTypeLogin> = async (formData) => {
     try {
-      await fetch(`http://localhost:8000/api/v1/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        credentials: "include",
-      });
-      router.push("/test-page");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        toast.error(data.message);
+      } else {
+        toast.success(data.message);
+        router.push("/test-page");
+      }
       router.refresh();
     } catch (error) {
       console.error(error);
