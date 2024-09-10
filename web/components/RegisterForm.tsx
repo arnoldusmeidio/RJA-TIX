@@ -14,30 +14,6 @@ export default function RegisterForm() {
 
   const router = useRouter();
 
-  // const onSubmit: SubmitHandler<FormTypeRegister> = async (formData) => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:8000/api/v1/auth/register`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(formData),
-  //         credentials: "include",
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     console.log(response);
-  //     console.log(data);
-  //     console.log(formData);
-  //     // router.push("/login");
-  //     router.refresh();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   const onSubmit: SubmitHandler<FormTypeRegister> = async (formData) => {
     try {
       const response = await fetch(

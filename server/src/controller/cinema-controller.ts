@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Prisma, PrismaClient, StudioType } from "@prisma/client";
+import { createCinemaSchema } from "../schemas/cinema-schema";
+import { ZodError } from "zod";
 
 const prisma = new PrismaClient();
 
@@ -80,17 +82,18 @@ export async function searchCinema(
   }
 }
 
-// POST METHOD --
-// Create new Cinema
+// // POST METHOD --
+// // Create new Cinema
 export async function createCinema(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    const { name, managerId, address, studios } = req.body;
+    const parsedData = createCinemaSchema.parse(req.body);
+    const { cinemaName, managerId, address, studios } = parsedData;
 
-    const cinemaStudio = studios?.map((item: Prisma.StudioCreateInput) => {
+    const cinemaStudio = studios?.map((item) => {
       return {
         number: item.number,
         studioType: item.studioType,
@@ -111,7 +114,7 @@ export async function createCinema(
 
     await prisma.cinema.create({
       data: {
-        name,
+        name: cinemaName,
         managers: {
           connectOrCreate: {
             where: { id: managerId },
@@ -133,9 +136,75 @@ export async function createCinema(
 
     return res.status(201).json({ message: "Cinema successfully created" });
   } catch (error) {
-    next(error);
+    if (error instanceof ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    } else {
+      next(error);
+    }
   }
 }
+
+// // Create new Cinema EDIT
+// export async function createCinema(
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) {
+//   try {
+//     const parsedData = createCinemaSchema.parse(req.body);
+//     const { cinemaName, managerId, address, studios } = parsedData;
+
+//     const cinemaStudio = studios?.map((studio, index) => {
+//       const {row, column, ...studioData} = studio
+//       return {
+//         number: item.number,
+//         studioType: item.studioType,
+//         price: Number(item.price),
+//         seats: {
+//           create: item.seats,
+//         },
+//       };
+//     });
+
+//     const user = await prisma.user.findUnique({
+//       where: {
+//         id: managerId,
+//       },
+//     });
+
+//     if (!user) return res.status(404).json({ message: "User not found" });
+
+//     await prisma.cinema.create({
+//       data: {
+//         name: cinemaName,
+//         managers: {
+//           connectOrCreate: {
+//             where: { id: managerId },
+//             create: { id: managerId },
+//           },
+//         },
+//         address: {
+//           create: {
+//             address: address.address,
+//             lat: address.lat,
+//             lng: address.lng,
+//           },
+//         },
+//         studios: {
+//           create: cinemaStudio,
+//         },
+//       },
+//     });
+
+//     return res.status(201).json({ message: "Cinema successfully created" });
+//   } catch (error) {
+//     if (error instanceof ZodError) {
+//       return res.status(400).json({ errors: error.errors });
+//     } else {
+//       next(error);
+//     }
+//   }
+// }
 
 // PUT METHOD --
 // Update Movie info

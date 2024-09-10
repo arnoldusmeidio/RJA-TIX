@@ -65,6 +65,7 @@ model Point {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   expiredAt DateTime
+  points    Int      @default(10000)
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   paymentId Int?
@@ -76,6 +77,7 @@ model Voucher {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   expiredAt  DateTime
+  discount   Int // Percent discount
   userId     String
   user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   referralId String?
@@ -89,6 +91,7 @@ model ManagerVoucher {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   expiredAt    DateTime
+  discount     Int // Percent discount
   availability Int
   payment      Payment[]
 }

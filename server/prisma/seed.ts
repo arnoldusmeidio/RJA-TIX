@@ -20,12 +20,6 @@ async function inputData() {
       manager: {
         create: {},
       },
-      referral: {
-        create: {},
-      },
-      wallet: {
-        create: {},
-      },
     },
     {
       id: "admin-000000001",
@@ -35,12 +29,6 @@ async function inputData() {
       admin: {
         create: {},
       },
-      referral: {
-        create: {},
-      },
-      wallet: {
-        create: {},
-      },
     },
     {
       id: "manager-000000001",
@@ -48,12 +36,6 @@ async function inputData() {
       email: "manager@manager.com",
       password: hashedPassword,
       manager: {
-        create: {},
-      },
-      referral: {
-        create: {},
-      },
-      wallet: {
         create: {},
       },
     },

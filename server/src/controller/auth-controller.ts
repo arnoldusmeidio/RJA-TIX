@@ -30,8 +30,18 @@ export async function register(
         },
       });
 
-      if (!checkReferral)
+      if (!checkReferral) {
         return res.status(404).json({ message: "Invalid referral code" });
+      } else {
+        await prisma.point.create({
+          data: {
+            userId: referralCode,
+            expiredAt: new Date(
+              Date.now() + 1000 * 60 * 60 * 24 * 90
+            ).toISOString(),
+          },
+        });
+      }
     }
 
     const salt = await genSalt(10);
@@ -53,6 +63,19 @@ export async function register(
         },
       },
     });
+
+    if (referralCode) {
+      await prisma.voucher.create({
+        data: {
+          userId: uniqueId,
+          referralId: referralCode,
+          discount: 10,
+          expiredAt: new Date(
+            Date.now() + 1000 * 60 * 60 * 24 * 90
+          ).toISOString(),
+        },
+      });
+    }
 
     return res.status(201).json({ message: "User successfully created" });
   } catch (error) {
@@ -90,6 +113,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     return res
       .cookie("token", token, {
         httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 60 * 60),
         sameSite: "none", // need to change on production to be true
         secure: true, // turn off while check on thunderclient
       })
