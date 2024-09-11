@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import { genSalt, hash } from "bcrypt";
 import { RequestWithUserId } from "../types";
-import { createUserSchema } from "../schemas/user-schema";
+import { updateUserSchema } from "../schemas/user-schema";
+import { ZodError } from "zod";
 
 const prisma = new PrismaClient();
 
@@ -86,7 +87,7 @@ export async function updateUserInfoParams(
   try {
     const { id } = req.params;
 
-    const parsedData = createUserSchema.parse(req.body);
+    const parsedData = updateUserSchema.parse(req.body);
 
     const { name, email, password } = parsedData;
 
@@ -122,7 +123,11 @@ export async function updateUserInfoParams(
 
     return res.status(200).json({ message: "User successfully updated" });
   } catch (error) {
-    next(error);
+    if (error instanceof ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    } else {
+      next(error);
+    }
   }
 }
 
@@ -135,7 +140,9 @@ export async function updateUserInfo(
   try {
     const id = (req as RequestWithUserId).user?.userId;
 
-    const { name, email, password } = req.body;
+    const parsedData = updateUserSchema.parse(req.body);
+
+    const { name, email, password } = parsedData;
 
     const existingUser = await prisma.user.findUnique({
       where: {
@@ -169,7 +176,11 @@ export async function updateUserInfo(
 
     return res.status(200).json({ message: "User successfully updated" });
   } catch (error) {
-    next(error);
+    if (error instanceof ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    } else {
+      next(error);
+    }
   }
 }
 

@@ -15,10 +15,7 @@ export const studioTypeKeys = Object.keys;
 
 export const createStudioSchema = z.object({
   price: z.number({ message: "Price is required" }),
-  studioType: z.enum(
-    ["STARIUM", "PRIVATE_BOX", "FOUR_DX", "GOLD_CLASS", "SPHERE"],
-    { message: "Studio type is required" }
-  ),
+  studioType: z.nativeEnum(StudioType, { message: "Studio type is required" }),
   rows: z.number({ message: "Rows are required" }),
   columns: z.number({ message: "Columns are required" }),
 });
@@ -36,13 +33,3 @@ export const useFormCreateCinema = () =>
   useForm<FormTypeCreateCinema>({
     resolver: zodResolver(createCinemaSchema),
   });
-
-export const FormProvideCreateCinema = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
-  const methods = useFormCreateCinema();
-
-  return <FormProvider {...methods}>{children}</FormProvider>;
-};

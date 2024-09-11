@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { Prisma, PrismaClient, StudioType } from "@prisma/client";
-import { createCinemaSchema } from "../schemas/cinema-schema";
+import {
+  createCinemaSchema,
+  updateCinemaSchema,
+} from "../schemas/cinema-schema";
 import { ZodError } from "zod";
 
 const prisma = new PrismaClient();
@@ -174,27 +177,8 @@ export async function updateCinemaInfo(
     if (!existingCinema)
       return res.status(404).json({ message: "Cinema not found" });
 
-    const parsedData = createCinemaSchema.parse(req.body);
-    const { cinemaName, managerId, address, studios } = parsedData;
-
-    const cinemaStudio = studios?.map((item, index) => {
-      const { rows, columns } = item;
-      const seats = [];
-
-      for (let row = 1; row <= rows; row++) {
-        for (let column = 1; column <= columns; column++) {
-          seats.push({ row, column });
-        }
-      }
-      return {
-        number: index + 1,
-        studioType: item.studioType,
-        price: Number(item.price),
-        seats: {
-          create: seats,
-        },
-      };
-    });
+    const parsedData = updateCinemaSchema.parse(req.body);
+    const { cinemaName, managerId, address } = parsedData;
 
     const user = await prisma.user.findUnique({
       where: {
@@ -217,9 +201,6 @@ export async function updateCinemaInfo(
           },
         },
         address,
-        studios: {
-          create: cinemaStudio,
-        },
       },
     });
 

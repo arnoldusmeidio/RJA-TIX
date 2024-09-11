@@ -9,6 +9,7 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useFormLogin();
 
@@ -36,7 +37,8 @@ export default function LoginForm() {
         }
       } else {
         toast.success(data.message);
-        router.push("/test-page");
+        reset();
+        router.push("/");
       }
       router.refresh();
     } catch (error) {

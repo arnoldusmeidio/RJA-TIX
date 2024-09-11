@@ -87,7 +87,8 @@ export async function createMovie(
 ) {
   try {
     const parsedData = createMovieSchema.parse(req.body);
-    const { title, director, genre, rated, duration, releaseYear } = parsedData;
+    const { title, director, genre, rated, duration, releaseYear, synopsis } =
+      parsedData;
 
     const existingMovie = await prisma.movie.findUnique({
       where: {
@@ -127,6 +128,7 @@ export async function createMovie(
         duration: Number(duration),
         releaseYear: Number(releaseYear),
         posterUrl,
+        synopsis,
       },
     });
 
@@ -159,7 +161,23 @@ export async function updateMovieInfo(
     if (!existingMovie)
       return res.status(404).json({ message: "Movie not found" });
 
-    const { title, director, genre, rated, duration, releaseYear } = req.body;
+    const parsedData = createMovieSchema.parse(req.body);
+    const { title, director, genre, rated, duration, releaseYear, synopsis } =
+      parsedData;
+
+    let posterUrl = existingMovie.posterUrl;
+
+    if (req.file) {
+      const cloudinaryData = await cloudinary.uploader.upload(
+        req!.file!.path!,
+        {
+          folder: "images",
+        }
+      );
+      posterUrl = cloudinaryData.secure_url;
+      console.log(posterUrl);
+      fs.unlink(req!.file!.path!);
+    }
 
     await prisma.movie.update({
       where: {
@@ -170,12 +188,14 @@ export async function updateMovieInfo(
         director,
         genre,
         rated,
-        duration,
-        releaseYear,
+        duration: Number(duration),
+        releaseYear: Number(releaseYear),
+        posterUrl,
+        synopsis,
       },
     });
 
-    return res.status(200).json({ message: "Movie successfully updated" });
+    return res.status(201).json({ message: "Movie successfully updated" });
   } catch (error) {
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: error.errors });

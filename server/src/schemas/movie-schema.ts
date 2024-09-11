@@ -8,4 +8,5 @@ export const createMovieSchema = z.object({
   rated: z.nativeEnum(Rated, { message: "Rated is required" }),
   duration: z.string().min(1, { message: "Movie duration is required" }),
   releaseYear: z.string().min(1, { message: "Release year is required" }),
+  synopsis: z.string().nullish(),
 });

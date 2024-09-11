@@ -16,3 +16,9 @@ export const createCinemaSchema = z.object({
     .array(createStudioSchema)
     .min(1, { message: "There should be at least 1 studio" }),
 });
+
+export const updateCinemaSchema = z.object({
+  cinemaName: z.string().min(1, { message: "Cinema name is required" }),
+  managerId: z.string().min(1, { message: "Manager ID is required" }),
+  address: z.string().min(1, { message: "Address is required" }),
+});

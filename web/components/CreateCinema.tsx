@@ -20,6 +20,7 @@ export const CreateCinema = () => {
   const methods = useFormCreateCinema();
   const {
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = methods;
 
@@ -47,6 +48,7 @@ export const CreateCinema = () => {
         }
       } else {
         toast.success(data.message);
+        reset();
         // router.push("/test-page");
       }
       router.refresh();
@@ -226,7 +228,7 @@ const AddStudios = () => {
               rows: 0,
               columns: 0,
               price: 30000,
-              studioType: "STARIUM",
+              studioType: StudioType.starium,
             })
           }
         >
