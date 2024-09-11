@@ -40,7 +40,11 @@ export const CreateCinema = () => {
       );
       const data = await response.json();
       if (!response.ok) {
-        toast.error(data.message);
+        if (data.message) {
+          toast.error(data.message);
+        } else {
+          toast.error(data.errors[0].message);
+        }
       } else {
         toast.success(data.message);
         // router.push("/test-page");
@@ -223,7 +227,6 @@ const AddStudios = () => {
               columns: 0,
               price: 30000,
               studioType: "STARIUM",
-              number: 0,
             })
           }
         >

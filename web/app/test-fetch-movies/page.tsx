@@ -32,8 +32,6 @@ export default function TestPage() {
     getMovies();
   }, []);
 
-  console.log(movies);
-
   return (
     <main>
       <section className="w-full h-full bg-primary md:p-20">

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import { genSalt, hash } from "bcrypt";
 import { RequestWithUserId } from "../types";
+import { createUserSchema } from "../schemas/user-schema";
 
 const prisma = new PrismaClient();
 
@@ -85,7 +86,9 @@ export async function updateUserInfoParams(
   try {
     const { id } = req.params;
 
-    const { name, email, password } = req.body;
+    const parsedData = createUserSchema.parse(req.body);
+
+    const { name, email, password } = parsedData;
 
     const existingUser = await prisma.user.findUnique({
       where: {

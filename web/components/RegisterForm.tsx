@@ -15,6 +15,7 @@ export default function RegisterForm() {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormTypeRegister> = async (formData) => {
+    console.log(formData);
     try {
       const response = await fetch(
         `http://localhost:8000/api/v1/auth/register`,
@@ -29,7 +30,11 @@ export default function RegisterForm() {
       );
       const data = await response.json();
       if (!response.ok) {
-        toast.error(data.message);
+        if (data.message) {
+          toast.error(data.message);
+        } else {
+          toast.error(data.errors[0].message);
+        }
       } else {
         toast.success(data.message);
         router.push("/login");

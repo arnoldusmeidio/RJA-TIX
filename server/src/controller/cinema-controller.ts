@@ -150,11 +150,7 @@ export async function createCinema(
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: error.errors });
     } else {
-      if (error instanceof ZodError) {
-        return res.status(400).json({ errors: error.errors });
-      } else {
-        next(error);
-      }
+      next(error);
     }
   }
 }
@@ -232,11 +228,7 @@ export async function updateCinemaInfo(
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: error.errors });
     } else {
-      if (error instanceof ZodError) {
-        return res.status(400).json({ errors: error.errors });
-      } else {
-        next(error);
-      }
+      next(error);
     }
   }
 }

@@ -14,23 +14,19 @@ export enum StudioType {
 export const studioTypeKeys = Object.keys;
 
 export const createStudioSchema = z.object({
-  number: z.number(),
-  price: z.number(),
-  studioType: z.enum([
-    "STARIUM",
-    "PRIVATE_BOX",
-    "FOUR_DX",
-    "GOLD_CLASS",
-    "SPHERE",
-  ]),
-  rows: z.number(),
-  columns: z.number(),
+  price: z.number({ message: "Price is required" }),
+  studioType: z.enum(
+    ["STARIUM", "PRIVATE_BOX", "FOUR_DX", "GOLD_CLASS", "SPHERE"],
+    { message: "Studio type is required" }
+  ),
+  rows: z.number({ message: "Rows are required" }),
+  columns: z.number({ message: "Columns are required" }),
 });
 
 export const createCinemaSchema = z.object({
-  cinemaName: z.string().min(1),
-  managerId: z.string().min(1),
-  address: z.string(),
+  cinemaName: z.string().min(1, { message: "Cinema name is required" }),
+  managerId: z.string().min(1, { message: "Manager ID is required" }),
+  address: z.string().min(1, { message: "Address is required" }),
   studios: z.array(createStudioSchema),
 });
 
@@ -39,11 +35,6 @@ export type FormTypeCreateCinema = z.infer<typeof createCinemaSchema>;
 export const useFormCreateCinema = () =>
   useForm<FormTypeCreateCinema>({
     resolver: zodResolver(createCinemaSchema),
-    defaultValues: {
-      address: "",
-      cinemaName: "",
-      studios: [],
-    },
   });
 
 export const FormProvideCreateCinema = ({
