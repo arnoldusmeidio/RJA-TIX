@@ -7,16 +7,21 @@ import {
   searchSingleMovie,
   updateMovieInfo,
 } from "../controller/movie-controller";
-import { managerGuard, verifyToken } from "../middlewares/auth-middleware";
+import { adminGuard, verifyToken } from "../middlewares/auth-middleware";
+import { uploader } from "../middlewares/uploader-middleware";
 
 const router = express.Router();
+const upload = uploader();
 
-router.route("/").get(getAllMovie).post(verifyToken, managerGuard, createMovie);
+router
+  .route("/")
+  .get(getAllMovie)
+  .post(verifyToken, adminGuard, upload.single("image"), createMovie);
 router.route("/search").get(searchMovie);
 router
   .route("/search/:id")
   .get(searchSingleMovie)
-  .put(verifyToken, managerGuard, updateMovieInfo)
-  .delete(verifyToken, managerGuard, deleteMovie);
+  .put(verifyToken, adminGuard, upload.single("image"), updateMovieInfo)
+  .delete(verifyToken, adminGuard, deleteMovie);
 
 export default router;

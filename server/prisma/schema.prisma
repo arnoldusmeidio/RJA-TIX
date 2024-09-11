@@ -112,20 +112,10 @@ model Cinema {
 
   name     String
   studios  Studio[]
-  address  Address?
-  managers Manager[]
-}
-
-model Address {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  cinemaId Int    @unique
-  cinema   Cinema @relation(fields: [cinemaId], references: [id], onDelete: Cascade)
   address  String
-  lat      Float
-  lng      Float
+  managers Manager[]
+
+  @@unique([name, address], name: "uniqueCinema")
 }
 
 model Studio {
@@ -218,6 +208,7 @@ model Booking {
   ticket     Ticket   @relation(fields: [ticketId], references: [id])
 
   @@unique([studioId, row, column, showtimeId], name: "uniqueSeatShowtime")
+  @@index([studioId, row, column], name: "seatIndex")
 }
 
 model Ticket {

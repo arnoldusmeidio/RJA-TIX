@@ -107,7 +107,11 @@ export async function createManager(
 
     return res.status(201).json({ message: "Manager successfully created" });
   } catch (error) {
-    next(error);
+    if (error instanceof ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    } else {
+      next(error);
+    }
   }
 }
 

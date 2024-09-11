@@ -6,7 +6,6 @@ export const createMovieSchema = z.object({
   director: z.string(),
   genre: z.nativeEnum(Genre),
   rated: z.nativeEnum(Rated),
-  duration: z.number(),
-  releaseDate: z.string(),
-  posterUrl: z.any(),
+  duration: z.string(),
+  releaseYear: z.string(),
 });

@@ -5,6 +5,7 @@ import {
   getAllCinema,
   searchCinema,
   searchSingleCinema,
+  updateCinemaInfo,
 } from "../controller/cinema-controller";
 import { adminGuard, verifyToken } from "../middlewares/auth-middleware";
 
@@ -15,6 +16,7 @@ router.route("/search").get(searchCinema);
 router
   .route("/search/:id")
   .get(searchSingleCinema)
-  .delete(verifyToken, adminGuard, deleteCinema);
+  .delete(verifyToken, adminGuard, deleteCinema)
+  .put(verifyToken, adminGuard, updateCinemaInfo);
 
 export default router;

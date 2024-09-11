@@ -23,21 +23,14 @@ export const createStudioSchema = z.object({
     "GOLD_CLASS",
     "SPHERE",
   ]),
-  // studioType: z.nativeEnum(StudioType),
   rows: z.number(),
   columns: z.number(),
-});
-
-export const addressSchema = z.object({
-  address: z.string(),
-  lat: z.number(),
-  lng: z.number(),
 });
 
 export const createCinemaSchema = z.object({
   cinemaName: z.string().min(1),
   managerId: z.string().min(1),
-  address: addressSchema,
+  address: z.string(),
   studios: z.array(createStudioSchema),
 });
 
@@ -47,7 +40,7 @@ export const useFormCreateCinema = () =>
   useForm<FormTypeCreateCinema>({
     resolver: zodResolver(createCinemaSchema),
     defaultValues: {
-      address: { address: "", lat: 0, lng: 0 },
+      address: "",
       cinemaName: "",
       studios: [],
     },

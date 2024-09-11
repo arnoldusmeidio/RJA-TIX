@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  FormProvider,
   SubmitHandler,
   useFieldArray,
   useFormContext,
@@ -16,17 +17,16 @@ import { StudioType } from "./schema/CinemaSchema";
 import { Square } from "./Square";
 
 export const CreateCinema = () => {
+  const methods = useFormCreateCinema();
   const {
-    register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useFormCreateCinema();
+  } = methods;
 
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormTypeCreateCinema> = async (formData) => {
     try {
-      console.log(formData);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/cinemas`,
         {
@@ -52,54 +52,56 @@ export const CreateCinema = () => {
   };
 
   return (
-    <div>
-      <form
-        id="cinemaForm"
-        className="flex flex-col gap-2"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <label htmlFor="cinema">Cinema</label>
-        <input
-          id="cinema"
-          type="text"
-          placeholder="Cinema Name"
-          {...register("cinemaName")}
-        />
-        {errors.cinemaName && (
-          <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
-            {errors.cinemaName.message}
-          </div>
-        )}
-        <label htmlFor="manager">Manager ID</label>
-        <input
-          id="manager"
-          type="text"
-          placeholder="Manager ID"
-          {...register("managerId")}
-        />
-        {errors.managerId && (
-          <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
-            {errors.managerId.message}
-          </div>
-        )}
-        <label htmlFor="address">Address</label>
-        <textarea
-          id="address"
-          placeholder="Address"
-          {...register("address.address")}
-        />
-        {errors.address && (
-          <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
-            {errors.address.message}
-          </div>
-        )}
-        <AddStudios />
-        <button disabled={isSubmitting} type="submit" form="cinemaForm">
-          {" "}
-          {isSubmitting ? "Loading..." : "Create Cinema"}
-        </button>
-      </form>
-    </div>
+    <FormProvider {...methods}>
+      <div>
+        <form
+          id="cinemaForm"
+          className="flex flex-col gap-2"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <label htmlFor="cinema">Cinema</label>
+          <input
+            id="cinema"
+            type="text"
+            placeholder="Cinema Name"
+            {...methods.register("cinemaName")}
+          />
+          {errors.cinemaName && (
+            <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+              {errors.cinemaName.message}
+            </div>
+          )}
+          <label htmlFor="manager">Manager ID</label>
+          <input
+            id="manager"
+            type="text"
+            placeholder="Manager ID"
+            {...methods.register("managerId")}
+          />
+          {errors.managerId && (
+            <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+              {errors.managerId.message}
+            </div>
+          )}
+          <label htmlFor="address">Address</label>
+          <textarea
+            id="address"
+            placeholder="Address"
+            {...methods.register("address")}
+          />
+          {errors.address && (
+            <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+              {errors.address.message}
+            </div>
+          )}
+          <AddStudios />
+          <button disabled={isSubmitting} type="submit" form="cinemaForm">
+            {" "}
+            {isSubmitting ? "Loading..." : "Create Cinema"}
+          </button>
+        </form>
+      </div>
+    </FormProvider>
   );
 };
 
@@ -128,24 +130,44 @@ const AddStudios = () => {
               </button>
             </div>
 
+            <label htmlFor="">Studio {studioIndex + 1}</label>
+
             <div className="flex flex-col gap-2">
               <div className="grid grid-cols-2 gap-2">
-                <label htmlFor="studioType">Studio Type</label>
-                <select
-                  id="studioType"
-                  {...register(`studios.${studioIndex}.studioType`)}
-                >
-                  {Object.values(StudioType).map((type) => (
-                    <option key={type} value={type}>
-                      {type.replace("_", " ")}
-                    </option>
-                  ))}
-                </select>
-                {errors.studios?.[studioIndex]?.studioType && (
-                  <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
-                    {errors.studios?.[studioIndex]?.studioType?.message}
-                  </div>
-                )}
+                <div className="flex flex-col">
+                  <label htmlFor="studioType">Studio Type</label>
+                  <select
+                    id="studioType"
+                    {...register(`studios.${studioIndex}.studioType`)}
+                  >
+                    {Object.values(StudioType).map((type) => (
+                      <option key={type} value={type}>
+                        {type.replace("_", " ")}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.studios?.[studioIndex]?.studioType && (
+                    <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+                      {errors.studios?.[studioIndex]?.studioType?.message}
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="">Price</label>
+                  <input
+                    type="number"
+                    min={0}
+                    placeholder="Enter the Price"
+                    {...register(`studios.${studioIndex}.price`, {
+                      valueAsNumber: true,
+                    })}
+                  />
+                  {errors.studios?.[studioIndex]?.price && (
+                    <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+                      {errors.studios?.[studioIndex]?.price?.message}
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
@@ -179,22 +201,6 @@ const AddStudios = () => {
                   {errors.studios?.[studioIndex]?.rows && (
                     <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
                       {errors.studios?.[studioIndex]?.rows?.message}
-                    </div>
-                  )}
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="">Price</label>
-                  <input
-                    type="number"
-                    min={0}
-                    placeholder="Enter the Price"
-                    {...register(`studios.${studioIndex}.price`, {
-                      valueAsNumber: true,
-                    })}
-                  />
-                  {errors.studios?.[studioIndex]?.price && (
-                    <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
-                      {errors.studios?.[studioIndex]?.price?.message}
                     </div>
                   )}
                 </div>

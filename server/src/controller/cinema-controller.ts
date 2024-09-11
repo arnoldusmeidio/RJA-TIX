@@ -36,7 +36,6 @@ export async function searchSingleCinema(
       },
       include: {
         studios: { include: { showtimes: { include: { movie: true } } } },
-        address: true,
       },
     });
 
@@ -67,9 +66,7 @@ export async function searchCinema(
           },
           {
             address: {
-              address: {
-                contains: text as string,
-              },
+              contains: text as string,
             },
           },
         ],
@@ -93,13 +90,33 @@ export async function createCinema(
     const parsedData = createCinemaSchema.parse(req.body);
     const { cinemaName, managerId, address, studios } = parsedData;
 
-    const cinemaStudio = studios?.map((item) => {
+    const existingCinema = await prisma.cinema.findUnique({
+      where: {
+        uniqueCinema: {
+          name: cinemaName,
+          address,
+        },
+      },
+    });
+
+    if (existingCinema)
+      return res.status(409).json({ message: "Cinema already exist" });
+
+    const cinemaStudio = studios?.map((item, index) => {
+      const { rows, columns } = item;
+      const seats = [];
+
+      for (let row = 1; row <= rows; row++) {
+        for (let column = 1; column <= columns; column++) {
+          seats.push({ row, column });
+        }
+      }
       return {
-        number: item.number,
+        number: index + 1,
         studioType: item.studioType,
         price: Number(item.price),
         seats: {
-          create: item.seats,
+          create: seats,
         },
       };
     });
@@ -121,13 +138,7 @@ export async function createCinema(
             create: { id: managerId },
           },
         },
-        address: {
-          create: {
-            address: address.address,
-            lat: address.lat,
-            lng: address.lng,
-          },
-        },
+        address,
         studios: {
           create: cinemaStudio,
         },
@@ -139,104 +150,96 @@ export async function createCinema(
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: error.errors });
     } else {
-      next(error);
+      if (error instanceof ZodError) {
+        return res.status(400).json({ errors: error.errors });
+      } else {
+        next(error);
+      }
     }
   }
 }
 
-// // Create new Cinema EDIT
-// export async function createCinema(
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) {
-//   try {
-//     const parsedData = createCinemaSchema.parse(req.body);
-//     const { cinemaName, managerId, address, studios } = parsedData;
-
-//     const cinemaStudio = studios?.map((studio, index) => {
-//       const {row, column, ...studioData} = studio
-//       return {
-//         number: item.number,
-//         studioType: item.studioType,
-//         price: Number(item.price),
-//         seats: {
-//           create: item.seats,
-//         },
-//       };
-//     });
-
-//     const user = await prisma.user.findUnique({
-//       where: {
-//         id: managerId,
-//       },
-//     });
-
-//     if (!user) return res.status(404).json({ message: "User not found" });
-
-//     await prisma.cinema.create({
-//       data: {
-//         name: cinemaName,
-//         managers: {
-//           connectOrCreate: {
-//             where: { id: managerId },
-//             create: { id: managerId },
-//           },
-//         },
-//         address: {
-//           create: {
-//             address: address.address,
-//             lat: address.lat,
-//             lng: address.lng,
-//           },
-//         },
-//         studios: {
-//           create: cinemaStudio,
-//         },
-//       },
-//     });
-
-//     return res.status(201).json({ message: "Cinema successfully created" });
-//   } catch (error) {
-//     if (error instanceof ZodError) {
-//       return res.status(400).json({ errors: error.errors });
-//     } else {
-//       next(error);
-//     }
-//   }
-// }
-
 // PUT METHOD --
-// Update Movie info
-// export async function updateMovieInfo(
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) {
-//   try {
-//     const { id } = req.params;
+// Update Cinema info
+export async function updateCinemaInfo(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
 
-//     const { title, director, genre, rated, duration, releaseYear } = req.body;
+    const existingCinema = await prisma.cinema.findUnique({
+      where: {
+        id: Number(id),
+      },
+    });
 
-//     await prisma.movie.update({
-//       where: {
-//         id: Number(id),
-//       },
-//       data: {
-//         title,
-//         director,
-//         genre,
-//         rated,
-//         duration,
-//         releaseYear,
-//       },
-//     });
+    if (!existingCinema)
+      return res.status(404).json({ message: "Cinema not found" });
 
-//     return res.status(200).json({ message: "Movie successfully updated" });
-//   } catch (error) {
-//     next(error);
-//   }
-// }
+    const parsedData = createCinemaSchema.parse(req.body);
+    const { cinemaName, managerId, address, studios } = parsedData;
+
+    const cinemaStudio = studios?.map((item, index) => {
+      const { rows, columns } = item;
+      const seats = [];
+
+      for (let row = 1; row <= rows; row++) {
+        for (let column = 1; column <= columns; column++) {
+          seats.push({ row, column });
+        }
+      }
+      return {
+        number: index + 1,
+        studioType: item.studioType,
+        price: Number(item.price),
+        seats: {
+          create: seats,
+        },
+      };
+    });
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: managerId,
+      },
+    });
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    await prisma.cinema.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        name: cinemaName,
+        managers: {
+          connectOrCreate: {
+            where: { id: managerId },
+            create: { id: managerId },
+          },
+        },
+        address,
+        studios: {
+          create: cinemaStudio,
+        },
+      },
+    });
+
+    return res.status(201).json({ message: "Cinema successfully updated" });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    } else {
+      if (error instanceof ZodError) {
+        return res.status(400).json({ errors: error.errors });
+      } else {
+        next(error);
+      }
+    }
+  }
+}
 
 // DELETE METHOD --
 // Delete Cinema

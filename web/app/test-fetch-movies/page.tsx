@@ -42,7 +42,7 @@ export default function TestPage() {
             <div key={idx}>
               <div>
                 <Image
-                  src={`${item.posterUrl}`}
+                  src={`${item.posterUrl || "/Default Movie Poster.jpg"}`}
                   alt=""
                   width={300}
                   height={450}
