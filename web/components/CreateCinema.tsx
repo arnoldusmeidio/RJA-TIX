@@ -102,7 +102,6 @@ export const CreateCinema = () => {
           )}
           <AddStudios />
           <button disabled={isSubmitting} type="submit" form="cinemaForm">
-            {" "}
             {isSubmitting ? "Loading..." : "Create Cinema"}
           </button>
         </form>

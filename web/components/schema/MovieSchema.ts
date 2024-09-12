@@ -30,6 +30,13 @@ export enum Rated {
   nc_17 = "NC_17",
 }
 
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
 export const createMovieSchema = z.object({
   title: z.string().min(1, { message: "Movie title is required" }),
   director: z.string().min(1, { message: "Movie director is required" }),
@@ -37,7 +44,13 @@ export const createMovieSchema = z.object({
   rated: z.nativeEnum(Rated, { message: "Rated is required" }),
   duration: z.string().min(1, { message: "Movie duration is required" }),
   releaseYear: z.string().min(1, { message: "Release year is required" }),
-  synopsis: z.string().nullish(),
+  synopsis: z.string().min(1, { message: "Synopsis is required" }),
+  posterUrl: z
+    .any()
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      "Only .jpg, .jpeg, .png and .webp formats are supported."
+    ),
 });
 
 export type FormTypeCreateMovie = z.infer<typeof createMovieSchema>;

@@ -287,7 +287,7 @@ async function inputData() {
       genre: "CRIME",
       rated: "NC_17",
       duration: 92,
-      releaseYear: 2024,
+      releaseYear: 2011,
       synopsis:
         "Pemenang Emmy Bob Odenkirk (Better Call Saul, The Post, Nebraska) berperan sebagai Hutch Mansell, ayah dan suami yang sering diremehkan dan diabaikan, namun Ketika dua pencuri masuk ke rumahnya di pinggiran kota pada suatu malam, Hutch menolak untuk membela diri atau keluarganya, berharap untuk mencegah kekerasan yang serius.",
       posterUrl:
@@ -299,7 +299,7 @@ async function inputData() {
       genre: "CRIME",
       rated: "NC_17",
       duration: 102,
-      releaseYear: 2024,
+      releaseYear: 2011,
       synopsis:
         "jauh di jantung daerah kumuh Jakarta berdiri sebuah gedung apartemen teantar yang tak tertembus dan menjadi rumah aman bagi gangster, penjahat dan pembunuh yang paling berbahaya. Blok apartemen kumuh tersebut dianggap tak terjangkau oleh para rival gembong narkoba terkenal Tama Riyadi (Ray Sahetapy), bahkan untuk petugas polisi paling berani sekalipun.",
       posterUrl:
@@ -311,7 +311,7 @@ async function inputData() {
       genre: "CRIME",
       rated: "NC_17",
       duration: 115,
-      releaseYear: 2024,
+      releaseYear: 2017,
       synopsis:
         "Baby (Ansel Elgort) adalah seorang pemuda yang bekerja sebagai pengemudi untuk kelompok bank di Atlanta, Georgia. Ketika ia masih kecil, sebuah kecelakaan mobil membunuh orang tua dan meninggalkannya bersama tinitus, yang ia blokir dengan mendengarkan musik di iPod. Ia membawa anggota meringkuk yang dikerahkan oleh Doc (Kevin Spacey).",
       posterUrl:
@@ -323,7 +323,7 @@ async function inputData() {
       genre: "CRIME",
       rated: "NC_17",
       duration: 104,
-      releaseYear: 2024,
+      releaseYear: 2017,
       synopsis:
         "Seorang fotografer berkulit hitam bernama Chris Washington (Daniel Kaluuya) terpaksa menyetujui keinginan kekasihnya yang berkulit putih, Rose Armitage (Allison Williams), untuk bertemu dengan orang tua dari sang kekasih. Chris tidak yakin mereka tidak menyambutnya dengan hangat.",
       posterUrl:
@@ -371,7 +371,7 @@ async function inputData() {
       genre: "HORROR",
       rated: "R",
       duration: 92,
-      releaseYear: 2024,
+      releaseYear: 2023,
       synopsis:
         "Evil Dead Rise menceritakan kisah mengejutkan tentang dua saudara perempuan yang terasing yang reuninya dipersingkat oleh munculnya setan yang merasuki manusia, mendorong mereka ke dalam pertempuran utama untuk bertahan hidup saat mereka menghadapi versi keluarga paling mengerikan yang bisa dibayangkan.",
       posterUrl:
