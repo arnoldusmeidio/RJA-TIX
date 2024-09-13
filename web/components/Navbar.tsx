@@ -30,17 +30,17 @@ export default function Navbar() {
                             <h3 className='text-xl px-5 py-3 text-third divider divider-neutral'>Pages</h3>
                             <Link href="/" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><FaHome /></span>Home</Link>
                             <Link href="/movies" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><MdLocalMovies /></span>Movies</Link>
-                            <Link href="#" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><BiSolidCameraMovie /></span>Cinemas</Link>
-                            <Link href="#" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><RiDiscountPercentLine /></span>Offers</Link>
-                            <Link href="#" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><IoIosHelpCircle /></span>Help</Link>
+                            <Link href="/cinemas" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><BiSolidCameraMovie /></span>Cinemas</Link>
+                            <Link href="/offers" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><RiDiscountPercentLine /></span>Offers</Link>
+                            <Link href="/help" className="hover:bg-secondary inline-flex text-base px-8 my-1 p-2 rounded-2xl hover:text-third transition-all"><span className='text-2xl me-2'><IoIosHelpCircle /></span>Help</Link>
                             {/* Cart Phone */}
                             <div className="collapse collapse-arrow bg-base-200">
                                 <input type="checkbox" />
                                 <div className="collapse-title text-xl font-medium">Tickets Orders:</div>
                                 <div className="collapse-content shadow-2xl rounded-2xl">
-                                    <h4 className="text-sm font-normal">IMAX | Spiderman Going Not Home</h4>
-                                    <p className="text-third">x2 Tickets</p>
-                                    <p className="text-info pt-2">Subtotal: Rp. 40.000,00</p>
+                                    <h4 className="text-sm font-normal">No films</h4>
+                                    <p className="text-third">0 Tickets</p>
+                                    <p className="text-info pt-2">Subtotal: - </p>
                                     <div className="card-actions pt-1">
                                         <button className="btn bg-secondary btn-sm btn-block border-none">View cart</button>
                                     </div>
@@ -60,11 +60,11 @@ export default function Navbar() {
                                         </div>
                                     </div>
                                     <div className="body ms-7 my-auto">
-                                        <h4 className='text-base'>Jovi Rachman</h4>
+                                        <h4 className='text-base'>User</h4>
                                     </div>
                                 </div>
                                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow delay-100">
-                                    <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/">Profile</Link>
+                                    <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/profile">Profile</Link>
                                     <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/">Settings</Link>
                                     <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/login">Login / Register</Link>
                                 </ul>
@@ -101,9 +101,9 @@ export default function Navbar() {
                 <ul className="hidden lg:flex menu menu-horizontal px-1 gap-12 font-lato text-base text-fourth">
                     <Link href="/" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Home</Link>
                     <Link href="/movies" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Movies</Link>
-                    <Link href="#" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Cinemas</Link>
-                    <Link href="#" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Offers</Link>
-                    <Link href="#" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Help</Link>
+                    <Link href="/cinemas" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Cinemas</Link>
+                    <Link href="/offers" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Offers</Link>
+                    <Link href="/help" className="hover:underline hover:underline-offset-4 hover:underline-third hover:rounded-sm hover:text-third transition-all">Help</Link>
                 </ul>
             </div>
             <div className="navbar-end">
@@ -174,16 +174,16 @@ export default function Navbar() {
                                     strokeWidth="2"
                                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
-                            <span className="badge badge-sm indicator-item">2</span>
+                            <span className="badge badge-sm indicator-item"></span>
                         </div>
                     </div>
                     <div
                         tabIndex={0}
                         className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow">
                         <div className="card-body">
-                            <span className="text-lg font-bold">2 Tickets</span>
-                            <span className="text-sm font-normal">IMAX | Spiderman Going Not Home <span className="text-third">x2</span></span>
-                            <span className="text-info">Subtotal: Rp. 40.000,00</span>
+                            <span className="text-lg font-bold">0 Tickets</span>
+                            <span className="text-sm font-normal">No films<span className="text-third"></span></span>
+                            <span className="text-info">Subtotal: - </span>
                             <div className="card-actions">
                                 <button className="btn bg-secondary btn-sm btn-block border-none">View cart</button>
                             </div>
@@ -204,7 +204,7 @@ export default function Navbar() {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                        <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/">Profile</Link>
+                        <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/profile">Profile</Link>
                         <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/">Settings</Link>
                         <Link className='p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg' href="/login">Login / Register</Link>
                     </ul>

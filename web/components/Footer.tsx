@@ -22,15 +22,15 @@ export default function Footer() {
                         />
                     </Link>
                 </nav>
-                <nav className="mx-auto md:ms-auto md:mx-0 font-lato md:flex my-auto text-base gap-5 md:gap-7 capitalize">
+                <nav className="mx-auto md:ms-auto md:mx-0 font-lato md:flex my-auto text-base gap-5 md:gap-7 capitalize pb-3 md:pb-0">
                     <Link href="/" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Home</Link>
                     <Link href="/movies" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Movies</Link>
-                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Cinemas</Link>
-                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Offers</Link>
-                    <Link href="#" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Help</Link>
+                    <Link href="/cinemas" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Cinemas</Link>
+                    <Link href="/offers" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Offers</Link>
+                    <Link href="/help" className="link link-hover text-center sm:text-start mx-auto hover:text-third hover:underline underline-offset-2 transition-all ease-in">Help</Link>
                 </nav>
             </div>
-            <div className="footer bg-secondary items-center  border-t py-3">
+            <div className="footer bg-secondary items-center border-t py-3">
                 <aside className="grid-flow-col items-center mx-auto text-center md:mx-0 text-neutral-content">
                     <p>Copyright © {new Date().getFullYear()} RJA.TIX - All right reserved</p>
                 </aside>
