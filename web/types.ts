@@ -1,3 +1,9 @@
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
 export interface Movie {
   id: number;
   title: string;
