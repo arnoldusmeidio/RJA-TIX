@@ -1,7 +1,33 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
+import { useState, useEffect } from "react"
+import { User } from "@/types";
 
 export default function Profile() {
+
+    const [user, setUser] = useState<User>();
+
+    useEffect(() => {
+        async function getUser() {
+            try {
+                const movie = await fetch(
+                    `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/users`,
+                    {
+                        credentials:'include'
+                    }
+                );
+                const data = await movie.json();
+                setUser(data.data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        getUser();
+    }, []);
+
+    console.log(user)
 
     return (
         <main>
@@ -26,17 +52,21 @@ export default function Profile() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 mx-auto gap-5 lg:gap-20">
                         <div className="name content-center">
                             <h5 className="text-base sm:text-xl text-center md:text-start font-inter font-semibold text-fourth">Name:</h5>
-                            <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">Jovi Rachman</h6>
+                            <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">{user?.email}</h6>
                         </div>
                         <div className="referral content-center ms-0 lg:ms-10">
                             <h5 className="text-base sm:text-xl text-center md:text-start font-inter font-semibold text-fourth">User ID / Referral Code:</h5>
-                            <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">123fgb566yg</h6>
+                            <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">{user?.id}</h6>
                         </div>
                         <div className="email content-center">
                             <h5 className="text-base sm:text-xl text-center md:text-start font-inter font-semibold text-fourth">Email:</h5>
-                            <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">jovirachman@gmail.com</h6>
+                            <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">{user?.email}</h6>
                         </div>
-                        <div className="point content-center ms-0 lg:ms-10">
+                        <div className="wallet content-center ms-0 lg:ms-10">
+                            <h5 className="text-base sm:text-xl text-center md:text-start font-inter font-semibold text-fourth">Your Wallet:</h5>
+                            <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">20.000 Point</h6>
+                        </div>
+                        <div className="point content-center ms-0">
                             <h5 className="text-base sm:text-xl text-center md:text-start font-inter font-semibold text-fourth">Your Point:</h5>
                             <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">20.000 Point</h6>
                         </div>
