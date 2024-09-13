@@ -16,6 +16,7 @@ export default function LoginForm() {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormTypeLogin> = async (formData) => {
+    console.log(formData);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/auth/login`,
@@ -37,7 +38,7 @@ export default function LoginForm() {
         }
       } else {
         toast.success(data.message);
-        router.push("/");
+        // router.push("/");
       }
       router.refresh();
     } catch (error) {
@@ -94,10 +95,16 @@ export default function LoginForm() {
 
         <div className="inline-flex align-middle mt-1">
           <input
+            {...register("rememberMe")}
             type="checkbox"
             defaultChecked
             className="checkbox checkbox-warning border-third border-2"
           />
+          {errors.rememberMe && (
+            <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+              {errors.rememberMe.message}
+            </div>
+          )}
           <span className="label-text font-medium text-fourth ms-2">
             Remember me
           </span>

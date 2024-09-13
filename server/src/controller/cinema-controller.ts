@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { Prisma, PrismaClient, StudioType } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import {
   createCinemaSchema,
   updateCinemaSchema,
 } from "../schemas/cinema-schema";
 import { ZodError } from "zod";
+import { RequestWithUserId } from "../types";
 
 const prisma = new PrismaClient();
 
@@ -16,9 +17,38 @@ export async function getAllCinema(
   next: NextFunction
 ) {
   try {
-    const cinemas = await prisma.cinema.findMany();
+    const cinemas = await prisma.cinema.findMany({
+      include: {
+        studios: {
+          include: { showtimes: { include: { movie: true } } },
+        },
+      },
+    });
 
     return res.status(200).json({ data: cinemas });
+  } catch (error) {
+    next(error);
+  }
+}
+
+// Get manage Cinema (Manager only)
+export async function getManageCinema(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const id = (req as RequestWithUserId).user?.userId;
+
+    const cinema = await prisma.cinema.findMany({
+      where: { managers: { some: { id } } },
+      include: {
+        studios: {
+          include: { showtimes: { include: { movie: true } } },
+        },
+      },
+    });
+    return res.status(200).json({ data: cinema });
   } catch (error) {
     next(error);
   }

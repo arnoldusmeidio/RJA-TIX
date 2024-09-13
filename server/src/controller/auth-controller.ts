@@ -91,7 +91,7 @@ export async function register(
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
     const parsedData = loginSchema.parse(req.body);
-    const { email, password } = parsedData;
+    const { email, password, rememberMe } = parsedData;
 
     const user = await prisma.user.findUnique({
       where: { email },
@@ -107,13 +107,15 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     const jwtPayload = { email, userId: user?.id };
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
-      expiresIn: "1h",
+      expiresIn: rememberMe ? "30d" : "1d",
     });
 
     return res
       .cookie("token", token, {
         httpOnly: true,
-        expires: new Date(Date.now() + 1000 * 60 * 60),
+        expires: rememberMe
+          ? new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
+          : new Date(Date.now() + 1000 * 60 * 60 * 24),
         sameSite: "none", // need to change on production to be true
         secure: true, // turn off while check on thunderclient
       })

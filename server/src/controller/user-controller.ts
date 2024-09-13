@@ -64,6 +64,24 @@ export async function getSingleUser(
       where: {
         id,
       },
+      include: {
+        wallet: true,
+        points: true,
+        vouchers: true,
+        bookings: {
+          include: {
+            showtime: {
+              include: {
+                movie: {
+                  include: {
+                    reviews: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!user)

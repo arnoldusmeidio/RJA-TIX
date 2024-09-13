@@ -1,18 +1,9 @@
 "use client";
 
+import { Movie } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-interface Movie {
-  id: number;
-  title: string;
-  director: string;
-  posterUrl: any;
-  rated: string;
-  releaseYear: number;
-  synopsis: string;
-}
 
 export default function TestPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -40,7 +31,7 @@ export default function TestPage() {
             <div key={idx}>
               <div>
                 <Image
-                  src={`${item.posterUrl || "/Default Movie Poster.jpg"}`}
+                  src={item.posterUrl || "/Default Movie Poster.jpg"}
                   alt=""
                   width={300}
                   height={450}

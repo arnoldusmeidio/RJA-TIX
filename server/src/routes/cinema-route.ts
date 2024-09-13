@@ -3,15 +3,21 @@ import {
   createCinema,
   deleteCinema,
   getAllCinema,
+  getManageCinema,
   searchCinema,
   searchSingleCinema,
   updateCinemaInfo,
 } from "../controller/cinema-controller";
-import { adminGuard, verifyToken } from "../middlewares/auth-middleware";
+import {
+  adminGuard,
+  managerGuard,
+  verifyToken,
+} from "../middlewares/auth-middleware";
 
 const router = express.Router();
 
 router.route("/").get(getAllCinema).post(verifyToken, adminGuard, createCinema);
+router.route("/managers").get(verifyToken, managerGuard, getManageCinema);
 router.route("/search").get(searchCinema);
 router
   .route("/search/:id")

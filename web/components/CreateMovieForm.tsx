@@ -9,7 +9,6 @@ import {
 } from "./schema/MovieSchema";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { register } from "module";
 
 export default function CreateMovieForm() {
   const methods = useFormCreateMovie();
@@ -22,15 +21,24 @@ export default function CreateMovieForm() {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormTypeCreateMovie> = async (formData) => {
-    console.log(formData);
-    const dataForm = new FormData(formData);
+    const form = new FormData();
+
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === "posterUrl" && value[0] instanceof File) {
+        form.append("image", value[0]);
+      } else if (key === "duration" || key === "releaseYear") {
+        form.append(key, value.toString());
+      } else {
+        form.append(key, value as string);
+      }
+    });
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies`,
         {
           method: "POST",
-
-          body: dataForm,
+          body: form,
           credentials: "include",
         }
       );
@@ -166,6 +174,19 @@ export default function CreateMovieForm() {
             multiple={false}
             {...methods.register("posterUrl")}
           />
+          {errors.posterUrl && (
+            <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+              {errors.posterUrl.message as string}
+            </div>
+          )}
+          {/* <button
+            type="button"
+            onClick={() => {
+              methods.resetField("posterUrl");
+            }}
+          >
+            Remove File
+          </button> */}
 
           <button disabled={isSubmitting} type="submit" form="movieForm">
             {isSubmitting ? "Loading..." : "Create Movie"}

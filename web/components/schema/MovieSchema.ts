@@ -48,8 +48,12 @@ export const createMovieSchema = z.object({
   posterUrl: z
     .any()
     .refine(
+      (files) => (files.length > 0 ? true : false),
+      "Movie poster is required"
+    )
+    .refine(
       (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      "Only .jpg, .jpeg, .png and .webp formats are supported."
+      "Only .jpg, .jpeg, .png and .webp formats are supported"
     ),
 });
 
