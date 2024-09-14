@@ -581,6 +581,32 @@ async function inputData() {
       },
       studio: {
         connect: {
+          id: 2,
+        },
+      },
+      startTime: new Date("2024-09-19T06:00:00"),
+    },
+    {
+      movie: {
+        connect: {
+          id: 1,
+        },
+      },
+      studio: {
+        connect: {
+          id: 2,
+        },
+      },
+      startTime: new Date("2024-09-19T21:00:00"),
+    },
+    {
+      movie: {
+        connect: {
+          id: 1,
+        },
+      },
+      studio: {
+        connect: {
           id: 6,
         },
       },

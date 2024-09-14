@@ -47,10 +47,11 @@ const CinemaList = ({ cinema }: { cinema: Cinema }) => {
     <div>
       <div className="flex">
         <div className="text-2xl font-semibold">{cinema.name}</div>
-
-        {cinema.studios.map((studio) => (
-          <StudioList key={studio.id} studio={studio} />
-        ))}
+        <div className="flex gap-4">
+          {cinema.studios.map((studio) => (
+            <StudioList key={studio.id} studio={studio} />
+          ))}
+        </div>
       </div>
     </div>
   );
