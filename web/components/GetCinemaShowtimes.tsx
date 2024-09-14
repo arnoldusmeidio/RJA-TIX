@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import { Cinema, Studios } from "@/types";
+import { Cinema, Movie, Studios } from "@/types";
 import Link from "next/link";
+import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function GetCinemaShowtimes({
   params,
@@ -11,8 +13,22 @@ export default function GetCinemaShowtimes({
   params: { id: string };
 }) {
   const [cinemas, setCinemas] = useState<Cinema[]>([]);
+  const [movie, setMovie] = useState<Movie>();
 
   useEffect(() => {
+    async function getMovie() {
+      try {
+        const movies = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies/search/${params.id}`
+        );
+        const data = await movies.json();
+        setMovie(data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getMovie();
+
     async function getCinemas() {
       try {
         const cinemas = await fetch(
@@ -27,11 +43,30 @@ export default function GetCinemaShowtimes({
     }
     getCinemas();
   }, []);
-
-  console.log(cinemas);
+  console.log(movie);
 
   return (
     <div>
+      <div>
+        {!movie ? (
+          <div>Invalid Movie ID</div>
+        ) : (
+          <div>
+            <figure>
+              <Image
+                src={`${movie?.posterUrl || "/Default Movie Poster.jpg"}`}
+                width={250}
+                height={270}
+                alt="Poster Films"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </figure>
+            <div>{movie?.title}</div>
+          </div>
+        )}
+      </div>
+
       <div>{cinemas?.length === 0 ? <div>No Schedule</div> : null}</div>
       <div className="flex flex-col gap-3">
         {cinemas?.map((cinema) => (
