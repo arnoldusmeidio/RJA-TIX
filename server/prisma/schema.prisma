@@ -184,11 +184,11 @@ model Showtime {
   startTime DateTime
   movieId   Int
   movie     Movie     @relation(fields: [movieId], references: [id])
-  stuidoId  Int
-  studio    Studio    @relation(fields: [stuidoId], references: [id])
+  studioId  Int
+  studio    Studio    @relation(fields: [studioId], references: [id])
   bookings  Booking[]
 
-  @@unique([startTime, stuidoId])
+  @@unique([startTime, studioId], name: "uniqueShowtime")
 }
 
 model Booking {

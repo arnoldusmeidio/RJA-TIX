@@ -39,9 +39,7 @@ export default function RegisterForm() {
         toast.success(data.message);
         router.push("/login");
       }
-      // console.log(response);
-      // console.log(data);
-      // console.log(formData);
+
       router.refresh();
     } catch (error) {
       console.error(error);

@@ -5,6 +5,7 @@ import { Request } from "express";
 export interface AuthenticatedUser {
   email?: string;
   userId?: string;
+  role?: string;
 }
 
 export interface RequestWithUserId extends Request {

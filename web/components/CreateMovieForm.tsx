@@ -179,14 +179,6 @@ export default function CreateMovieForm() {
               {errors.posterUrl.message as string}
             </div>
           )}
-          {/* <button
-            type="button"
-            onClick={() => {
-              methods.resetField("posterUrl");
-            }}
-          >
-            Remove File
-          </button> */}
 
           <button disabled={isSubmitting} type="submit" form="movieForm">
             {isSubmitting ? "Loading..." : "Create Movie"}

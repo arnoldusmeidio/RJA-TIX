@@ -13,11 +13,16 @@ import {
   managerGuard,
   verifyToken,
 } from "../middlewares/auth-middleware";
+import { createShowtime } from "../controller/showtime-controller";
 
 const router = express.Router();
 
 router.route("/").get(getAllCinema).post(verifyToken, adminGuard, createCinema);
 router.route("/managers").get(verifyToken, managerGuard, getManageCinema);
+router
+  .route("/managers/showtimes")
+  .post(verifyToken, managerGuard, createShowtime);
+
 router.route("/search").get(searchCinema);
 router
   .route("/search/:id")

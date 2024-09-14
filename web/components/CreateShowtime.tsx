@@ -20,37 +20,36 @@ export default function CreateShowtime() {
   const {
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = methods;
 
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormTypeCreateShowtime> = async (formData) => {
-    console.log(formData);
     try {
-      // const response = await fetch(
-      //   `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/cinemas/studios/showtimes`,
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(formData),
-      //     credentials: "include",
-      //   }
-      // );
-      // const data = await response.json();
-      // if (!response.ok) {
-      //   if (data.message) {
-      //     toast.error(data.message);
-      //   } else {
-      //     toast.error(data.errors[0].message);
-      //   }
-      // } else {
-      //   toast.success(data.message);
-      //   reset();
-      //   // router.push("/test-page");
-      // }
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/cinemas/managers/showtimes`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        if (data.message) {
+          toast.error(data.message);
+        } else {
+          toast.error(data.errors[0].message);
+        }
+      } else {
+        toast.success(data.message);
+        reset();
+        // router.push("/test-page");
+      }
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -154,7 +153,6 @@ const SelectStudio = () => {
     getCinema();
   }, []);
 
-  // console.log(myCinema);
   return (
     <div>
       <label htmlFor="studio">Studio number</label>
@@ -205,17 +203,35 @@ const AddShow = () => {
       <div className="grid grid-cols-2">
         {fields.map((showtime, showtimeIndex) => (
           <div key={showtime.id}>
-            <div key={showtime.id}>
+            <label htmlFor="date">Date and time</label>
+            <div>
               <input
-                type="datetime-local"
-                {...register(`showtimes.${showtimeIndex}.time`)}
+                type="date"
+                id="date"
+                {...register(`showtimes.${showtimeIndex}.date`)}
               />
-              {errors.showtimes && (
-                <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
-                  {errors.showtimes.message}
-                </div>
-              )}
+              <select
+                id="time"
+                {...register(`showtimes.${showtimeIndex}.time`)}
+              >
+                <option value="T06:00">06.00 AM</option>
+                <option value="T09:00">09.00 AM</option>
+                <option value="T12:00">12.00 PM</option>
+                <option value="T15:00">15.00 PM</option>
+                <option value="T18:00">18.00 PM</option>
+                <option value="T21:00">21.00 PM</option>
+              </select>
             </div>
+            {errors.showtimes?.[showtimeIndex]?.date && (
+              <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+                {errors.showtimes?.[showtimeIndex]?.date.message}
+              </div>
+            )}
+            {errors.showtimes?.[showtimeIndex]?.time && (
+              <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+                {errors.showtimes?.[showtimeIndex]?.time.message}
+              </div>
+            )}
             <div>
               <button type="button" onClick={() => remove(showtimeIndex)}>
                 Remove show
@@ -229,6 +245,7 @@ const AddShow = () => {
           type="button"
           onClick={() =>
             append({
+              date: "",
               time: "",
             })
           }

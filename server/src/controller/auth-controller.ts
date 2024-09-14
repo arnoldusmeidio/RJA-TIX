@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import e, { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import { genSalt, hash, compare } from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -95,6 +95,10 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     const user = await prisma.user.findUnique({
       where: { email },
+      include: {
+        manager: true,
+        admin: true,
+      },
     });
 
     if (!user)
@@ -105,7 +109,19 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     if (!isValidPassword)
       return res.status(401).json({ message: "Invalid Email / Password" });
 
-    const jwtPayload = { email, userId: user?.id };
+    let role = "";
+
+    if (user.admin && user.manager) {
+      role = "super-admin";
+    } else if (user.admin) {
+      role = "admin";
+    } else if (user.manager) {
+      role = "manager";
+    } else {
+      role = "user";
+    }
+
+    const jwtPayload = { email, userId: user?.id, role };
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY as string, {
       expiresIn: rememberMe ? "30d" : "1d",
     });

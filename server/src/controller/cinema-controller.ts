@@ -112,8 +112,8 @@ export async function searchCinema(
   }
 }
 
-// // POST METHOD --
-// // Create new Cinema
+// POST METHOD --
+// Create new Cinema
 export async function createCinema(
   req: Request,
   res: Response,
