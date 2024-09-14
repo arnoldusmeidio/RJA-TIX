@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient, Prisma, StudioType } from "@prisma/client";
 import { genSalt, hash, compare } from "bcrypt";
 
 const prisma = new PrismaClient();
@@ -32,8 +32,26 @@ async function inputData() {
     },
     {
       id: "manager-000000001",
+      name: "Manager 1",
+      email: "manager@1.com",
+      password: hashedPassword,
+      manager: {
+        create: {},
+      },
+    },
+    {
+      id: "manager-000000002",
+      name: "Manager 2",
+      email: "manager@2.com",
+      password: hashedPassword,
+      manager: {
+        create: {},
+      },
+    },
+    {
+      id: "manager-000000003",
       name: "Manager",
-      email: "manager@manager.com",
+      email: "manager@3.com",
       password: hashedPassword,
       manager: {
         create: {},
@@ -387,6 +405,237 @@ async function inputData() {
   }
 
   console.log("\nSeeding movies finished!");
+
+  console.log("\nStart seeding cinemas...\n");
+
+  const studioData = [
+    {
+      price: 30000,
+      studioType: StudioType.STARIUM,
+      rows: 15,
+      columns: 10,
+    },
+    {
+      price: 40000,
+      studioType: StudioType.FOUR_DX,
+      rows: 12,
+      columns: 12,
+    },
+    {
+      price: 60000,
+      studioType: StudioType.GOLD_CLASS,
+      rows: 10,
+      columns: 10,
+    },
+    {
+      price: 100000,
+      studioType: StudioType.PRIVATE_BOX,
+      rows: 4,
+      columns: 4,
+    },
+  ];
+
+  const cinemaStudio = studioData.map((item, index) => {
+    const { rows, columns } = item;
+    const seats = [];
+
+    for (let row = 1; row <= rows; row++) {
+      for (let column = 1; column <= columns; column++) {
+        seats.push({ row, column });
+      }
+    }
+    return {
+      number: index + 1,
+      studioType: item.studioType,
+      price: Number(item.price),
+      seats: {
+        create: seats,
+      },
+    };
+  });
+
+  const cinemaData: Prisma.CinemaCreateInput[] = [
+    {
+      name: "Plaza Indonesia",
+      managers: {
+        connectOrCreate: {
+          where: { id: "manager-000000001" },
+          create: { id: "manager-000000001" },
+        },
+      },
+      address: "Indonesia",
+      studios: {
+        create: cinemaStudio,
+      },
+    },
+    {
+      name: "Mall of Indonesia",
+      managers: {
+        connectOrCreate: {
+          where: { id: "manager-000000002" },
+          create: { id: "manager-000000002" },
+        },
+      },
+      address: "Indonesia",
+      studios: {
+        create: cinemaStudio,
+      },
+    },
+    {
+      name: "Grand Indonesia",
+      managers: {
+        connectOrCreate: {
+          where: { id: "manager-000000003" },
+          create: { id: "manager-000000003" },
+        },
+      },
+      address: "Indonesia",
+      studios: {
+        create: cinemaStudio,
+      },
+    },
+  ];
+
+  for (const c of cinemaData) {
+    const cinema = await prisma.cinema.create({
+      data: c,
+    });
+    console.log(`Successfully create movie with title: ${cinema.name}`);
+  }
+
+  console.log("\nSeeding cinemas finished!");
+
+  console.log("\nStart seeding showtimes...\n");
+
+  const showtimeData: Prisma.ShowtimeCreateInput[] = [
+    {
+      movie: {
+        connect: {
+          id: 1,
+        },
+      },
+      studio: {
+        connect: {
+          id: 1,
+        },
+      },
+      startTime: new Date("2024-09-18T06:00:00"),
+    },
+    {
+      movie: {
+        connect: {
+          id: 1,
+        },
+      },
+      studio: {
+        connect: {
+          id: 1,
+        },
+      },
+      startTime: new Date("2024-09-18T09:00:00"),
+    },
+    {
+      movie: {
+        connect: {
+          id: 1,
+        },
+      },
+      studio: {
+        connect: {
+          id: 6,
+        },
+      },
+      startTime: new Date("2024-09-18T06:00:00"),
+    },
+    {
+      movie: {
+        connect: {
+          id: 1,
+        },
+      },
+      studio: {
+        connect: {
+          id: 1,
+        },
+      },
+      startTime: new Date("2024-09-19T06:00:00"),
+    },
+    {
+      movie: {
+        connect: {
+          id: 1,
+        },
+      },
+      studio: {
+        connect: {
+          id: 1,
+        },
+      },
+      startTime: new Date("2024-09-19T09:00:00"),
+    },
+    {
+      movie: {
+        connect: {
+          id: 1,
+        },
+      },
+      studio: {
+        connect: {
+          id: 6,
+        },
+      },
+      startTime: new Date("2024-09-19T06:00:00"),
+    },
+    {
+      movie: {
+        connect: {
+          id: 2,
+        },
+      },
+      studio: {
+        connect: {
+          id: 6,
+        },
+      },
+      startTime: new Date("2024-09-18T09:00:00"),
+    },
+    {
+      movie: {
+        connect: {
+          id: 2,
+        },
+      },
+      studio: {
+        connect: {
+          id: 5,
+        },
+      },
+      startTime: new Date("2024-09-20T06:00:00"),
+    },
+    {
+      movie: {
+        connect: {
+          id: 3,
+        },
+      },
+      studio: {
+        connect: {
+          id: 5,
+        },
+      },
+      startTime: new Date("2024-09-18T06:00:00"),
+    },
+  ];
+
+  for (const s of showtimeData) {
+    const showtime = await prisma.showtime.create({
+      data: s,
+    });
+    console.log(`Successfully create movie with title: ${showtime.id}`);
+  }
+
+  console.log("\nSeeding showtimes finished!");
+
   console.log("\nSeeding COMPLETE!");
 }
 

@@ -8,6 +8,7 @@ import adminRouter from "./routes/admin-route";
 import managerRouter from "./routes/manager-route";
 import userRouter from "./routes/user-route";
 import cinemaRouter from "./routes/cinema-route";
+import showtimeRouter from "./routes/showtime-route";
 
 import { notFoundMiddleware } from "./middlewares/not-found-middleware";
 import { error } from "./middlewares/error-middleware";
@@ -36,6 +37,7 @@ const PORT = process.env.PORT || 8000;
 // Public Route
 app.use("/api/v1/movies", movieRouter);
 app.use("/api/v1/cinemas", cinemaRouter);
+app.use("/api/v1/showtimes", showtimeRouter);
 
 // User Route
 app.use("/api/v1/users", verifyToken, userRouter);

@@ -54,6 +54,40 @@ export async function getManageCinema(
   }
 }
 
+// Search Cinemas with Showtime
+export async function searchCinemaShowtimes(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+
+    const cinema = await prisma.cinema.findMany({
+      where: {
+        studios: {
+          some: {
+            showtimes: {
+              some: {
+                movieId: Number(id),
+              },
+            },
+          },
+        },
+      },
+      include: {
+        studios: { include: { showtimes: { where: { movieId: Number(id) } } } },
+      },
+    });
+
+    if (!cinema) return res.status(404).json({ message: "Cinema not found" });
+
+    return res.status(200).json({ data: cinema });
+  } catch (error) {
+    next(error);
+  }
+}
+
 // Search Cinema by ID
 export async function searchSingleCinema(
   req: Request,

@@ -241,7 +241,7 @@ export default function Movies() {
                 </div>
                 <div className="card-actions justify-end">
                   <Link
-                    href={`/info/${item.id}`}
+                    href={`/movies/${item.id}`}
                     className="bg-third py-1 rounded-lg text-black hover:bg-primary hover:text-fourth w-full text-center font-semibold transition-all ease-in-out"
                   >
                     Book Ticket

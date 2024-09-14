@@ -28,7 +28,7 @@ export default function CreateShowtime() {
   const onSubmit: SubmitHandler<FormTypeCreateShowtime> = async (formData) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/cinemas/managers/showtimes`,
+        `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/showtimes`,
         {
           method: "POST",
           headers: {
