@@ -14,7 +14,10 @@ export default function Movies() {
     async function getMovies() {
       try {
         const movie = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies`
+          `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies`,
+          {
+            credentials: "include",
+          }
         );
         const data = await movie.json();
         setMovies(data.data);

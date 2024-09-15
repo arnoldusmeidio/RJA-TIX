@@ -86,7 +86,7 @@ model Voucher {
   payment    Payment?  @relation(fields: [paymentId], references: [id], onDelete: Cascade)
 }
 
-model ManagerVoucher {
+model AdminVoucher {
   id           String    @id
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
@@ -221,17 +221,17 @@ model Ticket {
 }
 
 model Payment {
-  id               Int             @id @default(autoincrement())
-  paymentDate      DateTime
-  ticketId         Int             @unique
-  ticket           Ticket          @relation(fields: [ticketId], references: [id])
-  paymentStatus    Boolean         @default(false)
-  voucher          Voucher[]
-  point            Point[]
-  wallet           Wallet?         @relation(fields: [walletId], references: [id], onDelete: SetNull)
-  walletId         String?
-  managerVoucherId String?
-  managerVoucher   ManagerVoucher? @relation(fields: [managerVoucherId], references: [id], onDelete: SetNull)
+  id             Int           @id @default(autoincrement())
+  paymentDate    DateTime
+  ticketId       Int           @unique
+  ticket         Ticket        @relation(fields: [ticketId], references: [id])
+  paymentStatus  Boolean       @default(false)
+  voucher        Voucher[]
+  point          Point[]
+  wallet         Wallet?       @relation(fields: [walletId], references: [id], onDelete: SetNull)
+  walletId       String?
+  adminVoucherId String?
+  adminVoucher   AdminVoucher? @relation(fields: [adminVoucherId], references: [id], onDelete: SetNull)
 }
 
 enum StudioType {

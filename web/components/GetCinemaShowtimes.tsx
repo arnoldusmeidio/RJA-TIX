@@ -5,7 +5,6 @@ import { format } from "date-fns";
 import { Cinema, Movie, Studios } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
-import toast from "react-hot-toast";
 
 export default function GetCinemaShowtimes({
   params,
@@ -19,7 +18,10 @@ export default function GetCinemaShowtimes({
     async function getMovie() {
       try {
         const movies = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies/search/${params.id}`
+          `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies/search/${params.id}`,
+          {
+            credentials: "include",
+          }
         );
         const data = await movies.json();
         setMovie(data.data);
@@ -43,7 +45,6 @@ export default function GetCinemaShowtimes({
     }
     getCinemas();
   }, []);
-  console.log(movie);
 
   return (
     <div>
@@ -59,7 +60,6 @@ export default function GetCinemaShowtimes({
                 height={270}
                 alt="Poster Films"
                 className="w-full h-full object-cover"
-                loading="lazy"
               />
             </figure>
             <div>{movie?.title}</div>

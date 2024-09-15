@@ -76,7 +76,16 @@ export async function searchCinemaShowtimes(
         },
       },
       include: {
-        studios: { include: { showtimes: { where: { movieId: Number(id) } } } },
+        studios: {
+          include: {
+            showtimes: {
+              where: {
+                movieId: Number(id),
+                startTime: { gt: new Date(Date.now()) },
+              },
+            },
+          },
+        },
       },
     });
 
