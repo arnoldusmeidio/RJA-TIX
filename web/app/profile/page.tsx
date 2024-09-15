@@ -26,8 +26,6 @@ export default function Profile() {
     getUser();
   }, []);
 
-  console.log(user);
-
   return (
     <main>
       {/* Profile Dashboard */}

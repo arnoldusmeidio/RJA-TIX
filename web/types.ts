@@ -6,6 +6,10 @@ export interface User {
     balance: number;
   };
   totalPoints: number;
+  vouchers: {
+    id: number;
+    discount: number;
+  }[];
 }
 
 export interface Movie {
@@ -50,6 +54,27 @@ export interface Seat {
 }
 
 export interface SeatInfo {
+  studioId: number;
   seats: Seat[];
   price: Studios;
+  movieId: number;
+  movieTitle: string;
+  studioType: string;
+}
+
+export interface BookingData {
+  row: number;
+  column: number;
+  movieId: number;
+  movieTitle: string;
+  price: number;
+  studioId: number;
+  studioType: string;
+}
+
+export interface AdminVoucher {
+  availability: number;
+  discount: number;
+  id: string;
+  expiredAt: string;
 }

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Square } from "./Square";
 import { useSeatSelection } from "@/utils/hooks";
 import SeatNumber from "./SeatNumber";
+import Link from "next/link";
 
 const groupSeatsByRow = (seats: Seat[]): Record<number, Seat[]> => {
   return seats.reduce((acc: Record<number, Seat[]>, seat: Seat) => {
@@ -95,10 +96,32 @@ export default function SelectSeats({ params }: { params: { id: string } }) {
       </div>
 
       {/* Reset button untuk menghilangkan semua pilihan kursi */}
-      <div className="">
+      <div className="flex justify-between">
         <button type="button" onClick={() => resetSeats()}>
           Reset
         </button>
+        {selectedSeats.length ? (
+          <Link
+            href={{
+              pathname: `/movies/booking/${params.id}/checkout`,
+              query: {
+                data: JSON.stringify(
+                  selectedSeats.map(({ row, column }) => ({
+                    row,
+                    column,
+                    studioId: seat?.studioId,
+                    price: seat?.price || 0,
+                    movieId: seat?.movieId,
+                    movieTitle: seat?.movieTitle,
+                    studioType: seat?.studioType,
+                  }))
+                ),
+              },
+            }}
+          >
+            <button>Confirm</button>
+          </Link>
+        ) : null}
       </div>
     </div>
   );
