@@ -16,6 +16,7 @@ export default function Grid({
         columnElements.push(<Square key={`${i}-${j}`} />);
       }
       rowElements.push(
+        // kolom kursi
         <div key={`row-${i}`} className="flex gap-2">
           {columnElements}
         </div>
@@ -23,6 +24,7 @@ export default function Grid({
     }
 
     return (
+      // baris kursi
       <div className="flex flex-col items-center gap-2 px-2 overflow-x-auto">
         {rowElements}
       </div>

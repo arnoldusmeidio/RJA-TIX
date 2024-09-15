@@ -34,6 +34,7 @@ export default function ShowRemainingSeats({
 
   return (
     <div>
+      {/* Komponen untuk menunjukan kursi yg tersedia pada showtime */}
       <div className="flex items-center gap-2">
         Seats available: {remainingSeats}/{totalSeats}
         <LuArmchair />

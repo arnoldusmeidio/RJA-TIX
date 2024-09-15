@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { Prisma, PrismaClient } from "@prisma/client";
-import { promise, ZodError } from "zod";
+import { ZodError } from "zod";
 import { createShowtimeSchema } from "../schemas/showtime-schema";
 
 const prisma = new PrismaClient();
@@ -150,15 +150,13 @@ export async function searchSeatShowtimes(
       },
     });
 
-    return res
-      .status(200)
-      .json({
-        data: {
-          studioId: showtime.studioId,
-          seats: seatsWithBookingInfo,
-          price: ticketPrice,
-        },
-      });
+    return res.status(200).json({
+      data: {
+        studioId: showtime.studioId,
+        seats: seatsWithBookingInfo,
+        price: ticketPrice,
+      },
+    });
   } catch (error) {
     next(error);
   }

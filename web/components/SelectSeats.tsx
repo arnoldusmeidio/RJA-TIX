@@ -47,6 +47,7 @@ export default function SelectSeats({ params }: { params: { id: string } }) {
 
   return (
     <div>
+      {/* Rendering row dan kolom kursi */}
       <div>
         {Object.entries(rows).map(([rowNumber, seatsInRow]) => (
           <div className="flex gap-2 mb-2" key={rowNumber}>
@@ -74,6 +75,8 @@ export default function SelectSeats({ params }: { params: { id: string } }) {
           </div>
         ))}
       </div>
+
+      {/* Menunjukan kursi yg dipilih */}
       <div>
         {selectedSeats.length ? (
           <div>
@@ -90,6 +93,8 @@ export default function SelectSeats({ params }: { params: { id: string } }) {
           </div>
         ) : null}
       </div>
+
+      {/* Reset button untuk menghilangkan semua pilihan kursi */}
       <div className="">
         <button type="button" onClick={() => resetSeats()}>
           Reset

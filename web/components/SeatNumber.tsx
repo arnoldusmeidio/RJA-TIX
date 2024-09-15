@@ -1,3 +1,5 @@
+// Komponen untuk menunjukan nomor kursi yg dipilih
+
 export default function SeatNumber({
   row,
   column,

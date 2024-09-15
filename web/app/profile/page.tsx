@@ -45,7 +45,6 @@ export default function Profile() {
                                 height={512}
                                 alt="User Profile"
                                 className="w-full h-full object-cover"
-                                loading="lazy"
                             />
                         </div>
                     </div>

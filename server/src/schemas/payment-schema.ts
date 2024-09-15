@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const paymentSchema = z.object({
+export const paymentSchema = z.object({
   userId: z.string(),
   studioId: z.number(),
   showtimeId: z.number(),
