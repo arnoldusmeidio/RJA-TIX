@@ -91,7 +91,7 @@ export default function GetCinemaShowtimes({
 
             <section className="content-center flex-row lg:flex mx-7 sm:mx-20 md:mx-10 lg:mx-32 gap-20">
               <div className="card lg:card-side">
-                <figure className="relative">
+                <figure className="w-full h-full relative">
                   <Image
                     src={`${movie?.posterUrl || "/Default Movie Poster.jpg"}`}
                     width={550}
@@ -99,7 +99,7 @@ export default function GetCinemaShowtimes({
                     alt="Poster Films"
                     className="w-full aspect-auto rounded-xl object-cover"
                   />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-70 transition-opacity duration-300">
+                  <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-70 rounded-xl transition-opacity duration-300">
                     <p className="text-center font-inter font-bold text-third text-3xl opacity-100">
                       {movie?.releaseYear}
                     </p>
@@ -139,7 +139,7 @@ export default function GetCinemaShowtimes({
         )}
       </div>
 
-      <div>{cinemas?.length === 0 ? <div>No Schedule</div> : null}</div>
+      <div>{cinemas?.length === 0 ? <div className="font-inter text-2xl font-semibold text-third text-center my-10">No Schedule</div> : null}</div>
       <div className="md:flex gap-3 mx-7 sm:mx-20 md:mx-10 lg:mx-20 mt-5">
         {cinemas?.map((cinema) => (
           <CinemaList key={cinema.id} cinema={cinema} />
