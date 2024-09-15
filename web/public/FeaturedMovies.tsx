@@ -18,7 +18,6 @@ export default function FeaturedMovies() {
                                 height={270}
                                 alt="Poster Films"
                                 className="w-full h-full object-cover"
-                                loading="lazy"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-70 transition-opacity duration-300">
                                 <p className="text-center font-inter font-bold text-third text-3xl opacity-100">2018</p>
@@ -43,7 +42,6 @@ export default function FeaturedMovies() {
                                 height={270}
                                 alt="Poster Films"
                                 className="w-full h-full object-cover"
-                                loading="lazy"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-70 transition-opacity duration-300">
                                 <p className="text-center font-inter font-bold text-third text-3xl opacity-100">2019</p>
@@ -68,7 +66,6 @@ export default function FeaturedMovies() {
                                 height={270}
                                 alt="Poster Films"
                                 className="w-full h-full object-cover"
-                                loading="lazy"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-70 transition-opacity duration-300">
                                 <p className="text-center font-inter font-bold text-third text-3xl opacity-100">2017</p>
@@ -93,7 +90,6 @@ export default function FeaturedMovies() {
                                 height={270}
                                 alt="Poster Films"
                                 className="w-full h-full object-cover"
-                                loading="lazy"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-70 transition-opacity duration-300">
                                 <p className="text-center font-inter font-bold text-third text-3xl opacity-100">2014</p>
@@ -118,7 +114,6 @@ export default function FeaturedMovies() {
                                 height={270}
                                 alt="Poster Films"
                                 className="w-full h-full object-cover"
-                                loading="lazy"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-70 transition-opacity duration-300">
                                 <p className="text-center font-inter font-bold text-third text-3xl opacity-100">2018</p>
@@ -143,7 +138,6 @@ export default function FeaturedMovies() {
                                 height={270}
                                 alt="Poster Films"
                                 className="w-full h-full object-cover"
-                                loading="lazy"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-70 transition-opacity duration-300">
                                 <p className="text-center font-inter font-bold text-third text-3xl opacity-100">2019</p>
@@ -168,7 +162,6 @@ export default function FeaturedMovies() {
                                 height={270}
                                 alt="Poster Films"
                                 className="w-full h-full object-cover"
-                                loading="lazy"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-70 transition-opacity duration-300">
                                 <p className="text-center font-inter font-bold text-third text-3xl opacity-100">2017</p>
@@ -193,7 +186,6 @@ export default function FeaturedMovies() {
                                 height={270}
                                 alt="Poster Films"
                                 className="w-full h-full object-cover"
-                                loading="lazy"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-70 transition-opacity duration-300">
                                 <p className="text-center font-inter font-bold text-third text-3xl opacity-100">2014</p>

@@ -35,7 +35,6 @@ export default function Offers() {
                                 height={250}
                                 alt="Coming soon Poster Films"
                                 className="w-full min-h-40 object-cover"
-                                loading="lazy"
                             />
                         </figure>
                         <div className="card-body p-3 sm:p-7">
@@ -52,7 +51,6 @@ export default function Offers() {
                                 height={250}
                                 alt="Coming soon Poster Films"
                                 className="w-full min-h-40 object-cover"
-                                loading="lazy"
                             />
                         </figure>
                         <div className="card-body p-3 sm:p-7">
@@ -69,7 +67,6 @@ export default function Offers() {
                                 height={250}
                                 alt="Coming soon Poster Films"
                                 className="w-full min-h-40 object-cover"
-                                loading="lazy"
                             />
                         </figure>
                         <div className="card-body p-3 sm:p-7">
@@ -86,7 +83,6 @@ export default function Offers() {
                                 height={250}
                                 alt="Coming soon Poster Films"
                                 className="w-full min-h-40 object-cover"
-                                loading="lazy"
                             />
                         </figure>
                         <div className="card-body p-3 sm:p-7">
@@ -103,7 +99,6 @@ export default function Offers() {
                                 height={250}
                                 alt="Coming soon Poster Films"
                                 className="w-full min-h-40 object-cover"
-                                loading="lazy"
                             />
                         </figure>
                         <div className="card-body p-3 sm:p-7">
