@@ -2,6 +2,10 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  wallet: {
+    balance: number;
+  };
+  totalPoints: number;
 }
 
 export interface Movie {
@@ -36,4 +40,16 @@ export interface Showtimes {
   startTime: Date;
   studioId: number;
   movie: Movie;
+}
+
+export interface Seat {
+  row: number;
+  column: number;
+  studioId: number;
+  booked: boolean;
+}
+
+export interface SeatInfo {
+  seats: Seat[];
+  price: Studios;
 }

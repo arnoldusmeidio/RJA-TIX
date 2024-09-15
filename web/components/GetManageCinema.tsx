@@ -27,6 +27,7 @@ export default function GetManageCinema() {
 
   return (
     <div>
+      {/* Logic untuk cek hasil fetch cinema ada atau tidak */}
       <div>{myCinema?.length === 0 ? <div>No Cinema</div> : null}</div>
 
       <div className="flex flex-col gap-3">

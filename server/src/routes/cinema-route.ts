@@ -14,7 +14,6 @@ import {
   managerGuard,
   verifyToken,
 } from "../middlewares/auth-middleware";
-import { createShowtime } from "../controller/showtime-controller";
 
 const router = express.Router();
 

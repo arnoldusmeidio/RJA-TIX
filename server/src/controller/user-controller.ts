@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient } from "@prisma/client";
+import { Point, PrismaClient } from "@prisma/client";
 import { genSalt, hash } from "bcrypt";
 import { RequestWithUserId } from "../types";
 import { updateUserSchema } from "../schemas/user-schema";
@@ -66,21 +66,20 @@ export async function getSingleUser(
       },
       include: {
         wallet: true,
-        points: true,
         vouchers: true,
-        bookings: {
-          include: {
-            showtime: {
-              include: {
-                movie: {
-                  include: {
-                    reviews: true,
-                  },
-                },
-              },
-            },
-          },
-        },
+        // bookings: {
+        //   include: {
+        //     showtime: {
+        //       include: {
+        //         movie: {
+        //           include: {
+        //             reviews: true,
+        //           },
+        //         },
+        //       },
+        //     },
+        //   },
+        // },
       },
     });
 
@@ -89,7 +88,19 @@ export async function getSingleUser(
         message: "User not found",
       });
 
-    return res.status(200).json({ data: user });
+    const points = await prisma.point.findMany({
+      where: {
+        userId: id,
+        paymentId: null,
+      },
+    });
+
+    const totalPoints = points.reduce((acc, currVal: Point) => {
+      return acc + currVal.points;
+    }, 0);
+
+    console.log(totalPoints);
+    return res.status(200).json({ data: { ...user, totalPoints } });
   } catch (error) {
     next(error);
   }

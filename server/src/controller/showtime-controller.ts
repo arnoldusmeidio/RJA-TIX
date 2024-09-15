@@ -64,8 +64,9 @@ export async function createShowtime(
   }
 }
 
-// Search Cinemas with Showtime
-export async function searchShowtimes(
+// GET METHOD --
+// Search Booked showtimes
+export async function searchBookedShowtimes(
   req: Request,
   res: Response,
   next: NextFunction
@@ -73,19 +74,89 @@ export async function searchShowtimes(
   try {
     const { id } = req.params;
 
-    const cinema = await prisma.showtime.findMany({
+    const showtime = await prisma.showtime.findUnique({
       where: {
-        movieId: Number(id),
-        startTime: { gt: new Date(Date.now()) },
-      },
-      include: {
-        studio: { include: { cinema: true } },
+        id: Number(id),
       },
     });
 
-    if (!cinema) return res.status(404).json({ message: "Cinema not found" });
+    if (!showtime)
+      return res.status(404).json({ message: "Showtime not found" });
 
-    return res.status(200).json({ data: cinema });
+    const [total, booked] = await Promise.all([
+      await prisma.seat.count({
+        where: {
+          studioId: Number(showtime?.studioId),
+        },
+      }),
+
+      await prisma.booking.count({
+        where: {
+          showtimeId: Number(id),
+        },
+      }),
+    ]);
+
+    return res.status(200).json({ data: { total, booked } });
+  } catch (error) {
+    next(error);
+  }
+}
+
+// Search Shotime with seats info
+export async function searchSeatShowtimes(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+
+    const showtime = await prisma.showtime.findUnique({
+      where: {
+        id: Number(id),
+      },
+      include: {
+        studio: { include: { seats: true } },
+      },
+    });
+
+    if (!showtime)
+      return res.status(404).json({ message: "Showtime not found" });
+
+    const seatsWithBookingInfo = await Promise.all(
+      showtime?.studio.seats.map(async (seat) => {
+        const booking = await prisma.booking.findUnique({
+          where: {
+            uniqueSeatShowtime: {
+              column: seat.column,
+              row: seat.row,
+              studioId: seat.studioId,
+              showtimeId: Number(id),
+            },
+          },
+        });
+
+        return { ...seat, booked: booking?.id ? true : false };
+      }) || []
+    );
+
+    const ticketPrice = await prisma.showtime.findUnique({
+      where: {
+        id: Number(id),
+      },
+      include: {
+        studio: true,
+      },
+    });
+
+    return res.status(200).json({
+      data: {
+        studioId: showtime.studioId,
+        seats: seatsWithBookingInfo,
+        price: ticketPrice,
+      },
+    });
   } catch (error) {
     next(error);
   }
