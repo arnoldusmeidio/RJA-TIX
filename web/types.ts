@@ -2,6 +2,10 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  wallet: {
+    balance: number;
+  };
+  totalPoints: number;
 }
 
 export interface Movie {
