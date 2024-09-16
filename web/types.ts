@@ -10,6 +10,29 @@ export interface User {
     id: number;
     discount: number;
   }[];
+  tickets: {
+    id: number;
+    bookings: {
+      id: number;
+      row: number;
+      column: number;
+      showtime: {
+        startTime: string;
+        studio: {
+          number: number;
+          studioType: string;
+          cinema: {
+            name: string;
+            address: string;
+          };
+        };
+        movie: {
+          title: string;
+          posterUrl: any;
+        };
+      };
+    }[];
+  }[];
 }
 
 export interface Movie {
@@ -20,6 +43,12 @@ export interface Movie {
   rated: string;
   releaseYear: number;
   synopsis: string;
+  reviews: {
+    id: number;
+    review: string;
+    star: number;
+    userId: string;
+  }[];
 }
 
 export interface Cinema {

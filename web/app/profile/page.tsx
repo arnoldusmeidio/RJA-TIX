@@ -3,28 +3,60 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { User } from "@/types";
+import { Movie, User } from "@/types";
+import { format } from "date-fns";
+import { SubmitHandler, FormProvider } from "react-hook-form";
+import { useFormCreateReview } from "@/components/schema/Review.schema";
 
 export default function Profile() {
   const [user, setUser] = useState<User>();
+  const [watchedMovies, setWatchedMovies] = useState<Movie[]>([]);
+
+  const methods = useFormCreateReview();
+  const {
+    handleSubmit,
+    reset,
+    watch,
+    resetField,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = methods;
 
   useEffect(() => {
     async function getUser() {
       try {
-        const movie = await fetch(
+        const user = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/users`,
           {
             credentials: "include",
           }
         );
-        const data = await movie.json();
+        const data = await user.json();
         setUser(data.data);
       } catch (error) {
         console.error(error);
       }
     }
     getUser();
+
+    async function getWatchedMovie() {
+      try {
+        const watchedMovie = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies/reviews`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await watchedMovie.json();
+        setWatchedMovies(data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getWatchedMovie();
   }, []);
+
+  console.log(watchedMovies);
 
   return (
     <main>
@@ -77,7 +109,7 @@ export default function Profile() {
                 Your Wallet Balance:
               </h5>
               <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">
-                {`Rp.${user?.wallet.balance},-`}
+                {`Rp.${user?.wallet.balance},00`}
               </h6>
             </div>
             <div className="point content-center ms-0">
@@ -111,207 +143,115 @@ export default function Profile() {
               </tr>
             </thead>
             <tbody>
-              {/* row 1 */}
-              <tr className="hover:bg-secondary text-center">
-                <th>1</th>
-                <td>Interstellar</td>
-                <td>
-                  <label
-                    htmlFor="review-tab-1"
-                    role="button"
-                    tabIndex={0}
-                    className="btn bg-third text-primary font-semibold hover:bg-primary hover:text-third transition-all ease-in-out"
-                  >
-                    Review
-                  </label>
-                  <input
-                    type="checkbox"
-                    id="review-tab-1"
-                    className="modal-toggle"
-                  />
-                  <div className="modal bg-secondary" role="dialog">
-                    <div className="modal-box h-3/3">
-                      <h3 className="text-center md:text-start text-2xl font-semibold text-third">
-                        Interstellar
-                      </h3>
-                      <div className="py-4">
-                        <p className="text-center md:text-start text-lg font-medium text-fourth font-lato mb-2">
-                          Rate Film
-                        </p>
-                        <input
-                          type="range"
-                          min={0}
-                          max="100"
-                          step={25}
-                          className="range range-warning range-xs"
-                        />
-                        <div className="flex w-full justify-between px-2 text-xs">
-                          <span>1</span>
-                          <span>2</span>
-                          <span>3</span>
-                          <span>4</span>
-                          <span>5</span>
-                        </div>
-                      </div>
-                      <div className="form-control ">
-                        <label className="label">
-                          <span className="label-text">Message</span>
-                        </label>
-                        <textarea
-                          rows={3}
-                          className="textarea textarea-bordered"
-                          placeholder="Your message"
-                        ></textarea>
-                      </div>
-                      <div className="modal-action pt-auto">
-                        <label className="btn bg-third text-primary hover:bg-primary hover:text-third">
-                          Submit
-                        </label>
+              {/* Map watched movies */}
+              <FormProvider {...methods}>
+                {watchedMovies.map((item, idx: number) => (
+                  <tr key={idx} className="hover:bg-secondary text-center">
+                    <th>{idx + 1}</th>
+                    <td>{item.title}</td>
+                    <td>
+                      <form id={`review-${idx + 1}`}>
                         <label
-                          htmlFor="review-tab-1"
-                          className="btn bg-primary text-third hover:bg-third hover:text-primary"
+                          htmlFor={`review-tab-${idx + 1}`}
+                          role="button"
+                          tabIndex={0}
+                          className="btn bg-third text-primary font-semibold hover:bg-primary hover:text-third transition-all ease-in-out"
                         >
-                          Close
+                          Review
                         </label>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              {/* row 2 */}
-              <tr className="hover:bg-secondary text-center">
-                <th>2</th>
-                <td>Twister</td>
-                <td>
-                  <label
-                    htmlFor="review-tab-2"
-                    role="button"
-                    tabIndex={0}
-                    className="btn bg-third text-primary font-semibold hover:bg-primary hover:text-third transition-all ease-in-out"
-                  >
-                    Review
-                  </label>
-                  <input
-                    type="checkbox"
-                    id="review-tab-2"
-                    className="modal-toggle"
-                  />
-                  <div className="modal bg-secondary" role="dialog">
-                    <div className="modal-box h-3/3">
-                      <h3 className="text-center md:text-start text-2xl font-semibold text-third">
-                        Twister
-                      </h3>
-                      <div className="py-4">
-                        <p className="text-center md:text-start text-lg font-medium text-fourth font-lato mb-2">
-                          Rate Film
-                        </p>
                         <input
-                          type="range"
-                          min={0}
-                          max="100"
-                          step={25}
-                          className="range range-warning range-xs"
+                          type="checkbox"
+                          id={`review-tab-${idx + 1}`}
+                          className="modal-toggle"
                         />
-                        <div className="flex w-full justify-between px-2 text-xs">
-                          <span>1</span>
-                          <span>2</span>
-                          <span>3</span>
-                          <span>4</span>
-                          <span>5</span>
+                        <div className="modal bg-secondary" role="dialog">
+                          <div className="modal-box h-3/3">
+                            <h3 className="text-center md:text-start text-2xl font-semibold text-third">
+                              {item.title}
+                            </h3>
+                            <div className="py-4">
+                              <p className="text-center md:text-start text-lg font-medium text-fourth font-lato mb-2">
+                                Rate Film
+                              </p>
+                              <input
+                                disabled={
+                                  item?.reviews
+                                    ? item?.reviews.length !== 0
+                                      ? true
+                                      : false
+                                    : false
+                                }
+                                id={`review-star-${idx + 1}`}
+                                {...methods.register("star")}
+                                type="range"
+                                min={1}
+                                max="5"
+                                step={1}
+                                className="range range-warning range-xs"
+                              />
+                              <div className="flex w-full justify-between px-2 text-xs">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                              </div>
+                            </div>
+                            <div className="form-control ">
+                              <label className="label">
+                                <span className="label-text">Message</span>
+                              </label>
+                              <textarea
+                                disabled={
+                                  item?.reviews
+                                    ? item?.reviews.length !== 0
+                                      ? true
+                                      : false
+                                    : false
+                                }
+                                id={`review-text-${idx + 1}`}
+                                {...methods.register("review")}
+                                rows={3}
+                                className="textarea textarea-bordered"
+                                // placeholder="Your review"
+                                placeholder={
+                                  item?.reviews
+                                    ? item?.reviews.length !== 0
+                                      ? item?.reviews[0]?.review
+                                      : "Your review"
+                                    : "Your review"
+                                }
+                              ></textarea>
+                            </div>
+                            <div className="modal-action pt-auto">
+                              <button
+                                disabled={
+                                  item?.reviews
+                                    ? item?.reviews.length !== 0
+                                      ? true
+                                      : false
+                                    : false
+                                }
+                                type="submit"
+                                form={`review-${idx + 1}`}
+                                className="btn bg-third text-primary hover:bg-primary hover:text-third"
+                              >
+                                Submit
+                              </button>
+                              <label
+                                htmlFor={`review-tab-${idx + 1}`}
+                                className="btn bg-primary text-third hover:bg-third hover:text-primary"
+                              >
+                                Close
+                              </label>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="form-control ">
-                        <label className="label">
-                          <span className="label-text">Message</span>
-                        </label>
-                        <textarea
-                          rows={3}
-                          className="textarea textarea-bordered"
-                          placeholder="Your message"
-                        ></textarea>
-                      </div>
-                      <div className="modal-action pt-auto">
-                        <label className="btn bg-third text-primary hover:bg-primary hover:text-third">
-                          Submit
-                        </label>
-                        <label
-                          htmlFor="review-tab-2"
-                          className="btn bg-primary text-third hover:bg-third hover:text-primary"
-                        >
-                          Close
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              {/* row 3 */}
-              <tr className="hover:bg-secondary text-center">
-                <th>3</th>
-                <td>Inside Out 2</td>
-                <td>
-                  <label
-                    htmlFor="review-tab-3"
-                    role="button"
-                    tabIndex={0}
-                    className="btn bg-third text-primary font-semibold hover:bg-primary hover:text-third transition-all ease-in-out"
-                  >
-                    Review
-                  </label>
-                  <input
-                    type="checkbox"
-                    id="review-tab-3"
-                    className="modal-toggle"
-                  />
-                  <div className="modal bg-secondary" role="dialog">
-                    <div className="modal-box h-3/3">
-                      <h3 className="text-center md:text-start text-2xl font-semibold text-third">
-                        Inside Out 2
-                      </h3>
-                      <div className="py-4">
-                        <p className="text-center md:text-start text-lg font-medium text-fourth font-lato mb-2">
-                          Rate Film
-                        </p>
-                        <input
-                          type="range"
-                          min={0}
-                          max="100"
-                          step={25}
-                          className="range range-warning range-xs"
-                        />
-                        <div className="flex w-full justify-between px-2 text-xs">
-                          <span>1</span>
-                          <span>2</span>
-                          <span>3</span>
-                          <span>4</span>
-                          <span>5</span>
-                        </div>
-                      </div>
-                      <div className="form-control ">
-                        <label className="label">
-                          <span className="label-text">Message</span>
-                        </label>
-                        <textarea
-                          rows={3}
-                          className="textarea textarea-bordered"
-                          placeholder="Your message"
-                        ></textarea>
-                      </div>
-                      <div className="modal-action pt-auto">
-                        <label className="btn bg-third text-primary hover:bg-primary hover:text-third">
-                          Submit
-                        </label>
-                        <label
-                          htmlFor="review-tab-3"
-                          className="btn bg-primary text-third hover:bg-third hover:text-primary"
-                        >
-                          Close
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+                      </form>
+                    </td>
+                  </tr>
+                ))}
+              </FormProvider>
             </tbody>
           </table>
         </div>
@@ -325,40 +265,51 @@ export default function Profile() {
             My Tickets
           </h4>
         </div>
-        <div className="booked-film flex flex-col md:flex-row content-center mx-7 sm:mx-20 md:mx-10 lg:mx-20 pt-7 gap-5 md:gap-20">
-          <div className="poster mx-auto md:mx-0">
-            <Image
-              src="/Poster Film-3.png"
-              width={230}
-              height={270}
-              alt="Poster Films"
-              className="w-64 h-full object-cover rounded-2xl"
-              loading="lazy"
-            />
-          </div>
-          <div className="body-text mt-3">
-            <h5 className="font-inter font-semibold text-center md:text-start text-4xl text-third mb-2">
-              Interstellar
-            </h5>
-            <p className="cinema font-inter font-medium text-center md:text-start text-xl text-fourth mb-1">
-              Starium<span className="mx-3"> | </span>Plaza Indonesia
-            </p>
-            <p className="clock font-inter font-semibold text-center md:text-start text-2xl text-third mb-5">
-              06:00 PM
-            </p>
-            <h6 className="seat font-inter font-medium text-center md:text-start text-xl text-fourth mb-1">
-              Your Seat:
-            </h6>
-            <div className="inline-flex w-full justify-center md:justify-start gap-5">
-              <p className="font-inter font-semibold text-xl text-third">4.7</p>
-              <p className="font-inter font-semibold text-xl text-third">4.8</p>
-              <p className="font-inter font-semibold text-xl text-third">4.9</p>
-              <p className="font-inter font-semibold text-xl text-third">
-                4.10
+
+        {/* Map through tickets */}
+        {user?.tickets.map((item, idx: number) => (
+          <div
+            key={idx}
+            className="booked-film flex flex-col md:flex-row content-center mx-7 sm:mx-20 md:mx-10 lg:mx-20 pt-7 gap-5 md:gap-20"
+          >
+            <div className="poster mx-auto md:mx-0">
+              <Image
+                src={`${item.bookings[0].showtime.movie.posterUrl}`}
+                width={230}
+                height={270}
+                alt="Poster Films"
+                className="w-64 h-full object-cover rounded-2xl"
+              />
+            </div>
+            <div className="body-text mt-3">
+              <h5 className="font-inter font-semibold text-center md:text-start text-4xl text-third mb-2">
+                {item.bookings[0].showtime.movie.title}
+              </h5>
+              <p className="cinema font-inter font-medium text-center md:text-start text-xl text-fourth mb-1">
+                {item.bookings[0].showtime.studio.studioType.replace("_", " ")}
+                <span className="mx-3"> | </span>
+                {item.bookings[0].showtime.studio.cinema.name}
               </p>
+              <p className="clock font-inter font-semibold text-center md:text-start text-2xl text-third mb-5">
+                {format(item.bookings[0].showtime.startTime, "PP")} -{" "}
+                {format(item.bookings[0].showtime.startTime, "p")}
+              </p>
+              <h6 className="seat font-inter font-medium text-center md:text-start text-xl text-fourth mb-1">
+                Your Seat:
+              </h6>
+              <div className="inline-flex w-full justify-center md:justify-start gap-5">
+                {item.bookings.map((item, idx: number) => (
+                  <p
+                    key={idx}
+                    className="font-inter font-semibold text-xl text-third"
+                  >
+                    {`${item.row}.${item.column}`}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </section>
       {/* My Tickets */}
     </main>

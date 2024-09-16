@@ -3,6 +3,7 @@ import {
   createMovie,
   deleteMovie,
   getAllMovie,
+  movieWithReview,
   searchMovie,
   searchSingleMovie,
   updateMovieInfo,
@@ -18,6 +19,7 @@ router
   .get(getAllMovie)
   .post(verifyToken, adminGuard, upload.single("image"), createMovie);
 router.route("/search").get(searchMovie);
+router.route("/reviews").get(movieWithReview);
 router
   .route("/search/:id")
   .get(searchSingleMovie)

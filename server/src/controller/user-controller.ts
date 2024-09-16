@@ -72,19 +72,24 @@ export async function getSingleUser(
             expiredAt: { gt: new Date(Date.now()) },
           },
         },
-        // bookings: {
-        //   include: {
-        //     showtime: {
-        //       include: {
-        //         movie: {
-        //           include: {
-        //             reviews: true,
-        //           },
-        //         },
-        //       },
-        //     },
-        //   },
-        // },
+        tickets: {
+          include: {
+            bookings: {
+              include: {
+                showtime: {
+                  include: {
+                    studio: {
+                      include: {
+                        cinema: true,
+                      },
+                    },
+                    movie: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
 

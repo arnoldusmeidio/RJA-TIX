@@ -4,6 +4,7 @@ import { createMovieSchema } from "../schemas/movie-schema";
 import cloudinary from "../config/cloudinary";
 import fs from "fs/promises";
 import { ZodError } from "zod";
+import { RequestWithUserId } from "../types";
 
 const prisma = new PrismaClient();
 
@@ -71,6 +72,45 @@ export async function searchMovie(
         ],
       },
     });
+
+    return res.status(200).json({ data: movies });
+  } catch (error) {
+    next(error);
+  }
+}
+
+// Search Movie with review
+export async function movieWithReview(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const userId = (req as RequestWithUserId).user?.userId;
+
+    const movies = await prisma.movie.findMany({
+      where: {
+        showtimes: {
+          some: {
+            bookings: {
+              some: {
+                userId,
+              },
+            },
+          },
+        },
+      },
+      include: {
+        reviews: {
+          where: {
+            userId,
+          },
+        },
+      },
+      distinct: ["title"],
+    });
+
+    if (!movies) return res.status(404).json({ message: "Movies not found" });
 
     return res.status(200).json({ data: movies });
   } catch (error) {

@@ -28,6 +28,15 @@ export async function createTicket(
       totalPrice,
     } = parsedData;
 
+    const checkedBalance = await prisma.wallet.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (checkedBalance?.balance! < totalPrice)
+      return res.status(406).json({ message: "Balance not enough" });
+
     let totalPointUsed = 0;
     if (points) totalPointUsed = Number(points) / 10000;
 
@@ -147,19 +156,3 @@ export async function createTicket(
     }
   }
 }
-
-// export async function testAPI(req: Request, res: Response, next: NextFunction) {
-//   try {
-//     const userId = (req as RequestWithUserId).user?.userId;
-//     const points = await prisma.point.findMany({
-//       take: 5,
-//       where: {
-//         userId,
-//         paymentId: null,
-//       },
-//     });
-//     return res.status(200).json({ data: points });
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }

@@ -86,10 +86,10 @@ export default function page() {
         }
       } else {
         toast.success(data.message);
-        //   reset();
-        //   // router.push("/profile");
+        reset();
+        router.push("/profile");
       }
-      // router.refresh();
+      router.refresh();
     } catch (error) {
       console.error(error);
     }
