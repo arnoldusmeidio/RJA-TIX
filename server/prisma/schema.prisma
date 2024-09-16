@@ -232,6 +232,7 @@ model Payment {
   walletId       String?
   adminVoucherId String?
   adminVoucher   AdminVoucher? @relation(fields: [adminVoucherId], references: [id], onDelete: SetNull)
+  totalPayment   Int
 }
 
 enum StudioType {

@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 export const paymentSchema = z.object({
-  adminVoucherId: z.string({ message: "admin voucherId" }).optional(),
+  adminVoucherId: z.string().nullish(),
   points: z.string().nullish(),
-  studioId: z.number({ message: "studio id" }),
-  showtimeId: z.number({ message: "showitme id" }),
-  totalPrice: z.number({ message: "total price" }),
-  voucherId: z.number({ message: "voucher id" }).optional(),
+  studioId: z.number(),
+  showtimeId: z.number(),
+  totalPrice: z.number(),
+  voucherId: z.number().nullish(),
   seats: z.array(z.object({ column: z.number(), row: z.number() })),
 });

@@ -31,23 +31,37 @@ export async function createTicket(
     let totalPointUsed = 0;
     if (points) totalPointUsed = Number(points) / 10000;
 
+    let adminVoucherValidity = false;
+    const checkadminVoucher = await prisma.adminVoucher.findUnique({
+      where: {
+        id: String(adminVoucherId),
+        availability: { gt: 0 },
+      },
+    });
+
+    if (checkadminVoucher) adminVoucherValidity = true;
+
     const validAdminVoucher = {
-      ...(adminVoucherId !== ""
-        ? {
-            adminVoucher: {
-              connect: {
-                id: adminVoucherId,
-              },
-            },
-          }
+      ...(adminVoucherValidity
+        ? adminVoucherId
+          ? adminVoucherId !== ""
+            ? {
+                adminVoucher: {
+                  connect: {
+                    id: adminVoucherId,
+                  },
+                },
+              }
+            : {}
+          : {}
         : {}),
     };
 
     const validVoucher = {
-      ...(voucherId! > 0
+      ...(Number(voucherId)! > 0
         ? {
             voucher: {
-              connect: [{ id: voucherId }],
+              connect: [{ id: Number(voucherId) }],
             },
           }
         : {}),
@@ -90,12 +104,39 @@ export async function createTicket(
                 id: userId,
               },
             },
+            totalPayment: totalPrice,
             ...validVoucher,
             ...validAdminVoucher,
           },
         },
       },
     });
+
+    // Deducting Wallet
+    await prisma.wallet.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        balance: {
+          decrement: totalPrice,
+        },
+      },
+    });
+
+    // Deductiong AdminVoucher
+    if (adminVoucherValidity && adminVoucherId && adminVoucherId !== "") {
+      await prisma.adminVoucher.update({
+        where: {
+          id: adminVoucherId,
+        },
+        data: {
+          availability: {
+            decrement: 1,
+          },
+        },
+      });
+    }
 
     return res.status(200).json({ message: "Payment success" });
   } catch (error) {

@@ -55,7 +55,7 @@ export default function page() {
     //   voucherId,
     //   studioId,
     //   movieId,
-    //   showTimeId,
+    //   showtimeId,
     // });
     try {
       const response = await fetch(
