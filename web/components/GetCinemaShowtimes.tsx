@@ -134,16 +134,15 @@ export default function GetCinemaShowtimes({
                 Schedule
               </h4>
             </div>
+            <div>{cinemas?.length === 0 ? <div className="font-inter text-2xl font-semibold text-third text-center my-10">No Schedule</div> : null}</div>
+            <div className="md:flex gap-3 mx-7 sm:mx-20 md:mx-10 lg:mx-20 mt-5">
+              {cinemas?.map((cinema) => (
+                <CinemaList key={cinema.id} cinema={cinema} />
+              ))}
+            </div>
           </section>
           // ketika id yang ditampilkan ada
         )}
-      </div>
-
-      <div>{cinemas?.length === 0 ? <div className="font-inter text-2xl font-semibold text-third text-center my-10">No Schedule</div> : null}</div>
-      <div className="md:flex gap-3 mx-7 sm:mx-20 md:mx-10 lg:mx-20 mt-5">
-        {cinemas?.map((cinema) => (
-          <CinemaList key={cinema.id} cinema={cinema} />
-        ))}
       </div>
     </section>
   );

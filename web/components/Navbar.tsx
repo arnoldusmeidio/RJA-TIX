@@ -75,7 +75,7 @@ export default function Navbar() {
                     {/* Sidebar Phone */}
                 </div>
                 {/* Brand */}
-                <a className="btn btn-ghost hidden lg:block">
+                <Link href="/" className="btn btn-ghost hidden lg:block">
                     <Image
                         src="/Brand.png"
                         width={150}
@@ -84,7 +84,7 @@ export default function Navbar() {
                         className="w-full h-full"
                         loading="lazy"
                     />
-                </a>
+                </Link>
                 {/* Brand */}
             </div>
             <div className="navbar-center">
