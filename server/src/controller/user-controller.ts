@@ -66,7 +66,12 @@ export async function getSingleUser(
       },
       include: {
         wallet: true,
-        vouchers: true,
+        vouchers: {
+          where: {
+            paymentId: null,
+            expiredAt: { gt: new Date(Date.now()) },
+          },
+        },
         // bookings: {
         //   include: {
         //     showtime: {
@@ -92,6 +97,7 @@ export async function getSingleUser(
       where: {
         userId: id,
         paymentId: null,
+        expiredAt: { gt: new Date(Date.now()) },
       },
     });
 
@@ -99,7 +105,6 @@ export async function getSingleUser(
       return acc + currVal.points;
     }, 0);
 
-    console.log(totalPoints);
     return res.status(200).json({ data: { ...user, totalPoints } });
   } catch (error) {
     next(error);

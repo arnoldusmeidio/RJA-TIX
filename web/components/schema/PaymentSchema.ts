@@ -1,9 +1,17 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const paymentSchema = z.object({
-  userId: z.string(),
-  studioId: z.number(),
-  showtimeId: z.number(),
-  price: z.number(),
-  seats: z.array(z.object({ column: z.number(), row: z.number() })),
+export const paymentSchema = z.object({
+  voucher: z.number().or(z.nan()).default(Number.NaN),
+  points: z.number().or(z.nan()).default(Number.NaN),
+  adminVoucherId: z.string().nullish(),
+  adminVoucherDiscount: z.number().nullish(),
 });
+
+export type FormTypeCreatePayment = z.infer<typeof paymentSchema>;
+
+export const useFormCreatePayment = () =>
+  useForm<FormTypeCreatePayment>({
+    resolver: zodResolver(paymentSchema),
+  });

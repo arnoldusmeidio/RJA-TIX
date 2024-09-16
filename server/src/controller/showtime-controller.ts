@@ -103,7 +103,7 @@ export async function searchBookedShowtimes(
   }
 }
 
-// Search Shotime with seats info
+// Search Showtime with seats info
 export async function searchSeatShowtimes(
   req: Request,
   res: Response,
@@ -118,6 +118,7 @@ export async function searchSeatShowtimes(
       },
       include: {
         studio: { include: { seats: true } },
+        movie: true,
       },
     });
 
@@ -141,20 +142,14 @@ export async function searchSeatShowtimes(
       }) || []
     );
 
-    const ticketPrice = await prisma.showtime.findUnique({
-      where: {
-        id: Number(id),
-      },
-      include: {
-        studio: true,
-      },
-    });
-
     return res.status(200).json({
       data: {
-        studioId: showtime.studioId,
+        studioId: showtime?.studioId,
         seats: seatsWithBookingInfo,
-        price: ticketPrice,
+        price: showtime?.studio.price,
+        movieId: showtime?.movieId,
+        movieTitle: showtime.movie.title,
+        studioType: showtime.studio.studioType,
       },
     });
   } catch (error) {

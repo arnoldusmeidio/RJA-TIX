@@ -134,7 +134,13 @@ export default function GetCinemaShowtimes({
                 Schedule
               </h4>
             </div>
-            <div>{cinemas?.length === 0 ? <div className="font-inter text-2xl font-semibold text-third text-center my-10">No Schedule</div> : null}</div>
+            <div>
+              {cinemas?.length === 0 ? (
+                <div className="font-inter text-2xl font-semibold text-third text-center my-10">
+                  No Schedule
+                </div>
+              ) : null}
+            </div>
             <div className="md:flex gap-3 mx-7 sm:mx-20 md:mx-10 lg:mx-20 mt-5">
               {cinemas?.map((cinema) => (
                 <CinemaList key={cinema.id} cinema={cinema} />
@@ -158,11 +164,11 @@ const CinemaList = ({ cinema }: { cinema: Cinema }) => {
         <h6 className="rated-film text-center md:text-start text-2xl mt-7 font-inter font-medium text-fourth capitalize">
           Schedule:
         </h6>
-        <p className="rated-film text-center md:text-start font-medium text-fourth capitalize mb-14">
+        <div className="rated-film text-center md:text-start font-medium text-fourth capitalize mb-14">
           {cinema.studios.map((studio) => (
             <StudioList key={studio.id} studio={studio} />
           ))}
-        </p>
+        </div>
       </div>
     </section>
   );
