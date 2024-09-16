@@ -9,10 +9,12 @@ import {
   updateUserInfoParams,
 } from "../controller/user-controller";
 import { adminGuard } from "../middlewares/auth-middleware";
+// import { testAPI } from "../controller/ticket-controller";
 
 const router = express.Router();
 
 router.route("/").get(getSingleUser).put(updateUserInfo).delete(deleteUser);
+// router.route("/points").get(testAPI);
 
 router.route("/search").get(adminGuard, getAllUser);
 router

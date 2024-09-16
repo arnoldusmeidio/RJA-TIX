@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export const paymentSchema = z.object({
-  voucher: z.number().or(z.nan()).default(Number.NaN),
-  points: z.number().or(z.nan()).default(Number.NaN),
+  voucher: z.string().nullish(),
+  points: z.string().nullish(),
   adminVoucherId: z.string().nullish(),
   adminVoucherDiscount: z.number().nullish(),
 });

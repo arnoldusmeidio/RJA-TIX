@@ -16,7 +16,6 @@ export default function LoginForm() {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormTypeLogin> = async (formData) => {
-    console.log(formData);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/auth/login`,
@@ -38,6 +37,7 @@ export default function LoginForm() {
         }
       } else {
         toast.success(data.message);
+        reset();
         router.push("/");
       }
       router.refresh();

@@ -70,6 +70,7 @@ export interface BookingData {
   price: number;
   studioId: number;
   studioType: string;
+  showtimeId: number;
 }
 
 export interface AdminVoucher {

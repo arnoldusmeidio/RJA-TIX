@@ -9,6 +9,7 @@ export default function RegisterForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useFormRegister();
 
@@ -37,6 +38,7 @@ export default function RegisterForm() {
         }
       } else {
         toast.success(data.message);
+        reset();
         router.push("/login");
       }
 

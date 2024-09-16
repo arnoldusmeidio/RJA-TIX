@@ -10,6 +10,7 @@ import userRouter from "./routes/user-route";
 import cinemaRouter from "./routes/cinema-route";
 import showtimeRouter from "./routes/showtime-route";
 import adminVoucherRouter from "./routes/admin-voucher-route";
+import ticketRouter from "./routes/ticket-route";
 
 import { notFoundMiddleware } from "./middlewares/not-found-middleware";
 import { error } from "./middlewares/error-middleware";
@@ -43,6 +44,7 @@ app.use("/api/v1/vouchers", adminVoucherRouter);
 
 // User Route
 app.use("/api/v1/users", verifyToken, userRouter);
+app.use("/api/v1/tickets", verifyToken, ticketRouter);
 
 // Admin & Manager Route
 app.use("/api/v1/admins", verifyToken, adminGuard, adminRouter);

@@ -114,6 +114,7 @@ export default function SelectSeats({ params }: { params: { id: string } }) {
                     movieId: seat?.movieId,
                     movieTitle: seat?.movieTitle,
                     studioType: seat?.studioType,
+                    showtimeId: Number(params.id),
                   }))
                 ),
               },
