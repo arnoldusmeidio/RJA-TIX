@@ -55,6 +55,9 @@ export async function searchMovie(
 ) {
   try {
     const { text } = req.query;
+    if (text?.length === 0) {
+      return res.status(404).json({ message: "Movies not found" });
+    }
 
     const movies = await prisma.movie.findMany({
       where: {

@@ -46,8 +46,6 @@ export default function GetCinemaShowtimes({
     getCinemas();
   }, []);
 
-  console.log(cinemas);
-
   return (
     <section className="film">
       <div>

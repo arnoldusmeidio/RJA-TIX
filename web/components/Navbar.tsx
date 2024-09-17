@@ -12,6 +12,8 @@ import { BiSolidCameraMovie } from "react-icons/bi";
 import { RiDiscountPercentLine } from "react-icons/ri";
 import { IoIosHelpCircle } from "react-icons/io";
 import { IoWalletOutline } from "react-icons/io5";
+import Searchbar from "./Searchbar";
+import AccountBalance from "./AccountBalance";
 
 export default function Navbar() {
   return (
@@ -98,7 +100,8 @@ export default function Navbar() {
                 <div className="collapse-content shadow-2xl rounded-2xl">
                   <h4 className="text-base font-normal">Your balance:</h4>
                   <span className="text-base font-normal">
-                    Rp.<span className="ms-2 text-third">50.000,00</span>
+                    Rp.
+                    <AccountBalance />
                   </span>
                 </div>
               </div>
@@ -163,7 +166,7 @@ export default function Navbar() {
         {/* Brand */}
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost lg:hidden">
+        <Link href="/" className="btn btn-ghost lg:hidden">
           <Image
             src="/Brand.png"
             width={150}
@@ -172,7 +175,7 @@ export default function Navbar() {
             className="w-full h-full"
             loading="lazy"
           />
-        </a>
+        </Link>
         <ul className="hidden lg:flex menu menu-horizontal px-1 gap-12 font-lato text-base text-fourth">
           <Link
             href="/"
@@ -208,95 +211,8 @@ export default function Navbar() {
       </div>
       <div className="navbar-end">
         {/* Search */}
-        <div className="dropdown dropdown-end">
-          <label
-            htmlFor="search-modal"
-            role="button"
-            tabIndex={0}
-            className="btn btn-ghost btn-circle"
-          >
-            <div className="indicator">
-              <IoMdSearch className="h-5 w-5" />
-            </div>
-          </label>
-          {/* Modal */}
-          <input type="checkbox" id="search-modal" className="modal-toggle" />
-          <div
-            className="modal animate__animated animate__fadeInUpBig"
-            role="dialog"
-          >
-            <div className="modal-box w-11/12 max-w-2xl h-5/6 max-h-full">
-              <div className="form-control">
-                <span className="label-text font-medium font-lato text-fourth tracking-wide pb-2">
-                  What movie would you like to watch?
-                </span>
-                <div className="search flex gap-3">
-                  <input
-                    type="text"
-                    placeholder="Search Here"
-                    className="input input-bordered font-montserrat rounded-xl w-full placeholder:hover:translate-x-1 placeholder:transition-all placeholder:ease-in-out"
-                  />
-                  <button className="btn bg-primary border-0 w-12 hover:text-third">
-                    <IoMdSearch className="h-full w-full" />
-                  </button>
-                </div>
-              </div>
-              <div className="divider"></div>
-              <div className="recent">
-                <span className="label-text text-base">Recent</span>
-                <div className="grid grid-flow-row gap-4">
-                  <div className="card bg-base-100 w-full shadow-xl hover:shadow-2xl transition-all ease-in">
-                    <div className="card-body max-h-full">
-                      <div className="heading sm:inline-flex">
-                        <h3 className="card-title text-base">
-                          The Little Lost Dragon
-                        </h3>
-                        <h4 className="text-base ms-auto">
-                          <span className="badge badge-base badge-ghost bg-third text-primary font-medium">
-                            G
-                          </span>
-                        </h4>
-                      </div>
-                      <p className="text-justify font-montserrat">
-                        A heartwarming tale about a tiny dragon who gets
-                        separated from his family during a magical storm.
-                      </p>
-                      <button className="btn hover:text-third mt-auto">
-                        See Movies
-                      </button>
-                    </div>
-                  </div>
-                  <div className="card bg-base-100 w-full shadow-xl hover:shadow-2xl transition-all ease-in">
-                    <div className="card-body max-h-full">
-                      <div className="heading sm:inline-flex">
-                        <h3 className="card-title text-base">
-                          The Midnight Mystery
-                        </h3>
-                        <h4 className="text-base ms-auto">
-                          <span className="badge badge-base badge-ghost bg-third text-primary font-medium">
-                            PG-13
-                          </span>
-                        </h4>
-                      </div>
-                      <p className="text-justify font-montserrat">
-                        A group of friends discover a mysterious old book that
-                        transports them to a magical world filled with hidden
-                        treasures and puzzling riddles.
-                      </p>
-                      <button className="btn hover:text-third mt-auto">
-                        See Movies
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <label className="modal-backdrop" htmlFor="search-modal">
-              Close
-            </label>
-          </div>
-          {/* Modal */}
-        </div>
+        <Searchbar />
+
         {/* Search */}
 
         {/* Account balance */}
@@ -313,7 +229,8 @@ export default function Navbar() {
             <div className="card-body">
               <span className="text-lg font-bold">Your balance</span>
               <span className="text-sm font-normal">
-                Rp.<span className="ms-2 text-third">50.000,00</span>
+                Rp.
+                <AccountBalance />
               </span>
             </div>
           </div>

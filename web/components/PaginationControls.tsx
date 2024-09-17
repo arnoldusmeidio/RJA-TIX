@@ -23,7 +23,11 @@ const PaginationControls: FC<PaginationControlsProps> = ({
   return (
     <div className="flex w-64 lg:w-72 xl:w-64 2xl:w-96 h-full mx-auto items-center justify-center mt-12">
       <button
-        className="bg-third py-1 rounded-lg text-black hover:bg-primary hover:text-fourth w-full text-center font-semibold transition-all ease-in-out"
+        className={`${
+          !hasPrevPage
+            ? "bg-secondary"
+            : "bg-third hover:bg-primary hover:text-fourth"
+        } py-1 rounded-lg text-black  w-full text-center font-semibold transition-all ease-in-out`}
         disabled={!hasPrevPage}
         onClick={() => {
           router.push(
@@ -41,7 +45,11 @@ const PaginationControls: FC<PaginationControlsProps> = ({
       </div>
 
       <button
-        className="bg-third py-1 rounded-lg text-black hover:bg-primary hover:text-fourth w-full text-center font-semibold transition-all ease-in-out"
+        className={`${
+          !hasNextPage
+            ? "bg-secondary"
+            : "bg-third hover:bg-primary hover:text-fourth"
+        } py-1 rounded-lg text-black  w-full text-center font-semibold transition-all ease-in-out`}
         disabled={!hasNextPage}
         onClick={() => {
           router.push(
