@@ -28,6 +28,8 @@ export default function Home() {
     getMovies();
   }, []);
 
+  const entries = movies.slice(0, 4);
+
   return (
     <main>
       {/* Carousel */}
@@ -110,7 +112,7 @@ export default function Home() {
           </h6>
         </div>
         <div className="movies-section grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-5 md:mx-10 lg:mx-20 gap-5 lg:gap-20 pt-5">
-          {movies?.map((item, idx: number) => (
+          {entries?.map((item, idx: number) => (
             <div
               key={idx}
               className="card bg-secondary w-64 lg:w-72 xl:w-64 2xl:w-72 h-full mx-auto shadow-xl"
@@ -137,7 +139,8 @@ export default function Home() {
                 <div className="duration-price inline-flex text-sm mt-auto">
                   <p className="price">{item.director}</p>
                   <p className="text-fourth text-end font-inter font-semibold mb-3">
-                    <span className="text-third me-2">|</span> {item.rated}
+                    <span className="text-third me-2">|</span>{" "}
+                    {item.rated.replace("_", " ")}
                   </p>
                 </div>
                 <div className="card-actions justify-end">
@@ -168,7 +171,7 @@ export default function Home() {
               loading="lazy"
             />
             <Link
-              href="#"
+              href="/register"
               className="absolute text-3xl font-semibold font-inter text-fourth text-center max-w-64"
             >
               Join now and enjoy exclusive perks!
@@ -184,7 +187,7 @@ export default function Home() {
               loading="lazy"
             />
             <Link
-              href="#"
+              href="/cinemas"
               className="absolute text-3xl font-semibold font-inter text-fourth text-center max-w-64"
             >
               Our Cinemas
@@ -200,7 +203,7 @@ export default function Home() {
               loading="lazy"
             />
             <Link
-              href="#"
+              href="/offers"
               className="absolute text-3xl font-semibold font-inter text-fourth text-center max-w-64"
             >
               Our Offers

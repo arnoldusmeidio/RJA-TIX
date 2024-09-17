@@ -117,7 +117,7 @@ export default function GetCinemaShowtimes({
                       |
                     </h5>
                     <h5 className="rated-film text-center lg:text-start text-3xl font-inter font-medium text-fourth uppercase">
-                      {movie?.rated}
+                      {movie?.rated.replace("_", " ")}
                     </h5>
                   </div>
                   <h5 className="text-center lg:text-start text-2xl mt-7 font-inter font-medium text-fourth">
@@ -191,7 +191,7 @@ const StudioList = ({ studio }: { studio: Studios }) => {
               className="text-base font-montserrat hover:text-third"
             >
               {/* Link ini href-nya bisa dibuat modal pop-up bisa dibuat page baru */}
-              <Link href={`/movies/booking/${showtime.id}`}>
+              <Link href={`/movies/${showtime.id}/booking`}>
                 {format(showtime.startTime.toString(), "PP")} -{" "}
                 {format(showtime.startTime.toString(), "p")}
               </Link>

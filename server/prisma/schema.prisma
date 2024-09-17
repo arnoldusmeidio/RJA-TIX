@@ -168,12 +168,14 @@ model Review {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userId  String?
+  userId  String
   movieId Int
-  movie   Movie   @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  movie   Movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  user    User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
   review  String
   star    Int
+
+  @@unique([userId, movieId], name: "uniqueReview")
 }
 
 model Showtime {

@@ -50,9 +50,9 @@ export const CreateCinema = () => {
       } else {
         toast.success(data.message);
         reset();
-        // router.push("/test-page");
+        router.push("/high-admin");
+        router.refresh();
       }
-      router.refresh();
     } catch (error) {
       console.error(error);
     }

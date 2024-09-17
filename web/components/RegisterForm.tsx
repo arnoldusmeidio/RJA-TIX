@@ -40,9 +40,8 @@ export default function RegisterForm() {
         toast.success(data.message);
         reset();
         router.push("/login");
+        router.refresh();
       }
-
-      router.refresh();
     } catch (error) {
       console.error(error);
     }

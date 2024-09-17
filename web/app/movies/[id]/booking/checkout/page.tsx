@@ -48,15 +48,6 @@ export default function page() {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormTypeCreatePayment> = async (formData) => {
-    // console.log({
-    //   ...formData,
-    //   totalPrice,
-    //   seats,
-    //   voucherId,
-    //   studioId,
-    //   movieId,
-    //   showtimeId,
-    // });
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/tickets`,
@@ -86,10 +77,10 @@ export default function page() {
         }
       } else {
         toast.success(data.message);
-        //   reset();
-        //   // router.push("/profile");
+        reset();
+        router.push("/user/profile");
       }
-      // router.refresh();
+      router.refresh();
     } catch (error) {
       console.error(error);
     }

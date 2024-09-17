@@ -48,7 +48,7 @@ export default function CreateShowtime() {
       } else {
         toast.success(data.message);
         reset();
-        // router.push("/test-page");
+        router.push("/test-manage-cinema");
       }
       router.refresh();
     } catch (error) {
