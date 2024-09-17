@@ -24,5 +24,18 @@ export default function AccountBalance() {
     getUser();
   }, []);
 
-  return <span className="ms-2 text-third">{user?.wallet.balance},00</span>;
+  return (
+    <>
+      {user ? (
+        <span className="text-base font-normal">
+          Rp.
+          <span className="ms-2 text-third">{user.wallet.balance || 0},00</span>
+        </span>
+      ) : (
+        <span className="text-base font-normal">
+          <span className="ms-2 text-third">Please Login</span>
+        </span>
+      )}
+    </>
+  );
 }

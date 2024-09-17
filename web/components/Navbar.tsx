@@ -99,10 +99,7 @@ export default function Navbar() {
                 </div>
                 <div className="collapse-content shadow-2xl rounded-2xl">
                   <h4 className="text-base font-normal">Your balance:</h4>
-                  <span className="text-base font-normal">
-                    Rp.
-                    <AccountBalance />
-                  </span>
+                  <AccountBalance />
                 </div>
               </div>
               {/* Cart Phone */}
@@ -228,10 +225,8 @@ export default function Navbar() {
           >
             <div className="card-body">
               <span className="text-lg font-bold">Your balance</span>
-              <span className="text-sm font-normal">
-                Rp.
-                <AccountBalance />
-              </span>
+
+              <AccountBalance />
             </div>
           </div>
         </div>

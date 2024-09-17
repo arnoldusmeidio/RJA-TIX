@@ -52,8 +52,8 @@ export default function ReviewModal({ movieData, idx }: Props) {
         }
       } else {
         toast.success(data.message);
+        router.refresh();
       }
-      router.refresh();
     } catch (error) {
       console.error(error);
     }

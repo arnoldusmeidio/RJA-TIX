@@ -9,7 +9,7 @@ import { useDebounce } from "use-debounce";
 function Searchbar() {
   const [query, setQuery] = useState<string>("");
   const [results, setResults] = useState<Movie[]>([]);
-  const [debouncedValue] = useDebounce(query, 1000);
+  const [debouncedValue] = useDebounce(query, 500);
 
   useEffect(() => {
     async function getResults() {
@@ -54,7 +54,7 @@ function Searchbar() {
                 onChange={(e) => setQuery(e.target.value)}
                 value={query}
                 type="text"
-                placeholder="Search Here"
+                placeholder="Search Movie or Director Name"
                 className="input input-bordered font-montserrat rounded-xl w-full placeholder:hover:translate-x-1 placeholder:transition-all placeholder:ease-in-out"
               />
               <button className="btn bg-primary border-0 w-12 hover:text-third">

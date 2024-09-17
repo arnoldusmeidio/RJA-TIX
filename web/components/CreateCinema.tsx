@@ -51,8 +51,8 @@ export const CreateCinema = () => {
         toast.success(data.message);
         reset();
         router.push("/high-admin");
+        router.refresh();
       }
-      router.refresh();
     } catch (error) {
       console.error(error);
     }

@@ -20,6 +20,14 @@ async function inputData() {
       manager: {
         create: {},
       },
+      referral: {
+        create: {},
+      },
+      wallet: {
+        create: {
+          balance: 0,
+        },
+      },
     },
     {
       id: "admin-000000001",
@@ -28,6 +36,14 @@ async function inputData() {
       password: hashedPassword,
       admin: {
         create: {},
+      },
+      referral: {
+        create: {},
+      },
+      wallet: {
+        create: {
+          balance: 0,
+        },
       },
     },
     {
@@ -38,6 +54,14 @@ async function inputData() {
       manager: {
         create: {},
       },
+      referral: {
+        create: {},
+      },
+      wallet: {
+        create: {
+          balance: 0,
+        },
+      },
     },
     {
       id: "manager-000000002",
@@ -47,6 +71,14 @@ async function inputData() {
       manager: {
         create: {},
       },
+      referral: {
+        create: {},
+      },
+      wallet: {
+        create: {
+          balance: 0,
+        },
+      },
     },
     {
       id: "manager-000000003",
@@ -55,6 +87,14 @@ async function inputData() {
       password: hashedPassword,
       manager: {
         create: {},
+      },
+      referral: {
+        create: {},
+      },
+      wallet: {
+        create: {
+          balance: 0,
+        },
       },
     },
     {
@@ -524,7 +564,7 @@ async function inputData() {
     {
       movie: {
         connect: {
-          id: 1,
+          id: 2,
         },
       },
       studio: {
@@ -537,7 +577,7 @@ async function inputData() {
     {
       movie: {
         connect: {
-          id: 1,
+          id: 3,
         },
       },
       studio: {
@@ -563,7 +603,7 @@ async function inputData() {
     {
       movie: {
         connect: {
-          id: 1,
+          id: 4,
         },
       },
       studio: {
@@ -576,7 +616,7 @@ async function inputData() {
     {
       movie: {
         connect: {
-          id: 1,
+          id: 5,
         },
       },
       studio: {
@@ -589,7 +629,7 @@ async function inputData() {
     {
       movie: {
         connect: {
-          id: 1,
+          id: 6,
         },
       },
       studio: {
@@ -602,7 +642,7 @@ async function inputData() {
     {
       movie: {
         connect: {
-          id: 1,
+          id: 6,
         },
       },
       studio: {
@@ -615,7 +655,7 @@ async function inputData() {
     {
       movie: {
         connect: {
-          id: 2,
+          id: 7,
         },
       },
       studio: {
@@ -628,7 +668,7 @@ async function inputData() {
     {
       movie: {
         connect: {
-          id: 2,
+          id: 8,
         },
       },
       studio: {
