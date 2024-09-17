@@ -1,13 +1,18 @@
 "use client";
 
 import Carousels from "@/components/Carousels";
+import PaginationControls from "@/components/PaginationControls";
 import { Movie } from "@/types";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-export default function Movies() {
+export default function Movies({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
@@ -28,6 +33,15 @@ export default function Movies() {
     getMovies();
   }, []);
 
+  const page = searchParams["page"] ?? "1";
+  const per_page = searchParams["per_page"] ?? "8";
+
+  // per page will show 8 movies
+  const start = (Number(page) - 1) * Number(per_page); // 0, 8, 16 ...
+  const end = start + Number(per_page); // 8, 16, 24 ...
+
+  const entries = movies.slice(start, end);
+
   return (
     <main>
       {/* Carousels */}
@@ -35,7 +49,10 @@ export default function Movies() {
       {/* Carousels */}
 
       {/* Movie this Week */}
-      <section className="featured-movies bg-primary w-full h-full py-10">
+      <section
+        className="featured-movies bg-primary w-full h-full py-10"
+        id="movie-section"
+      >
         <div className="head sm:flex content-center mx-7 sm:mx-20 md:mx-10 lg:mx-20 mb-2 pb-3 border-b-4 border-third rounded">
           <h4 className="font-lato font-medium text-center sm:text-start text-3xl">
             <span className="text-third">Movies</span> This Week
@@ -212,7 +229,7 @@ export default function Movies() {
           </div>
         </div>
         <div className="movies-section grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-5 md:mx-10 lg:mx-20 gap-5 lg:gap-20 pt-5">
-          {movies?.map((item, idx: number) => (
+          {entries?.map((item, idx: number) => (
             <div
               key={idx}
               className="card bg-secondary w-64 lg:w-72 xl:w-64 2xl:w-72 h-full mx-auto shadow-xl"
@@ -255,6 +272,13 @@ export default function Movies() {
             </div>
           ))}
         </div>
+        {movies.length !== 0 ? (
+          <PaginationControls
+            hasNextPage={end < movies.length}
+            hasPrevPage={start > 0}
+            dataLength={movies.length}
+          />
+        ) : null}
       </section>
       {/* Movie this Week */}
 

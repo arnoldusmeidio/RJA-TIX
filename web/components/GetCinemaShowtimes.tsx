@@ -119,7 +119,7 @@ export default function GetCinemaShowtimes({
                       |
                     </h5>
                     <h5 className="rated-film text-center lg:text-start text-3xl font-inter font-medium text-fourth uppercase">
-                      {movie?.rated}
+                      {movie?.rated.replace("_", " ")}
                     </h5>
                   </div>
                   <h5 className="text-center lg:text-start text-2xl mt-7 font-inter font-medium text-fourth">

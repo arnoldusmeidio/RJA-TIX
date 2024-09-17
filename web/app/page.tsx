@@ -28,6 +28,8 @@ export default function Home() {
     getMovies();
   }, []);
 
+  const entries = movies.slice(0, 4);
+
   return (
     <main>
       {/* Carousel */}
@@ -110,7 +112,7 @@ export default function Home() {
           </h6>
         </div>
         <div className="movies-section grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-5 md:mx-10 lg:mx-20 gap-5 lg:gap-20 pt-5">
-          {movies?.map((item, idx: number) => (
+          {entries?.map((item, idx: number) => (
             <div
               key={idx}
               className="card bg-secondary w-64 lg:w-72 xl:w-64 2xl:w-72 h-full mx-auto shadow-xl"
