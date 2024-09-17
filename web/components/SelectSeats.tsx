@@ -47,9 +47,12 @@ export default function SelectSeats({ params }: { params: { id: string } }) {
   } = useSeatSelection();
 
   return (
-    <div>
+    <div className="h-full py-4">
       {/* Rendering row dan kolom kursi */}
       <div>
+        <div className="bg-red-500 p-1 rounded mb-5">
+          <h6 className="font-inter text-fourth font-semibold uppercase text-center">Screen</h6>
+        </div>
         {Object.entries(rows).map(([rowNumber, seatsInRow]) => (
           <div className="flex gap-2 mb-2" key={rowNumber}>
             {seatsInRow.map((seat) => (
@@ -96,8 +99,8 @@ export default function SelectSeats({ params }: { params: { id: string } }) {
       </div>
 
       {/* Reset button untuk menghilangkan semua pilihan kursi */}
-      <div className="flex justify-between">
-        <button type="button" onClick={() => resetSeats()}>
+      <div className="flex gap-3 mt-7">
+        <button className="btn btn-sm bg-third font-lato font-semibold text-primary hover:text-third hover:bg-primary" type="button" onClick={() => resetSeats()}>
           Reset
         </button>
         {selectedSeats.length ? (
@@ -120,7 +123,7 @@ export default function SelectSeats({ params }: { params: { id: string } }) {
               },
             }}
           >
-            <button>Confirm</button>
+            <button className="btn btn-sm bg-secondary font-lato font-semibold text-third hover:text-primary hover:bg-third">Confirm</button>
           </Link>
         ) : null}
       </div>

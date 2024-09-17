@@ -158,7 +158,7 @@ export default function RegisterForm() {
         disabled={isSubmitting}
         type="submit"
         form="registerForm"
-        className="btn w-full lg:w-4/5 bg-third hover:bg-secondary mt-20 font-semibold text-base text-fifth hover:text-white"
+        className="btn w-full lg:w-4/5 bg-third hover:bg-secondary mt-20 font-semibold text-base text-primary hover:text-white"
       >
         {isSubmitting ? "Loading..." : "Register Account"}
       </button>

@@ -182,7 +182,7 @@ export default function page() {
       (initialPrice * Number(voucherValue)) / 100 -
       ((initialPrice - (initialPrice * Number(voucherValue)) / 100) *
         Number(adminVoucherDiscount)) /
-        100;
+      100;
   } else if (Number(point)) {
     totalPrice = initialPrice - Number(point);
   } else if (Number(voucherValue)) {
@@ -194,161 +194,163 @@ export default function page() {
 
   return (
     <FormProvider {...methods}>
-      <div className="flex flex-col gap-2">
-        <div>Confirm Payment</div>
-        <div>Seat Payment:</div>
-
-        {/* nampilin harga x jmlh kursi */}
-        <div>{`Rp.${bookingData[0].price},00 x ${bookingData.length}`}</div>
-
-        <div>Selection Seat:</div>
-        <div className="flex gap-5">
-          {bookingData.map(({ row, column }) => (
-            <div key={`${row}-${column}`}>{`${row}.${column}`}</div>
-          ))}
-        </div>
-
-        {/* Form point dan voucher */}
-        <form
-          id="payment"
-          className="flex flex-col gap-2"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <label htmlFor="points">Points</label>
-          <select defaultValue="" id="points" {...methods.register("points")}>
-            {/* logic untuk cek punya point atau tdk*/}
-            {user?.totalPoints === 0 ? (
-              <option value="" disabled hidden>
-                You have no points
-              </option>
-            ) : (
-              <option value="" disabled hidden>
-                Select amount of points to use
-              </option>
-            )}
-
-            {pointsArr.map((point, idx) => (
-              <option key={idx} value={point}>
-                {`${point} Points`}
-              </option>
-            ))}
-          </select>
-          {errors.points && (
-            <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
-              {errors.points.message}
-            </div>
-          )}
-          <button type="button" onClick={() => resetField("points")}>
-            Remove points
-          </button>
-
-          <label htmlFor="voucher">Voucher</label>
-          <select defaultValue="" id="voucher" {...methods.register("voucher")}>
-            {/* logic untuk cek punya voucher atau tdk*/}
-            {user?.vouchers.length === 0 ? (
-              <option value="" disabled hidden>
-                You have no vouchers
-              </option>
-            ) : (
-              <option value="" disabled hidden>
-                Select voucher
-              </option>
-            )}
-
-            {user?.vouchers.map((voucher) => (
-              <option
-                key={voucher.id}
-                value={`${voucher.id}-${voucher.discount}`}
+      <div className="card bg-secondary w-3/4 lg:w-2/4 mx-auto my-10">
+        <div className="card-body">
+          <h2 className="font-inter font-semibold gap-2">
+            <div className="text-4xl text-third">Confirm Payment</div>
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div className="point-voucher">
+              <form
+                id="payment"
+                className="flex flex-col gap-2"
+                onSubmit={handleSubmit(onSubmit)}
               >
-                {`Discount ${voucher.discount}%`}
-              </option>
-            ))}
-          </select>
-          {errors.voucher && (
-            <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
-              {errors.voucher.message}
+                <label className="font-inter font-medium text-fourth" htmlFor="points">Points</label>
+                <select className="select w-full bg-primary border-third focus:border-fourth border-2" defaultValue="" id="points" {...methods.register("points")}>
+                  {/* logic untuk cek punya point atau tdk*/}
+                  {user?.totalPoints === 0 ? (
+                    <option value="" disabled hidden>
+                      You have no points
+                    </option>
+                  ) : (
+                    <option value="" disabled hidden>
+                      Select amount of points to use
+                    </option>
+                  )}
+
+                  {pointsArr.map((point, idx) => (
+                    <option key={idx} value={point}>
+                      {`${point} Points`}
+                    </option>
+                  ))}
+                </select>
+                {errors.points && (
+                  <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+                    {errors.points.message}
+                  </div>
+                )}
+                <button className="btn btn-sm bg-third font-inter font-semibold text-primary hover:bg-primary hover:text-third w-full" type="button" onClick={() => resetField("points")}>
+                  Remove points
+                </button>
+
+                <label className="font-inter font-medium text-fourth" htmlFor="voucher">Voucher</label>
+                <select className="select w-full bg-primary border-third focus:border-fourth border-2" defaultValue="" id="voucher" {...methods.register("voucher")}>
+                  {/* logic untuk cek punya voucher atau tdk*/}
+                  {user?.vouchers.length === 0 ? (
+                    <option value="" disabled hidden>
+                      You have no vouchers
+                    </option>
+                  ) : (
+                    <option value="" disabled hidden>
+                      Select voucher
+                    </option>
+                  )}
+
+                  {user?.vouchers.map((voucher) => (
+                    <option
+                      key={voucher.id}
+                      value={`${voucher.id}-${voucher.discount}`}
+                    >
+                      {`Discount ${voucher.discount}%`}
+                    </option>
+                  ))}
+                </select>
+                {errors.voucher && (
+                  <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+                    {errors.voucher.message}
+                  </div>
+                )}
+                <button className="btn btn-sm bg-third font-inter font-semibold text-primary hover:bg-primary hover:text-third w-full" type="button" onClick={() => resetField("voucher")}>
+                  Remove voucher
+                </button>
+
+                <div className="flex flex-col">
+                  <label className="font-inter font-medium text-fourth mb-2" htmlFor="promoCode">PROMO CODE</label>
+                  <input
+                    type="text"
+                    id="promoCode"
+                    className="input input-bordered w-full bg-primary border-third focus:border-fourth border-2 mb-2"
+                    placeholder="Type the promo code"
+                    {...methods.register("adminVoucherId")}
+                  />
+
+                  {/* Tombol untuk cek ketersediaan kode promo*/}
+                  <button className="btn btn-sm bg-third font-inter font-semibold text-primary hover:bg-primary hover:text-third w-full" type="button" onClick={handleClick}>
+                    Check code
+                  </button>
+
+                  {/* Kalau ketemu vouchernya, akan keluar tombol "use discount"*/}
+                  {adminVouchers ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setValue(
+                          "adminVoucherDiscount",
+                          Number(adminVouchers.discount)
+                        )
+                      }
+                    >
+                      Use discount {adminVouchers.discount}%
+                    </button>
+                  ) : null}
+                  {errors.adminVoucherDiscount && (
+                    <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
+                      {errors.adminVoucherDiscount.message}
+                    </div>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-sm bg-primary font-inter font-semibold text-third hover:bg-third hover:text-primary w-full"
+                  onClick={() => {
+                    setValue("adminVoucherDiscount", Number(0));
+                    resetField("adminVoucherId");
+                    setAdminVouchers(undefined);
+                  }}
+                >
+                  Remove voucher
+                </button>
+              </form>
             </div>
-          )}
-          <button type="button" onClick={() => resetField("voucher")}>
-            Remove voucher
-          </button>
+            <div className="seat-payment bg-primary h-fit rounded-lg p-3">
+              <h4 className="font-inter font-semibold text-lg text-third">Seat Payment:</h4>
+              <div className="font-inter font-medium text-base">Rp.{bookingData[0].price},00 x <span className="text-third">{bookingData.length}</span></div>
 
-          <div className="flex flex-col">
-            <label htmlFor="promoCode">PROMO CODE</label>
-            <input
-              type="text"
-              id="promoCode"
-              placeholder="Type the promo code"
-              {...methods.register("adminVoucherId")}
-            />
-
-            {/* Tombol untuk cek ketersediaan kode promo*/}
-            <button type="button" onClick={handleClick}>
-              Check code
-            </button>
-
-            {/* Kalau ketemu vouchernya, akan keluar tombol "use discount"*/}
-            {adminVouchers ? (
-              <button
-                type="button"
-                onClick={() =>
-                  setValue(
-                    "adminVoucherDiscount",
-                    Number(adminVouchers.discount)
-                  )
-                }
-              >
-                Use discount {adminVouchers.discount}%
-              </button>
-            ) : null}
-            {errors.adminVoucherDiscount && (
-              <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
-                {errors.adminVoucherDiscount.message}
+              <div className="font-inter font-semibold mt-3">Selection Seat:</div>
+              <div className="flex gap-5">
+                {bookingData.map(({ row, column }) => (
+                  <div className="font-inter font-medium text-third" key={`${row}-${column}`}>{`${row}.${column}`}</div>
+                ))}
               </div>
-            )}
-          </div>
-          <button
-            type="button"
-            onClick={() => {
-              setValue("adminVoucherDiscount", Number(0));
-              resetField("adminVoucherId");
-              setAdminVouchers(undefined);
-            }}
-          >
-            Remove voucher
-          </button>
-        </form>
+              <div className="mt-3">
+                <div className="font-inter font-semibold">Total Payment</div>
+                {/* Tampilan harga kalau ada diskon yg valid, maka harga awal akan dicoret, dan harga diskon muncul di bawahnya*/}
+                <div
+                  className={`${Number(point) ||
+                    Number(voucherValue) ||
+                    Number(adminVoucherDiscount)
+                    ? "line-through"
+                    : null
+                    }`}
+                >Rp.{initialPrice},00</div>
 
-        <div className="grid grid-cols-2">
-          <div>
-            <div>Total Payment</div>
-            {/* Tampilan harga kalau ada diskon yg valid, maka harga awal akan dicoret, dan harga diskon muncul di bawahnya*/}
-            <div
-              className={`${
-                Number(point) ||
-                Number(voucherValue) ||
-                Number(adminVoucherDiscount)
-                  ? "line-through"
-                  : null
-              }`}
-            >{`Rp.${initialPrice},00`}</div>
-
-            {/* Kalau ada diskon, maka total diskon akan ditampilkan di sini */}
-            {Number(point) ||
-            Number(voucherValue) ||
-            Number(adminVoucherDiscount) ? (
-              <div>{`Rp.${totalPrice},00`}</div>
-            ) : null}
+                {/* Kalau ada diskon, maka total diskon akan ditampilkan di sini */}
+                {Number(point) ||
+                  Number(voucherValue) ||
+                  Number(adminVoucherDiscount) ? (
+                  <div>{`Rp.${totalPrice},00`}</div>
+                ) : null}
+              </div>
+              {Number(point) ? (
+                <div>{`You save ${initialPrice - totalPrice},00`}</div>
+              ) : null}
+              <button className="btn btn-sm w-full bg-third text-primary hover:bg-primary hover:border-secondary hover:border-2 hover:text-third font-inter font-semibold mt-2" type="submit" form="payment">
+                PAY
+              </button>
+            </div>
           </div>
-          {Number(point) ? (
-            <div>{`You save ${initialPrice - totalPrice},00`}</div>
-          ) : null}
         </div>
-
-        {/* Tombol Pay */}
-        <button type="submit" form="payment">
-          PAY
-        </button>
       </div>
     </FormProvider>
   );

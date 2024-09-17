@@ -114,7 +114,7 @@ export default function LoginForm() {
         disabled={isSubmitting}
         type="submit"
         form="loginForm"
-        className="btn w-full lg:w-4/5 bg-third hover:bg-secondary mt-5 font-semibold text-base text-fifth hover:text-white"
+        className="btn w-full lg:w-4/5 bg-third hover:bg-secondary mt-5 font-semibold text-base text-primary hover:text-white"
       >
         {isSubmitting ? "Loading..." : "Login"}
       </button>

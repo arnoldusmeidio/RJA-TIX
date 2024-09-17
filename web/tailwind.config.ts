@@ -13,8 +13,7 @@ const config: Config = {
         secondary: "#292929",
         third: "#FFC107",
         fourth: "#EEEEEE",
-        fifth: "#1E1E1E",
-        sixth: "#252525",
+        fifth: "#252525",
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],
