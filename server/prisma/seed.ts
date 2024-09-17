@@ -300,7 +300,7 @@ async function inputData() {
         "https://res.cloudinary.com/dowznhveo/image/upload/v1725350245/movie%20rja_tix/crime_1.jpg",
     },
     {
-      title: "No_Body",
+      title: "Nobody",
       director: "Ilya Naishuler",
       genre: "CRIME",
       rated: "NC_17",
