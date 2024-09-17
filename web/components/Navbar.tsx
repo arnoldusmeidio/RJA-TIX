@@ -13,7 +13,7 @@ import { RiDiscountPercentLine } from "react-icons/ri";
 import { IoIosHelpCircle } from "react-icons/io";
 import { IoWalletOutline } from "react-icons/io5";
 import Searchbar from "./Searchbar";
-import AccountBalance from "./AccountBalance";
+import { AccountBalanceIcon, AccountBalanceSidebar } from "./AccountBalance";
 
 export default function Navbar() {
   return (
@@ -92,16 +92,9 @@ export default function Navbar() {
                 Help
               </Link>
               {/* Cart Phone */}
-              <div className="collapse collapse-arrow bg-base-200">
-                <input type="checkbox" />
-                <div className="collapse-title text-xl font-medium">
-                  Account balance:
-                </div>
-                <div className="collapse-content shadow-2xl rounded-2xl">
-                  <h4 className="text-base font-normal">Your balance:</h4>
-                  <AccountBalance />
-                </div>
-              </div>
+
+              <AccountBalanceSidebar />
+
               {/* Cart Phone */}
 
               {/* Profile Phone */}
@@ -213,23 +206,8 @@ export default function Navbar() {
         {/* Search */}
 
         {/* Account balance */}
-        <div className="dropdown dropdown-end hidden sm:block">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <IoWalletOutline className="text-xl" />
-            </div>
-          </div>
-          <div
-            tabIndex={0}
-            className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow"
-          >
-            <div className="card-body">
-              <span className="text-lg font-bold">Your balance</span>
 
-              <AccountBalance />
-            </div>
-          </div>
-        </div>
+        <AccountBalanceIcon />
         {/* Account balance */}
 
         {/* Profiles Desktop & Tablet */}

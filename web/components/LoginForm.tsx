@@ -4,8 +4,11 @@ import { SubmitHandler } from "react-hook-form";
 import { useFormLogin, FormTypeLogin } from "./schema/AuthSchema";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useUserStore } from "@/stores/user-store";
 
 export default function LoginForm() {
+  const { user, update } = useUserStore();
+
   const {
     register,
     handleSubmit,
@@ -36,6 +39,8 @@ export default function LoginForm() {
           toast.error(data.errors[0].message);
         }
       } else {
+        update(data.data);
+        console.log(data.data);
         toast.success(data.message);
         reset();
         router.push("/");

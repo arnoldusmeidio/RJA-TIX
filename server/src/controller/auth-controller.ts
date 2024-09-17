@@ -98,6 +98,31 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       include: {
         manager: true,
         admin: true,
+        wallet: true,
+        vouchers: {
+          where: {
+            paymentId: null,
+            expiredAt: { gt: new Date(Date.now()) },
+          },
+        },
+        tickets: {
+          include: {
+            bookings: {
+              include: {
+                showtime: {
+                  include: {
+                    studio: {
+                      include: {
+                        cinema: true,
+                      },
+                    },
+                    movie: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
 
@@ -136,7 +161,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         secure: true, // turn off while check on thunderclient
       })
       .status(200)
-      .json({ message: "Login success" });
+      .json({ message: "Login success", data: user });
   } catch (error) {
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: error.errors });
