@@ -46,6 +46,8 @@ export default function GetCinemaShowtimes({
     getCinemas();
   }, []);
 
+  console.log(cinemas);
+
   return (
     <section className="film">
       <div>
@@ -191,7 +193,7 @@ const StudioList = ({ studio }: { studio: Studios }) => {
               className="text-base font-montserrat hover:text-third"
             >
               {/* Link ini href-nya bisa dibuat modal pop-up bisa dibuat page baru */}
-              <Link href={`/movies/booking/${showtime.id}`}>
+              <Link href={`/movies/${showtime.id}/booking`}>
                 {format(showtime.startTime.toString(), "PP")} -{" "}
                 {format(showtime.startTime.toString(), "p")}
               </Link>

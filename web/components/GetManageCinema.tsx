@@ -24,6 +24,7 @@ export default function GetManageCinema() {
     }
     getCinema();
   }, []);
+  console.log(myCinema);
 
   return (
     <div>

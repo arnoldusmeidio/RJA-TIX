@@ -137,7 +137,8 @@ export default function Home() {
                 <div className="duration-price inline-flex text-sm mt-auto">
                   <p className="price">{item.director}</p>
                   <p className="text-fourth text-end font-inter font-semibold mb-3">
-                    <span className="text-third me-2">|</span> {item.rated}
+                    <span className="text-third me-2">|</span>{" "}
+                    {item.rated.replace("_", " ")}
                   </p>
                 </div>
                 <div className="card-actions justify-end">
@@ -168,7 +169,7 @@ export default function Home() {
               loading="lazy"
             />
             <Link
-              href="#"
+              href="/register"
               className="absolute text-3xl font-semibold font-inter text-fourth text-center max-w-64"
             >
               Join now and enjoy exclusive perks!
@@ -184,7 +185,7 @@ export default function Home() {
               loading="lazy"
             />
             <Link
-              href="#"
+              href="/cinemas"
               className="absolute text-3xl font-semibold font-inter text-fourth text-center max-w-64"
             >
               Our Cinemas
@@ -200,7 +201,7 @@ export default function Home() {
               loading="lazy"
             />
             <Link
-              href="#"
+              href="/offers"
               className="absolute text-3xl font-semibold font-inter text-fourth text-center max-w-64"
             >
               Our Offers

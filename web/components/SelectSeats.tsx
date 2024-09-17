@@ -103,7 +103,7 @@ export default function SelectSeats({ params }: { params: { id: string } }) {
         {selectedSeats.length ? (
           <Link
             href={{
-              pathname: `/movies/booking/${params.id}/checkout`,
+              pathname: `/movies/${params.id}/booking/checkout`,
               query: {
                 data: JSON.stringify(
                   selectedSeats.map(({ row, column }) => ({

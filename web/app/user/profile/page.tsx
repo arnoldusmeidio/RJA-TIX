@@ -1,26 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Movie, User } from "@/types";
 import { format } from "date-fns";
-import { SubmitHandler, FormProvider } from "react-hook-form";
-import { useFormCreateReview } from "@/components/schema/Review.schema";
+
+import ReviewModal from "@/components/ReviewModal";
 
 export default function Profile() {
   const [user, setUser] = useState<User>();
   const [watchedMovies, setWatchedMovies] = useState<Movie[]>([]);
-
-  const methods = useFormCreateReview();
-  const {
-    handleSubmit,
-    reset,
-    watch,
-    resetField,
-    setValue,
-    formState: { errors, isSubmitting },
-  } = methods;
 
   useEffect(() => {
     async function getUser() {
@@ -55,8 +44,6 @@ export default function Profile() {
     }
     getWatchedMovie();
   }, []);
-
-  console.log(watchedMovies);
 
   return (
     <main>
@@ -109,7 +96,7 @@ export default function Profile() {
                 Your Wallet Balance:
               </h5>
               <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">
-                {`Rp.${user?.wallet.balance},00`}
+                {`Rp.${user?.wallet?.balance || "0"},00`}
               </h6>
             </div>
             <div className="point content-center ms-0">
@@ -144,114 +131,17 @@ export default function Profile() {
             </thead>
             <tbody>
               {/* Map watched movies */}
-              <FormProvider {...methods}>
-                {watchedMovies.map((item, idx: number) => (
-                  <tr key={idx} className="hover:bg-secondary text-center">
-                    <th>{idx + 1}</th>
-                    <td>{item.title}</td>
-                    <td>
-                      <form id={`review-${idx + 1}`}>
-                        <label
-                          htmlFor={`review-tab-${idx + 1}`}
-                          role="button"
-                          tabIndex={0}
-                          className="btn bg-third text-primary font-semibold hover:bg-primary hover:text-third transition-all ease-in-out"
-                        >
-                          Review
-                        </label>
-                        <input
-                          type="checkbox"
-                          id={`review-tab-${idx + 1}`}
-                          className="modal-toggle"
-                        />
-                        <div className="modal bg-secondary" role="dialog">
-                          <div className="modal-box h-3/3">
-                            <h3 className="text-center md:text-start text-2xl font-semibold text-third">
-                              {item.title}
-                            </h3>
-                            <div className="py-4">
-                              <p className="text-center md:text-start text-lg font-medium text-fourth font-lato mb-2">
-                                Rate Film
-                              </p>
-                              <input
-                                disabled={
-                                  item?.reviews
-                                    ? item?.reviews.length !== 0
-                                      ? true
-                                      : false
-                                    : false
-                                }
-                                id={`review-star-${idx + 1}`}
-                                {...methods.register("star")}
-                                type="range"
-                                min={1}
-                                max="5"
-                                step={1}
-                                className="range range-warning range-xs"
-                              />
-                              <div className="flex w-full justify-between px-2 text-xs">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                              </div>
-                            </div>
-                            <div className="form-control ">
-                              <label className="label">
-                                <span className="label-text">Message</span>
-                              </label>
-                              <textarea
-                                disabled={
-                                  item?.reviews
-                                    ? item?.reviews.length !== 0
-                                      ? true
-                                      : false
-                                    : false
-                                }
-                                id={`review-text-${idx + 1}`}
-                                {...methods.register("review")}
-                                rows={3}
-                                className="textarea textarea-bordered"
-                                // placeholder="Your review"
-                                placeholder={
-                                  item?.reviews
-                                    ? item?.reviews.length !== 0
-                                      ? item?.reviews[0]?.review
-                                      : "Your review"
-                                    : "Your review"
-                                }
-                              ></textarea>
-                            </div>
-                            <div className="modal-action pt-auto">
-                              <button
-                                disabled={
-                                  item?.reviews
-                                    ? item?.reviews.length !== 0
-                                      ? true
-                                      : false
-                                    : false
-                                }
-                                type="submit"
-                                form={`review-${idx + 1}`}
-                                className="btn bg-third text-primary hover:bg-primary hover:text-third"
-                              >
-                                Submit
-                              </button>
-                              <label
-                                htmlFor={`review-tab-${idx + 1}`}
-                                className="btn bg-primary text-third hover:bg-third hover:text-primary"
-                              >
-                                Close
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </td>
-                  </tr>
-                ))}
-              </FormProvider>
+
+              {watchedMovies?.map((item, idx: number) => (
+                <tr key={item.id} className="hover:bg-secondary text-center">
+                  <th>{idx + 1}</th>
+                  <td>{item.title}</td>
+                  <td>
+                    {/* Map modal untuk review */}
+                    <ReviewModal movieData={item} idx={idx} />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

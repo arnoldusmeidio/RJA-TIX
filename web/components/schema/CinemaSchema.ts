@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export enum StudioType {
+  sphere = "SPHERE",
   starium = "STARIUM",
-  private_box = "PRIVATE_BOX",
   four_dx = "FOUR_DX",
   gold_class = "GOLD_CLASS",
-  sphere = "SPHERE",
+  private_box = "PRIVATE_BOX",
 }
 
 export const studioTypeKeys = Object.keys;

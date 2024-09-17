@@ -239,7 +239,8 @@ export default function Movies() {
                 <div className="duration-price inline-flex text-sm mt-auto">
                   <p className="price">{item.director}</p>
                   <p className="text-fourth text-end font-inter font-semibold mb-3">
-                    <span className="text-third me-2">|</span> {item.rated}
+                    <span className="text-third me-2">|</span>{" "}
+                    {item.rated.replace("_", " ")}
                   </p>
                 </div>
                 <div className="card-actions justify-end">

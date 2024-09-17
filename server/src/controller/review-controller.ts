@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 
 // POST METHOD --
 // Create new Review
-export async function createTicket(
+export async function createReview(
   req: Request,
   res: Response,
   next: NextFunction
@@ -21,34 +21,29 @@ export async function createTicket(
     const parsedData = reviewSchema.parse(req.body);
     const { review, star, movieId } = parsedData;
 
-    if (userId) {
-      const existingReview = await prisma.review.findUnique({
-        where: {
-          uniqueReview: {
-            movieId,
-            userId: userId,
-          },
-        },
-      });
-
-      if (existingReview)
-        return res
-          .status(409)
-          .json({ message: "You already review this movie" });
-
-      await prisma.review.create({
-        data: {
-          review,
-          star,
+    const existingReview = await prisma.review.findUnique({
+      where: {
+        uniqueReview: {
           movieId,
-          userId,
+          userId: userId as string,
         },
-      });
+      },
+    });
 
-      return res.status(200).json({ message: "Review successfully submited" });
-    } else {
-      return res.status(401).json({ message: "Please log in" });
-    }
+    if (existingReview)
+      return res
+        .status(409)
+        .json({ message: "You already reviewed this movie" });
+
+    await prisma.review.create({
+      data: {
+        review,
+        star: Number(star),
+        movieId,
+        userId: userId as string,
+      },
+    });
+    return res.status(200).json({ message: "Review created" });
   } catch (error) {
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: error.errors });

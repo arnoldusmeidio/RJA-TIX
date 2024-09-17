@@ -21,7 +21,7 @@ router.route("/").get(getAllCinema).post(verifyToken, adminGuard, createCinema);
 router.route("/managers").get(verifyToken, managerGuard, getManageCinema);
 
 router.route("/search").get(searchCinema);
-router.route("/search/showtimes/:id").get(verifyToken, searchCinemaShowtimes);
+router.route("/search/showtimes/:id").get(searchCinemaShowtimes);
 router
   .route("/search/:id")
   .get(searchSingleCinema)
