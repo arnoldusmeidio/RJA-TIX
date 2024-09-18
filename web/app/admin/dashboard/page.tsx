@@ -1,4 +1,4 @@
-export default function LowAdmin() {
+export default function Admin() {
 
     return (
         <main className="bg-primary">
@@ -58,7 +58,7 @@ export default function LowAdmin() {
                         <div className="button-add-delete flex">
                             <button className="btn btn-sm bg-third text-primary hover:bg-primary hover:text-third font-inter font-semibold">Add Manager</button>
                             <button className="btn btn-sm ms-5 bg-third text-primary hover:bg-primary hover:text-third font-inter font-semibold">Select Manager</button>
-                            <button className="btn btn-sm ms-auto bg-primary text-third hover:bg-third hover:text-primary font-inter font-semibold">Delete Manager</button>
+                            {/* <button className="btn btn-sm ms-auto bg-primary text-third hover:bg-third hover:text-primary font-inter font-semibold">Delete Manager</button> */}
                         </div>
                         <div className="manager overflow-x-auto">
                             <table className="table">
