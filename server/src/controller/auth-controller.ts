@@ -136,11 +136,11 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     let role = "";
 
-    if (user.admin && user.manager) {
+    if (user.admin !== null && user.manager !== null) {
       role = "super-admin";
-    } else if (user.admin) {
+    } else if (user.admin !== null) {
       role = "admin";
-    } else if (user.manager) {
+    } else if (user.manager !== null) {
       role = "manager";
     } else {
       role = "user";
@@ -168,5 +168,16 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     } else {
       next(error);
     }
+  }
+}
+
+// Logout
+export async function logout(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.clearCookie("token");
+
+    return res.status(200).json({ message: "Successfully logged out." });
+  } catch (error) {
+    next(error);
   }
 }

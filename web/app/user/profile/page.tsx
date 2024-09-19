@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Movie, User } from "@/types";
+import { Movie } from "@/types";
+import { useUserStore } from "@/stores/user-store";
 import { format } from "date-fns";
 
 import ReviewModal from "@/components/ReviewModal";
 
 export default function Profile() {
-  const [user, setUser] = useState<User>();
+  const { user, update } = useUserStore();
   const [watchedMovies, setWatchedMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function Profile() {
           }
         );
         const data = await user.json();
-        setUser(data.data);
+        update(data.data);
       } catch (error) {
         console.error(error);
       }
@@ -96,7 +97,7 @@ export default function Profile() {
                 Your Wallet Balance:
               </h5>
               <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">
-                {`Rp.${user?.wallet?.balance || "0"},00`}
+                {user ? `Rp.${user?.wallet?.balance},00` : null}
               </h6>
             </div>
             <div className="point content-center ms-0">

@@ -1,3 +1,5 @@
+"use client";
+
 import { Movie } from "@/types";
 import {
   FormTypeCreateReview,
@@ -16,10 +18,6 @@ export default function ReviewModal({ movieData, idx }: Props) {
   const methods = useFormCreateReview();
   const {
     handleSubmit,
-    reset,
-    watch,
-    resetField,
-    setValue,
     formState: { errors, isSubmitting },
   } = methods;
 
@@ -27,7 +25,6 @@ export default function ReviewModal({ movieData, idx }: Props) {
   const movieId = movieData.id;
 
   const onSubmit: SubmitHandler<FormTypeCreateReview> = async (formData) => {
-    console.log({ ...formData, movieId });
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies/reviews`,
@@ -52,6 +49,7 @@ export default function ReviewModal({ movieData, idx }: Props) {
         }
       } else {
         toast.success(data.message);
+        router.push("/user/profile");
         router.refresh();
       }
     } catch (error) {

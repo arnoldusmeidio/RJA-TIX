@@ -14,7 +14,16 @@ export async function getAllManager(
   next: NextFunction
 ) {
   try {
-    const managers = await prisma.manager.findMany();
+    const managers = await prisma.manager.findMany({
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
 
     return res.status(200).json({ data: managers });
   } catch (error) {

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useUserStore } from "@/stores/user-store";
 
 export default function LoginForm() {
-  const { user, update } = useUserStore();
+  const { update } = useUserStore();
 
   const {
     register,
@@ -40,11 +40,18 @@ export default function LoginForm() {
         }
       } else {
         update(data.data);
-        console.log(data.data);
         toast.success(data.message);
         reset();
-        router.push("/");
-        // router.refresh();
+        if (data.data.admin !== null) {
+          router.push("/admin/dashboard");
+          router.refresh();
+        } else if (data.data.manager !== null) {
+          router.push("/manager/dashboard");
+          router.refresh();
+        } else {
+          router.push("/");
+          router.refresh();
+        }
       }
     } catch (error) {
       console.error(error);

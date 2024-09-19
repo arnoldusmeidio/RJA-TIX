@@ -65,6 +65,8 @@ export async function getSingleUser(
         id,
       },
       include: {
+        manager: true,
+        admin: true,
         wallet: true,
         vouchers: {
           where: {

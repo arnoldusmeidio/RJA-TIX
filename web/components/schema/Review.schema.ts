@@ -12,4 +12,5 @@ export type FormTypeCreateReview = z.infer<typeof reviewSchema>;
 export const useFormCreateReview = () =>
   useForm<FormTypeCreateReview>({
     resolver: zodResolver(reviewSchema),
+    mode: "onBlur",
   });

@@ -50,7 +50,7 @@ export const CreateCinema = () => {
       } else {
         toast.success(data.message);
         reset();
-        router.push("/high-admin");
+        router.push("/admin/dashboard");
         router.refresh();
       }
     } catch (error) {
@@ -68,16 +68,26 @@ export const CreateCinema = () => {
             </h4>
           </div>
           <div className="body md:mx-10">
-            <form id="cinemaForm" className="flex flex-col" onSubmit={handleSubmit(onSubmit)} >
+            <form
+              id="cinemaForm"
+              className="flex flex-col"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               {/* Cinema */}
               <div className="cinema flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-2" htmlFor="cinema">Cinema</label>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-2"
+                  htmlFor="cinema"
+                >
+                  Cinema
+                </label>
                 <input
                   className="input bg-primary border-fourth focus:border-third border-1 rounded-lg"
                   id="cinema"
                   type="text"
                   placeholder="Cinema Name"
-                  {...methods.register("cinemaName")} />
+                  {...methods.register("cinemaName")}
+                />
                 {errors.cinemaName && (
                   <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
                     {errors.cinemaName.message}
@@ -88,13 +98,19 @@ export const CreateCinema = () => {
 
               {/* Manager-ID */}
               <div className="manager-id flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-2" htmlFor="manager">Manager ID</label>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-2"
+                  htmlFor="manager"
+                >
+                  Manager ID
+                </label>
                 <input
                   className="input bg-primary border-fourth focus:border-third border-1 rounded-lg"
                   id="manager"
                   type="text"
                   placeholder="Manager ID"
-                  {...methods.register("managerId")} />
+                  {...methods.register("managerId")}
+                />
                 {errors.managerId && (
                   <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
                     {errors.managerId.message}
@@ -105,12 +121,18 @@ export const CreateCinema = () => {
 
               {/* Adress */}
               <div className="address flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-2" htmlFor="address">Address</label>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-2"
+                  htmlFor="address"
+                >
+                  Address
+                </label>
                 <textarea
                   className="input bg-primary border-fourth focus:border-third border-1 rounded-lg"
                   id="address"
                   placeholder="Address"
-                  {...methods.register("address")}  />
+                  {...methods.register("address")}
+                />
                 {errors.address && (
                   <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
                     {errors.address.message}
@@ -120,7 +142,12 @@ export const CreateCinema = () => {
               {/* Adress */}
               <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-2">
                 <AddStudios />
-                <button className="btn btn-sm w-full font-inter font-semibold bg-third text-primary hover:bg-primary hover:text-third rounded-lg" disabled={isSubmitting} type="submit" form="cinemaForm">
+                <button
+                  className="btn btn-sm w-full font-inter font-semibold bg-third text-primary hover:bg-primary hover:text-third rounded-lg"
+                  disabled={isSubmitting}
+                  type="submit"
+                  form="cinemaForm"
+                >
                   {isSubmitting ? "Loading..." : "Create Cinema"}
                 </button>
               </div>
@@ -128,8 +155,7 @@ export const CreateCinema = () => {
           </div>
         </div>
       </div>
-      <div>
-      </div>
+      <div></div>
     </FormProvider>
   );
 };
@@ -154,18 +180,32 @@ const AddStudios = () => {
         return (
           <div key={item.id}>
             <div className="flex mb-3">
-              <button className="btn btn-sm w-full font-inter font-semibold bg-primary text-third hover:bg-third hover:text-primary" type="button" onClick={() => remove(studioIndex)}>
+              <button
+                className="btn btn-sm w-full font-inter font-semibold bg-primary text-third hover:bg-third hover:text-primary"
+                type="button"
+                onClick={() => remove(studioIndex)}
+              >
                 Remove screen
               </button>
             </div>
 
             <div className="border-third border-2 p-5 rounded-lg">
-              <label className="font-inter font-medium text-lg text-third border-b-4 border-fourth pb-1 rounded" htmlFor="">Studio {studioIndex + 1}</label>
+              <label
+                className="font-inter font-medium text-lg text-third border-b-4 border-fourth pb-1 rounded"
+                htmlFor=""
+              >
+                Studio {studioIndex + 1}
+              </label>
 
               <div className="flex flex-col mt-5 gap-2">
                 <div className="grid grid-cols-2 gap-2">
                   <div className="flex flex-col">
-                    <label className="font-inter font-medium text-lg text-third" htmlFor="studioType">Studio Type</label>
+                    <label
+                      className="font-inter font-medium text-lg text-third"
+                      htmlFor="studioType"
+                    >
+                      Studio Type
+                    </label>
                     <select
                       className="select select-sm bg-primary border-fourth focus:border-third border-1 rounded-lg"
                       id="studioType"
@@ -184,7 +224,12 @@ const AddStudios = () => {
                     )}
                   </div>
                   <div className="flex flex-col">
-                    <label className="font-inter font-medium text-lg text-third" htmlFor="">Price</label>
+                    <label
+                      className="font-inter font-medium text-lg text-third"
+                      htmlFor=""
+                    >
+                      Price
+                    </label>
                     <input
                       className="input input-sm bg-primary border-fourth focus:border-third border-1 rounded-lg"
                       type="number"
@@ -204,7 +249,12 @@ const AddStudios = () => {
 
                 <div className="grid grid-cols-2 gap-2">
                   <div className="flex flex-col">
-                    <label className="font-inter font-medium text-lg text-third" htmlFor="column">Columns</label>
+                    <label
+                      className="font-inter font-medium text-lg text-third"
+                      htmlFor="column"
+                    >
+                      Columns
+                    </label>
                     <input
                       className="input input-sm bg-primary border-fourth focus:border-third border-1 rounded-lg"
                       type="number"
@@ -222,7 +272,12 @@ const AddStudios = () => {
                     )}
                   </div>
                   <div className="flex flex-col">
-                    <label className="font-inter font-medium text-lg text-third" htmlFor="">Rows</label>
+                    <label
+                      className="font-inter font-medium text-lg text-third"
+                      htmlFor=""
+                    >
+                      Rows
+                    </label>
                     <input
                       className="input input-sm bg-primary border-fourth focus:border-third border-1 rounded-lg"
                       type="number"

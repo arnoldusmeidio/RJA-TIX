@@ -18,4 +18,5 @@ export type FormTypeCreateShowtime = z.infer<typeof CreateShowtimeSchema>;
 export const useFormCreateShowtime = () =>
   useForm<FormTypeCreateShowtime>({
     resolver: zodResolver(CreateShowtimeSchema),
+    mode: "onBlur",
   });

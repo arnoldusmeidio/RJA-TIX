@@ -11,7 +11,10 @@ export const loginSchema = z.object({
 export type FormTypeLogin = z.infer<typeof loginSchema>;
 
 export const useFormLogin = () =>
-  useForm<FormTypeLogin>({ resolver: zodResolver(loginSchema) });
+  useForm<FormTypeLogin>({
+    resolver: zodResolver(loginSchema),
+    mode: "onBlur",
+  });
 
 export const registerSchema = z
   .object({
@@ -38,4 +41,7 @@ export const registerSchema = z
 export type FormTypeRegister = z.infer<typeof registerSchema>;
 
 export const useFormRegister = () =>
-  useForm<FormTypeRegister>({ resolver: zodResolver(registerSchema) });
+  useForm<FormTypeRegister>({
+    resolver: zodResolver(registerSchema),
+    mode: "onBlur",
+  });
