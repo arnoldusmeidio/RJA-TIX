@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export default function Manager() {
 
     return (
@@ -49,70 +51,16 @@ export default function Manager() {
 
             {/* Table List */}
             <section className="table-dashboard content-center mx-7 sm:mx-20 md:mx-10 lg:mx-20 mb-20">
-                <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-10">
-                    {/* Table Showtimes */}
-                    <div className="bg-secondary p-7 rounded-2xl">
-                        <h4 className="font-lato font-medium text-center sm:text-start text-3xl pb-2 mb-2 text-third border-b-4 border-third rounded">
-                            Manager List
-                        </h4>
-                        <div className="button-add-delete flex">
-                            <button className="btn btn-sm bg-third text-primary hover:bg-primary hover:text-third font-inter font-semibold">Add Manager</button>
-                            <button className="btn btn-sm ms-auto bg-primary text-third hover:bg-third hover:text-primary font-inter font-semibold">Delete Manager</button>
-                        </div>
-                        <div className="manager overflow-x-auto">
-                            <table className="table">
-                                {/* head */}
-                                <thead>
-                                    <tr>
-                                        <th>User ID</th>
-                                        <th>Name</th>
-                                        <th>Cinema ID</th>
-                                        <th>Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {/* row 1 */}
-                                    <tr className="hover">
-                                        <th>manager-001</th>
-                                        <td>Manager 1</td>
-                                        <td>Cinema 1</td>
-                                        <td>manager@1.com</td>
-                                    </tr>
-                                    {/* row 2 */}
-                                    <tr className="hover">
-                                        <th>manager-002</th>
-                                        <td>Manager 2</td>
-                                        <td>Cinema 2</td>
-                                        <td>manager@2.com</td>
-                                    </tr>
-                                    {/* row 3 */}
-                                    <tr className="hover">
-                                        <th>manager-003</th>
-                                        <td>Manager 3</td>
-                                        <td>Cinema 3</td>
-                                        <td>manager@3.com</td>
-                                    </tr>
-                                    {/* row 4 */}
-                                    <tr className="hover">
-                                        <th>manager-004</th>
-                                        <td>Manager 4</td>
-                                        <td>Cinema 4</td>
-                                        <td>manager@4.com</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    {/* Table Showtimes */}
-
+                <div className="grid grid-cols-1 gap-10">
+                    
                     {/* Table Film */}
                     <div className="bg-secondary p-7 rounded-2xl">
                         <h4 className="font-lato font-medium text-center sm:text-start text-3xl pb-2 mb-2 text-third border-b-4 border-third rounded">
                             Movie List
                         </h4>
                         <div className="button-add-delete flex">
-                            <button className="btn btn-sm bg-third text-primary hover:bg-primary hover:text-third font-inter font-semibold">Add Movie</button>
-                            <button className="btn btn-sm ms-auto bg-primary text-third hover:bg-third hover:text-primary font-inter font-semibold">Delete Movie</button>
+                            <Link href="/manager/dashboard/showtime"><button className="btn btn-sm bg-third text-primary hover:bg-primary hover:text-third font-inter font-semibold">Add Movie</button></Link> 
+                            {/* <button className="btn btn-sm ms-auto bg-primary text-third hover:bg-third hover:text-primary font-inter font-semibold">Delete Movie</button> */}
                         </div>
                         <div className="cinema overflow-x-auto">
                             <table className="table">

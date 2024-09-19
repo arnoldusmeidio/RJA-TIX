@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { BiSolidCameraMovie } from "react-icons/bi"; 
 
@@ -63,8 +64,8 @@ export default function Cinemas() {
                             />
                         </figure>
                         <div className="card-body">
-                            <div className="info-cinemas mx-auto sm:mx-0">
-                                <h4 className="text-third name text-2xl inline-flex mx-auto">Starium</h4>
+                            <div className="info-cinemas mx-auto">
+                                <Link href="/cinemas/starium" className="text-third hover:text-fourth name text-2xl inline-flex mx-auto">Starium</Link>
                             </div>
                         </div>
                     </div>
@@ -80,8 +81,8 @@ export default function Cinemas() {
                             />
                         </figure>
                         <div className="card-body">
-                            <div className="info-cinemas mx-auto sm:mx-0">
-                                <h4 className="text-third name text-2xl inline-flex mx-auto">Private Box</h4>
+                            <div className="info-cinemas mx-auto">
+                                <Link href="/cinemas/private-box" className="text-third hover:text-fourth name text-2xl inline-flex mx-auto">Private Box</Link>
                             </div>
                         </div>
                     </div>
@@ -97,8 +98,8 @@ export default function Cinemas() {
                             />
                         </figure>
                         <div className="card-body">
-                            <div className="info-cinemas mx-auto sm:mx-0">
-                                <h4 className="text-third name text-2xl inline-flex mx-auto">Gold Class</h4>
+                            <div className="info-cinemas mx-auto">
+                                <Link href="/cinemas/gold-class" className="text-third hover:text-fourth name text-2xl inline-flex mx-auto">Gold Class</Link>
                             </div>
                         </div>
                     </div>
@@ -114,8 +115,8 @@ export default function Cinemas() {
                             />
                         </figure>
                         <div className="card-body">
-                            <div className="info-cinemas mx-auto sm:mx-0">
-                                <h4 className="text-third name text-2xl inline-flex mx-auto">4DX</h4>
+                            <div className="info-cinemas mx-auto">
+                                <Link href="/cinemas/four-dx" className="text-third hover:text-fourth name text-2xl inline-flex mx-auto">4DX</Link>
                             </div>
                         </div>
                     </div>
@@ -131,8 +132,8 @@ export default function Cinemas() {
                             />
                         </figure>
                         <div className="card-body">
-                            <div className="info-cinemas mx-auto sm:mx-0">
-                                <h4 className="text-third name text-2xl inline-flex mx-auto">Sphere</h4>
+                            <div className="info-cinemas mx-auto">
+                                <Link href="/cinemas/sphere" className="text-third hover:text-fourth name text-2xl inline-flex mx-auto">Sphere</Link>
                             </div>
                         </div>
                     </div>
