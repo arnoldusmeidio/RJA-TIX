@@ -1,4 +1,4 @@
-export default function CinemasDetails() {
+export default function Starium() {
 
     return (
         <main>
