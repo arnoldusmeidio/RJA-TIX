@@ -70,6 +70,7 @@ export async function searchCinemaShowtimes(
             showtimes: {
               some: {
                 movieId: Number(id),
+                startTime: { gt: new Date(Date.now()) },
               },
             },
           },

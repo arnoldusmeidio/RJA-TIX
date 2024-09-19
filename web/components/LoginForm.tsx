@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useUserStore } from "@/stores/user-store";
 
 export default function LoginForm() {
-  const { user, update } = useUserStore();
+  const { update } = useUserStore();
 
   const {
     register,
@@ -44,7 +44,7 @@ export default function LoginForm() {
         toast.success(data.message);
         reset();
         router.push("/");
-        // router.refresh();
+        router.refresh();
       }
     } catch (error) {
       console.error(error);

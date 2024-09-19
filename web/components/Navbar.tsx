@@ -1,9 +1,10 @@
+"use client";
+
 import "animate.css";
 
 import Image from "next/image";
 import Link from "next/link";
 
-import { IoMdSearch } from "react-icons/io";
 import { FaBars } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
@@ -11,11 +12,32 @@ import { MdLocalMovies } from "react-icons/md";
 import { BiSolidCameraMovie } from "react-icons/bi";
 import { RiDiscountPercentLine } from "react-icons/ri";
 import { IoIosHelpCircle } from "react-icons/io";
-import { IoWalletOutline } from "react-icons/io5";
 import Searchbar from "./Searchbar";
 import { AccountBalanceIcon, AccountBalanceSidebar } from "./AccountBalance";
+import { useUserStore } from "@/stores/user-store";
+import { useEffect } from "react";
 
 export default function Navbar() {
+  const { update } = useUserStore();
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const movie = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/users`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await movie.json();
+        update(data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getUser();
+  }, []);
+
   return (
     <nav className="navbar bg-secondary">
       <div className="navbar-start">

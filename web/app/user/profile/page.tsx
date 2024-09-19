@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Movie, User } from "@/types";
+import { Movie } from "@/types";
+import { useUserStore } from "@/stores/user-store";
 import { format } from "date-fns";
 
 import ReviewModal from "@/components/ReviewModal";
 
 export default function Profile() {
-  const [user, setUser] = useState<User>();
+  const { user, update } = useUserStore();
   const [watchedMovies, setWatchedMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function Profile() {
           }
         );
         const data = await user.json();
-        setUser(data.data);
+        update(data.data);
       } catch (error) {
         console.error(error);
       }

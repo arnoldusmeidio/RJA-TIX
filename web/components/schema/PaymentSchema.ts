@@ -14,4 +14,5 @@ export type FormTypeCreatePayment = z.infer<typeof paymentSchema>;
 export const useFormCreatePayment = () =>
   useForm<FormTypeCreatePayment>({
     resolver: zodResolver(paymentSchema),
+    mode: "onBlur",
   });

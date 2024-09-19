@@ -1,12 +1,11 @@
 "use client";
 
-import { User } from "@/types";
+import { useUserStore } from "@/stores/user-store";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 export default function NotAuthorized() {
-  const [user, setUser] = useState<User>();
+  const { user, update } = useUserStore();
 
   useEffect(() => {
     async function getUser() {
@@ -18,7 +17,7 @@ export default function NotAuthorized() {
           }
         );
         const data = await movie.json();
-        setUser(data.data);
+        update(data.data);
       } catch (error) {
         console.error(error);
       }

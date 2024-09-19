@@ -4,18 +4,19 @@ import {
   FormTypeCreatePayment,
   useFormCreatePayment,
 } from "@/components/schema/PaymentSchema";
-import { AdminVoucher, BookingData, Seat, User } from "@/types";
+import { AdminVoucher, BookingData } from "@/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SubmitHandler, FormProvider } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useUserStore } from "@/stores/user-store";
 
 export default function page() {
-  const [user, setUser] = useState<User>();
   const [adminVouchers, setAdminVouchers] = useState<AdminVoucher>();
   const searchParams = useSearchParams();
   const passedData = searchParams.get("data");
   const bookingData: BookingData[] = JSON.parse(passedData as string);
+  const { user, update } = useUserStore();
 
   const methods = useFormCreatePayment();
   const {
@@ -123,7 +124,7 @@ export default function page() {
           }
         );
         const data = await movie.json();
-        setUser(data.data);
+        update(data.data);
       } catch (error) {
         console.error(error);
       }

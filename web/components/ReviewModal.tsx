@@ -1,3 +1,5 @@
+"use client";
+
 import { Movie } from "@/types";
 import {
   FormTypeCreateReview,
@@ -6,6 +8,7 @@ import {
 import { FormProvider, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 type Props = {
   movieData: Movie;
@@ -13,13 +16,13 @@ type Props = {
 };
 
 export default function ReviewModal({ movieData, idx }: Props) {
+  const [refresh, setRefresh] = useState(false);
+  const [count, setCount] = useState(0);
+  console.log(count, refresh);
+
   const methods = useFormCreateReview();
   const {
     handleSubmit,
-    reset,
-    watch,
-    resetField,
-    setValue,
     formState: { errors, isSubmitting },
   } = methods;
 
@@ -27,7 +30,6 @@ export default function ReviewModal({ movieData, idx }: Props) {
   const movieId = movieData.id;
 
   const onSubmit: SubmitHandler<FormTypeCreateReview> = async (formData) => {
-    console.log({ ...formData, movieId });
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies/reviews`,
@@ -52,6 +54,9 @@ export default function ReviewModal({ movieData, idx }: Props) {
         }
       } else {
         toast.success(data.message);
+        // setCount(count + 1);
+        router.push("/user/profile");
+        // setRefresh(!refresh);
         router.refresh();
       }
     } catch (error) {

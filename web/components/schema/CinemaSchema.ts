@@ -31,4 +31,5 @@ export type FormTypeCreateCinema = z.infer<typeof createCinemaSchema>;
 export const useFormCreateCinema = () =>
   useForm<FormTypeCreateCinema>({
     resolver: zodResolver(createCinemaSchema),
+    mode: "onBlur",
   });

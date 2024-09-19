@@ -62,4 +62,5 @@ export type FormTypeCreateMovie = z.infer<typeof createMovieSchema>;
 export const useFormCreateMovie = () =>
   useForm<FormTypeCreateMovie>({
     resolver: zodResolver(createMovieSchema),
+    mode: "onBlur",
   });
