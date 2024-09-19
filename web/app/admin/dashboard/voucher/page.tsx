@@ -13,12 +13,14 @@ export default function Voucher() {
   const {
     handleSubmit,
     reset,
+    register,
     formState: { isSubmitting, errors },
   } = methods;
 
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormTypeCreateVoucher> = async (formData) => {
+    console.log(formData);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/vouchers`,
@@ -99,16 +101,13 @@ export default function Voucher() {
                   <input
                     className="input bg-primary border-fourth focus:border-third border-1 rounded-lg"
                     id="discount"
-                    type="number"
+                    type="text"
                     placeholder="Discount"
-                    {...(methods.register("discount"),
-                    {
-                      valueAsNumber: true,
-                    })}
+                    {...methods.register("discount")}
                   />
-                  {errors.discount && (
+                  {errors.voucherId && (
                     <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
-                      {errors.discount.message}
+                      {errors.voucherId.message}
                     </div>
                   )}
                 </div>
@@ -125,12 +124,9 @@ export default function Voucher() {
                   <input
                     className="input bg-primary border-fourth focus:border-third border-1 rounded-lg"
                     id="availability"
-                    type="number"
+                    type="text"
                     placeholder="Availability"
-                    {...(methods.register("availability"),
-                    {
-                      valueAsNumber: true,
-                    })}
+                    {...register("availability")}
                   />
                   {errors.availability && (
                     <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
