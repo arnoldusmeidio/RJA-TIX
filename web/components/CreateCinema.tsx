@@ -140,6 +140,8 @@ export const CreateCinema = () => {
                 )}
               </div>
               {/* Adress */}
+
+              
               <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-2">
                 <AddStudios />
                 <button

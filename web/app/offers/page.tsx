@@ -26,85 +26,50 @@ export default function Offers() {
                 <div className="head sm:flex content-center mx-7 sm:mx-20 md:mx-10 lg:mx-20 mb-2 pb-3 border-b-4 border-third rounded">
                     <h4 className="font-lato font-medium text-center sm:text-start text-3xl">All <span className="text-third">Discount & Promotions</span></h4>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 lg:gap-20 pt-5">
-                    <div className="card bg-base-100 w-10/12 md:w-9/12 min-h-20 shadow-xl mx-auto">
-                        <figure>
-                            <Image
-                                src="/Starium.png"
-                                width={550}
-                                height={250}
-                                alt="Coming soon Poster Films"
-                                className="w-full min-h-40 object-cover"
-                            />
-                        </figure>
-                        <div className="card-body p-3 sm:p-7">
-                            <div className="info-cinemas mx-auto">
-                                <h4 className="text-third name text-base sm:text-2xl inline-flex text-center">Starium</h4>
-                            </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-20 pt-5">
+                    <div className="card bg-secondary w-10/12 md:w-9/12 min-h-20 shadow-xl mx-auto">
+                        <div className="card-body">
+                            <h2 className="font-inter font-semibold text-2xl text-third">Movie Madness Monday</h2>
+                            <p className="font-inter font-medium text-fourth">Enjoy any movie for just <span className="text-third">30.000,00</span> every Monday! It's the perfect way to start your week.</p>
+                            <p className="font-inter font-medium text-fourth mt-5">Promo code: <span className="text-third">XB3Y2C</span></p>
+                            <p className="font-inter font-medium text-fourth">Availability: <span className="text-third">50 Voucher</span></p>
+                            <p className="font-inter font-medium text-fourth">Expired: <span className="text-third">30 Sept 2024</span></p>
                         </div>
                     </div>
-                    <div className="card bg-base-100 w-10/12 md:w-9/12 min-h-20 shadow-xl mx-auto">
-                        <figure>
-                            <Image
-                                src="/Starium.png"
-                                width={550}
-                                height={250}
-                                alt="Coming soon Poster Films"
-                                className="w-full min-h-40 object-cover"
-                            />
-                        </figure>
-                        <div className="card-body p-3 sm:p-7">
-                            <div className="info-cinemas mx-auto">
-                                <h4 className="text-third name text-base sm:text-2xl inline-flex text-center">Private Box</h4>
-                            </div>
+                    <div className="card bg-secondary w-10/12 md:w-9/12 min-h-20 shadow-xl mx-auto">
+                        <div className="card-body">
+                            <h2 className="font-inter font-semibold text-2xl text-third">Movie Madness Monday</h2>
+                            <p className="font-inter font-medium text-fourth">Enjoy any movie for just <span className="text-third">30.000,00</span> every Monday! It's the perfect way to start your week.</p>
+                            <p className="font-inter font-medium text-fourth mt-5">Promo code: <span className="text-third">XB3Y2C</span></p>
+                            <p className="font-inter font-medium text-fourth">Availability: <span className="text-third">50 Voucher</span></p>
+                            <p className="font-inter font-medium text-fourth">Expired: <span className="text-third">30 Sept 2024</span></p>
                         </div>
                     </div>
-                    <div className="card bg-base-100 w-10/12 md:w-9/12 min-h-20 shadow-xl mx-auto">
-                        <figure>
-                            <Image
-                                src="/Starium.png"
-                                width={550}
-                                height={250}
-                                alt="Coming soon Poster Films"
-                                className="w-full min-h-40 object-cover"
-                            />
-                        </figure>
-                        <div className="card-body p-3 sm:p-7">
-                            <div className="info-cinemas mx-auto">
-                                <h4 className="text-third name text-base sm:text-2xl inline-flex text-center">Gold Class</h4>
-                            </div>
+                    <div className="card bg-secondary w-10/12 md:w-9/12 min-h-20 shadow-xl mx-auto">
+                        <div className="card-body">
+                            <h2 className="font-inter font-semibold text-2xl text-third">Movie Madness Monday</h2>
+                            <p className="font-inter font-medium text-fourth">Enjoy any movie for just <span className="text-third">30.000,00</span> every Monday! It's the perfect way to start your week.</p>
+                            <p className="font-inter font-medium text-fourth mt-5">Promo code: <span className="text-third">XB3Y2C</span></p>
+                            <p className="font-inter font-medium text-fourth">Availability: <span className="text-third">50 Voucher</span></p>
+                            <p className="font-inter font-medium text-fourth">Expired: <span className="text-third">30 Sept 2024</span></p>
                         </div>
                     </div>
-                    <div className="card bg-base-100 w-10/12 md:w-9/12 min-h-20 shadow-xl mx-auto">
-                        <figure>
-                            <Image
-                                src="/Starium.png"
-                                width={550}
-                                height={250}
-                                alt="Coming soon Poster Films"
-                                className="w-full min-h-40 object-cover"
-                            />
-                        </figure>
-                        <div className="card-body p-3 sm:p-7">
-                            <div className="info-cinemas mx-auto">
-                                <h4 className="text-third name text-base sm:text-2xl inline-flex text-center">4DX</h4>
-                            </div>
+                    <div className="card bg-secondary w-10/12 md:w-9/12 min-h-20 shadow-xl mx-auto">
+                        <div className="card-body">
+                            <h2 className="font-inter font-semibold text-2xl text-third">Movie Madness Monday</h2>
+                            <p className="font-inter font-medium text-fourth">Enjoy any movie for just <span className="text-third">30.000,00</span> every Monday! It's the perfect way to start your week.</p>
+                            <p className="font-inter font-medium text-fourth mt-5">Promo code: <span className="text-third">XB3Y2C</span></p>
+                            <p className="font-inter font-medium text-fourth">Availability: <span className="text-third">50 Voucher</span></p>
+                            <p className="font-inter font-medium text-fourth">Expired: <span className="text-third">30 Sept 2024</span></p>
                         </div>
                     </div>
-                    <div className="card bg-base-100 w-10/12 md:w-9/12 min-h-20 shadow-xl mx-auto">
-                        <figure>
-                            <Image
-                                src="/Starium.png"
-                                width={550}
-                                height={250}
-                                alt="Coming soon Poster Films"
-                                className="w-full min-h-40 object-cover"
-                            />
-                        </figure>
-                        <div className="card-body p-3 sm:p-7">
-                            <div className="info-cinemas mx-auto">
-                                <h4 className="text-third name text-base sm:text-2xl inline-flex text-center">Sphere</h4>
-                            </div>
+                    <div className="card bg-secondary w-10/12 md:w-9/12 min-h-20 shadow-xl mx-auto">
+                        <div className="card-body">
+                            <h2 className="font-inter font-semibold text-2xl text-third">Movie Madness Monday</h2>
+                            <p className="font-inter font-medium text-fourth">Enjoy any movie for just <span className="text-third">30.000,00</span> every Monday! It's the perfect way to start your week.</p>
+                            <p className="font-inter font-medium text-fourth mt-5">Promo code: <span className="text-third">XB3Y2C</span></p>
+                            <p className="font-inter font-medium text-fourth">Availability: <span className="text-third">50 Voucher</span></p>
+                            <p className="font-inter font-medium text-fourth">Expired: <span className="text-third">30 Sept 2024</span></p>
                         </div>
                     </div>
                 </div>
