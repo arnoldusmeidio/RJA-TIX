@@ -14,7 +14,16 @@ export async function getAllAdmin(
   next: NextFunction
 ) {
   try {
-    const admins = await prisma.admin.findMany();
+    const admins = await prisma.admin.findMany({
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
 
     return res.status(200).json({ data: admins });
   } catch (error) {

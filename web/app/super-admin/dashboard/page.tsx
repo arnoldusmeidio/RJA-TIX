@@ -1,26 +1,47 @@
+"use client";
+
+import { Admin } from "@/types";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function HighAdmin() {
-  // const [adminNum, setAdminNum] = useState<Admin[]>([]);
+  const [admins, setAdmins] = useState<Admin[]>([]);
+  const [managers, setManager] = useState<Admin[]>([]);
 
-  // useEffect(() => {
-  //   async function getAdmin() {
-  //     try {
-  //       const movie = await fetch(
-  //         `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/admins/search`,
-  //         {
-  //           credentials: "include",
-  //         }
-  //       );
-  //       const data = await movie.json();
-  //       setAdminNum(data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   getAdmin();
-  // }, []);
-  // console.log(adminNum);
+  useEffect(() => {
+    async function getAdmins() {
+      try {
+        const movie = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/admins/search`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await movie.json();
+        setAdmins(data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getAdmins();
+
+    async function getManagers() {
+      try {
+        const movie = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/managers/search`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await movie.json();
+        console.log(data);
+        setManager(data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getManagers();
+  }, []);
 
   return (
     <main className="bg-primary">
@@ -34,11 +55,11 @@ export default function HighAdmin() {
 
       {/* Count Dashboard */}
       <section className="count content-center mx-7 sm:mx-20 md:mx-10 lg:mx-20 mb-7 mt-7">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
           <div className="card bg-secondary w-52 sm:w-64 lg:w-52 2xl:w-72 mx-auto">
             <div className="card-body">
               <h2 className="card-title font-inter text-4xl text-center xl:text-start font-semibold text-third mx-auto xl:mx-0">
-                4
+                {admins.length}
               </h2>
               <p className="font-inter text-xl text-center xl:text-start font-medium text-fourth">
                 Number of Admin
@@ -48,40 +69,10 @@ export default function HighAdmin() {
           <div className="card bg-secondary w-52 sm:w-64 lg:w-52 2xl:w-72 mx-auto">
             <div className="card-body">
               <h2 className="card-title font-inter text-4xl text-center xl:text-start font-semibold text-third mx-auto xl:mx-0">
-                4
+                {managers.length}
               </h2>
               <p className="font-inter text-xl text-center xl:text-start font-medium text-fourth">
                 Number of Manager
-              </p>
-            </div>
-          </div>
-          <div className="card bg-secondary w-52 sm:w-64 lg:w-52 2xl:w-72 mx-auto">
-            <div className="card-body">
-              <h2 className="card-title font-inter text-4xl text-center xl:text-start font-semibold text-third mx-auto xl:mx-0">
-                6
-              </h2>
-              <p className="font-inter text-xl text-center xl:text-start font-medium text-fourth">
-                Number of Cinema
-              </p>
-            </div>
-          </div>
-          <div className="card bg-secondary w-52 sm:w-64 lg:w-52 2xl:w-72 mx-auto">
-            <div className="card-body">
-              <h2 className="card-title font-inter text-4xl text-center xl:text-start font-semibold text-third mx-auto xl:mx-0">
-                24
-              </h2>
-              <p className="font-inter text-xl text-center xl:text-start font-medium text-fourth">
-                Number of Film
-              </p>
-            </div>
-          </div>
-          <div className="card bg-secondary w-52 sm:w-64 lg:w-52 2xl:w-72 mx-auto">
-            <div className="card-body">
-              <h2 className="card-title font-inter text-4xl text-center xl:text-start font-semibold text-third mx-auto xl:mx-0">
-                3
-              </h2>
-              <p className="font-inter text-xl text-center xl:text-start font-medium text-fourth">
-                Number of User
               </p>
             </div>
           </div>
@@ -114,30 +105,14 @@ export default function HighAdmin() {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* row 1 */}
-                  <tr className="hover">
-                    <th>admin-001</th>
-                    <td>Admin 1</td>
-                    <td>admin@1.com</td>
-                  </tr>
-                  {/* row 2 */}
-                  <tr className="hover">
-                    <th>admin-002</th>
-                    <td>Admin 2</td>
-                    <td>admin@2.com</td>
-                  </tr>
-                  {/* row 3 */}
-                  <tr className="hover">
-                    <th>admin-003</th>
-                    <td>Admin 3</td>
-                    <td>admin@3.com</td>
-                  </tr>
-                  {/* row 4 */}
-                  <tr className="hover">
-                    <th>admin-004</th>
-                    <td>Admin 4</td>
-                    <td>admin@4.com</td>
-                  </tr>
+                  {/* Map admin info */}
+                  {admins.map((admin) => (
+                    <tr>
+                      <th>{admin?.id}</th>
+                      <td>{admin?.user.name}</td>
+                      <td>{admin?.user.email}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -167,34 +142,15 @@ export default function HighAdmin() {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* row 1 */}
-                  <tr className="hover">
-                    <th>manager-001</th>
-                    <td>Manager 1</td>
-                    <td>Cinema 1</td>
-                    <td>manager@1.com</td>
-                  </tr>
-                  {/* row 2 */}
-                  <tr className="hover">
-                    <th>manager-002</th>
-                    <td>Manager 2</td>
-                    <td>Cinema 2</td>
-                    <td>manager@2.com</td>
-                  </tr>
-                  {/* row 3 */}
-                  <tr className="hover">
-                    <th>manager-003</th>
-                    <td>Manager 3</td>
-                    <td>Cinema 3</td>
-                    <td>manager@3.com</td>
-                  </tr>
-                  {/* row 4 */}
-                  <tr className="hover">
-                    <th>manager-004</th>
-                    <td>Manager 4</td>
-                    <td>Cinema 4</td>
-                    <td>manager@4.com</td>
-                  </tr>
+                  {/* Map manager info */}
+                  {managers.map((manager) => (
+                    <tr>
+                      <th>{manager?.id}</th>
+                      <td>{manager?.user.name}</td>
+                      <td>{manager?.user.email}</td>
+                      <td>{manager?.user.email}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

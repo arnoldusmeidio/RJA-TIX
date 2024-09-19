@@ -29,10 +29,6 @@ export default function Navbar() {
         const movie = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/users`,
           {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
             credentials: "include",
           }
         );

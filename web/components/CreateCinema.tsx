@@ -260,9 +260,11 @@ const AddStudios = () => {
                       type="number"
                       id="column"
                       min={0}
+                      max={10}
                       placeholder="Enter column numbers"
                       {...register(`studios.${studioIndex}.columns`, {
                         valueAsNumber: true,
+                        max: 10,
                       })}
                     />
                     {errors.studios?.[studioIndex]?.columns && (
@@ -282,9 +284,11 @@ const AddStudios = () => {
                       className="input input-sm bg-primary border-fourth focus:border-third border-1 rounded-lg"
                       type="number"
                       min={0}
+                      max={10}
                       placeholder="Enter row numbers"
                       {...register(`studios.${studioIndex}.rows`, {
                         valueAsNumber: true,
+                        max: 10,
                       })}
                     />
                     {errors.studios?.[studioIndex]?.rows && (

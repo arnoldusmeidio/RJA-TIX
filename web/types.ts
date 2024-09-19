@@ -46,6 +46,15 @@ export interface Manager {
   };
 }
 
+export interface Admin {
+  cinemaId: number;
+  id: string;
+  user: {
+    name: string;
+    email: string;
+  };
+}
+
 export interface Movie {
   id: number;
   title: string;
