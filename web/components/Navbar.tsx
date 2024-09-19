@@ -12,7 +12,6 @@ import { MdLocalMovies } from "react-icons/md";
 import { BiSolidCameraMovie } from "react-icons/bi";
 import { RiDiscountPercentLine } from "react-icons/ri";
 import { IoIosHelpCircle } from "react-icons/io";
-import { IoWalletOutline } from "react-icons/io5";
 
 import Searchbar from "./Searchbar";
 import { AccountBalanceIcon, AccountBalanceSidebar } from "./AccountBalance";
