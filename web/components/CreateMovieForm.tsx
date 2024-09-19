@@ -52,7 +52,7 @@ export default function CreateMovieForm() {
       } else {
         toast.success(data.message);
         reset();
-        router.push("/high-admin");
+        router.push("/admin/dashboard");
         router.refresh();
       }
     } catch (error) {
@@ -70,10 +70,19 @@ export default function CreateMovieForm() {
             </h4>
           </div>
           <div>
-            <form id="movieForm" className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              id="movieForm"
+              className="flex flex-col"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               {/* Title */}
               <div className="title flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-1" htmlFor="title">Title</label>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-1"
+                  htmlFor="title"
+                >
+                  Title
+                </label>
                 <input
                   className="input bg-primary border-fourth focus:border-third border-1 rounded-lg"
                   id="title"
@@ -91,7 +100,12 @@ export default function CreateMovieForm() {
 
               {/* Director */}
               <div className="director flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-1" htmlFor="director">Director</label>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-1"
+                  htmlFor="director"
+                >
+                  Director
+                </label>
                 <input
                   className="input bg-primary border-fourth focus:border-third border-1 rounded-lg"
                   id="director"
@@ -109,7 +123,12 @@ export default function CreateMovieForm() {
 
               {/* Duration */}
               <div className="duration flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-1" htmlFor="duration">Duration in Minutes</label>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-1"
+                  htmlFor="duration"
+                >
+                  Duration in Minutes
+                </label>
                 <input
                   className="input bg-primary border-fourth focus:border-third border-1 rounded-lg"
                   id="duration"
@@ -133,7 +152,12 @@ export default function CreateMovieForm() {
 
               {/* Release Year */}
               <div className="release-year flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-1" htmlFor="releaseDate">Release Year</label>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-1"
+                  htmlFor="releaseDate"
+                >
+                  Release Year
+                </label>
                 <input
                   className="input bg-primary border-fourth focus:border-third border-1 rounded-lg"
                   id="releaseDate"
@@ -158,8 +182,17 @@ export default function CreateMovieForm() {
 
               {/* Genre */}
               <div className="genre flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-1" htmlFor="genre">Genre</label>
-                <select className="select bg-primary border-fourth focus:border-third border-1 rounded-lg" id="genre" {...methods.register("genre")}>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-1"
+                  htmlFor="genre"
+                >
+                  Genre
+                </label>
+                <select
+                  className="select bg-primary border-fourth focus:border-third border-1 rounded-lg"
+                  id="genre"
+                  {...methods.register("genre")}
+                >
                   {Object.values(Genre).map((type) => (
                     <option key={type} value={type}>
                       {type.replace("_", " ")}
@@ -176,8 +209,17 @@ export default function CreateMovieForm() {
 
               {/* Rated */}
               <div className="rated flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-1" htmlFor="rated">Rated</label>
-                <select className="select bg-primary border-fourth focus:border-third border-1 rounded-lg" id="rated" {...methods.register("rated")}>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-1"
+                  htmlFor="rated"
+                >
+                  Rated
+                </label>
+                <select
+                  className="select bg-primary border-fourth focus:border-third border-1 rounded-lg"
+                  id="rated"
+                  {...methods.register("rated")}
+                >
                   {Object.values(Rated).map((type) => (
                     <option key={type} value={type}>
                       {type.replace("_", " ")}
@@ -194,25 +236,35 @@ export default function CreateMovieForm() {
 
               {/* Synopsis */}
               <div className="synosis flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-1" htmlFor="synopsis">Synopsis</label>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-1"
+                  htmlFor="synopsis"
+                >
+                  Synopsis
+                </label>
                 <textarea
                   className="input bg-primary border-fourth focus:border-third border-1 rounded-lg"
                   id="synopsis"
                   placeholder="Enter the synopsis"
                   defaultValue="-"
                   {...methods.register("synopsis")}
-                  />
+                />
                 {errors.synopsis && (
                   <div className="text-red-500 label-text font-normal align-middle text-base ms-2">
                     {errors.synopsis.message}
                   </div>
                 )}
-              </div>  
+              </div>
               {/* Synopsis */}
 
               {/* Poster */}
               <div className="poster flex flex-col mb-4">
-                <label className="font-inter font-medium text-xl text-third pb-2" htmlFor="">Movie Poster</label>
+                <label
+                  className="font-inter font-medium text-xl text-third pb-2"
+                  htmlFor=""
+                >
+                  Movie Poster
+                </label>
                 <input
                   type="file"
                   accept="image/*"
@@ -225,8 +277,13 @@ export default function CreateMovieForm() {
                   </div>
                 )}
               </div>
-              {/* Poster */} 
-              <button className="btn w-full btn-sm font-inter font-semibold bg-third text-primary hover:bg-primary hover:text-third mt-3" disabled={isSubmitting} type="submit" form="movieForm">
+              {/* Poster */}
+              <button
+                className="btn w-full btn-sm font-inter font-semibold bg-third text-primary hover:bg-primary hover:text-third mt-3"
+                disabled={isSubmitting}
+                type="submit"
+                form="movieForm"
+              >
                 {isSubmitting ? "Loading..." : "Create Movie"}
               </button>
             </form>

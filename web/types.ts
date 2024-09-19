@@ -2,6 +2,8 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  admin: {};
+  manager: {};
   wallet: {
     balance: number;
   };
@@ -35,6 +37,15 @@ export interface User {
   }[];
 }
 
+export interface Manager {
+  cinemaId: number;
+  id: string;
+  user: {
+    name: string;
+    email: string;
+  };
+}
+
 export interface Movie {
   id: number;
   title: string;
@@ -43,6 +54,8 @@ export interface Movie {
   rated: string;
   releaseYear: number;
   synopsis: string;
+  genre: string;
+  duration: number;
   reviews: {
     id: number;
     review: string;

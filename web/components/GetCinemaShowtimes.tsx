@@ -13,7 +13,6 @@ export default function GetCinemaShowtimes({
 }) {
   const [cinemas, setCinemas] = useState<Cinema[]>([]);
   const [movie, setMovie] = useState<Movie>();
-  console.log(cinemas);
 
   useEffect(() => {
     async function getMovie() {

@@ -17,9 +17,11 @@ import Searchbar from "./Searchbar";
 import { AccountBalanceIcon, AccountBalanceSidebar } from "./AccountBalance";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect } from "react";
+import { cookies } from "next/headers";
+import LogOutButton from "./LogOutButton";
 
 export default function Navbar() {
-  const { update } = useUserStore();
+  const { user, update } = useUserStore();
 
   useEffect(() => {
     async function getUser() {
@@ -27,6 +29,10 @@ export default function Navbar() {
         const movie = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/users`,
           {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
             credentials: "include",
           }
         );
@@ -116,7 +122,9 @@ export default function Navbar() {
               </Link>
               {/* Cart Phone */}
 
-              <AccountBalanceSidebar />
+              {user?.admin !== null ? null : user?.manager !== null ? null : (
+                <AccountBalanceSidebar />
+              )}
 
               {/* Cart Phone */}
 
@@ -144,20 +152,42 @@ export default function Navbar() {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-64 p-2 shadow delay-100"
+                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-64  shadow delay-100"
                 >
-                  <Link
-                    className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
-                    href="/profile"
-                  >
-                    Profile
-                  </Link>
-                  <Link
-                    className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
-                    href="/login"
-                  >
-                    Login / Register
-                  </Link>
+                  {!user ? (
+                    <Link
+                      className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
+                      href="/login"
+                    >
+                      Login / Register
+                    </Link>
+                  ) : (
+                    <>
+                      {user.admin !== null ? (
+                        <Link
+                          className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
+                          href="/admin/dashboard"
+                        >
+                          Admin Dashboard
+                        </Link>
+                      ) : user.manager !== null ? (
+                        <Link
+                          className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
+                          href="/manager/dashboard"
+                        >
+                          Manager Dashbboard
+                        </Link>
+                      ) : (
+                        <Link
+                          className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
+                          href="/user/profile"
+                        >
+                          Profile
+                        </Link>
+                      )}
+                      <LogOutButton />
+                    </>
+                  )}
                 </ul>
               </div>
               {/* Profile Phone */}
@@ -229,8 +259,9 @@ export default function Navbar() {
         {/* Search */}
 
         {/* Account balance */}
-
-        <AccountBalanceIcon />
+        {user?.admin !== null ? null : user?.manager !== null ? null : (
+          <AccountBalanceIcon />
+        )}
         {/* Account balance */}
 
         {/* Profiles Desktop & Tablet */}
@@ -254,18 +285,40 @@ export default function Navbar() {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <Link
-              className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
-              href="/user/profile"
-            >
-              Profile
-            </Link>
-            <Link
-              className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
-              href="/login"
-            >
-              Login / Register
-            </Link>
+            {!user ? (
+              <Link
+                className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
+                href="/login"
+              >
+                Login
+              </Link>
+            ) : (
+              <>
+                {user.admin !== null ? (
+                  <Link
+                    className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
+                    href="/admin/dashboard"
+                  >
+                    Admin Dashboard
+                  </Link>
+                ) : user.manager !== null ? (
+                  <Link
+                    className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
+                    href="/manager/dashboard"
+                  >
+                    Manager Dashbboard
+                  </Link>
+                ) : (
+                  <Link
+                    className="p-1 text-sm ps-4 hover:bg-gray-700 rounded-lg"
+                    href="/user/profile"
+                  >
+                    Profile
+                  </Link>
+                )}
+                <LogOutButton />
+              </>
+            )}
           </ul>
         </div>
         {/* Profiles Desktop & Tablet */}

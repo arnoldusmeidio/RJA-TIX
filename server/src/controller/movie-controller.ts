@@ -158,7 +158,6 @@ export async function createMovie(
         }
       );
       posterUrl = cloudinaryData.secure_url;
-      console.log(posterUrl);
       fs.unlink(req!.file!.path!);
     }
 
@@ -218,7 +217,6 @@ export async function updateMovieInfo(
         }
       );
       posterUrl = cloudinaryData.secure_url;
-      console.log(posterUrl);
       fs.unlink(req!.file!.path!);
     }
 

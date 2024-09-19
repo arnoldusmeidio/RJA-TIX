@@ -48,7 +48,7 @@ export default function CreateShowtime() {
       } else {
         toast.success(data.message);
         reset();
-        router.push("/test-manage-cinema");
+        router.push("/manager/dashboard");
         router.refresh();
       }
     } catch (error) {
@@ -69,7 +69,12 @@ export default function CreateShowtime() {
             <SelectMovie />
             <SelectStudio />
             <AddShow />
-            <button className="btn w-full btn-sm font-inter font-semibold bg-third text-primary hover:bg-primary hover:text-third mt-3" disabled={isSubmitting} type="submit" form="showtimeForm">
+            <button
+              className="btn w-full btn-sm font-inter font-semibold bg-third text-primary hover:bg-primary hover:text-third mt-3"
+              disabled={isSubmitting}
+              type="submit"
+              form="showtimeForm"
+            >
               {isSubmitting ? "Loading..." : "Submit"}
             </button>
           </form>
@@ -103,7 +108,12 @@ const SelectMovie = () => {
 
   return (
     <div className="flex flex-col mb-4">
-      <label className="font-inter font-medium text-xl text-third pb-1" htmlFor="movie">Movie</label>
+      <label
+        className="font-inter font-medium text-xl text-third pb-1"
+        htmlFor="movie"
+      >
+        Movie
+      </label>
       <select
         className="select bg-primary border-fourth focus:border-third border-1 rounded-lg"
         defaultValue=""
@@ -163,7 +173,12 @@ const SelectStudio = () => {
 
   return (
     <div className="flex flex-col mb-4">
-      <label className="font-inter font-medium text-xl text-third pb-1" htmlFor="studio">Studio number</label>
+      <label
+        className="font-inter font-medium text-xl text-third pb-1"
+        htmlFor="studio"
+      >
+        Studio number
+      </label>
       <select
         className="select bg-primary border-fourth focus:border-third border-1 rounded-lg"
         defaultValue=""
@@ -212,7 +227,12 @@ const AddShow = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2">
         {fields.map((showtime, showtimeIndex) => (
           <div className="mx-auto" key={showtime.id}>
-            <label className="font-inter font-medium text-xl text-third pb-1" htmlFor="date">Date and time</label>
+            <label
+              className="font-inter font-medium text-xl text-third pb-1"
+              htmlFor="date"
+            >
+              Date and time
+            </label>
             <div className="flex gap-2">
               <input
                 className="input input-sm bg-primary border-fourth focus:border-third border-1 rounded-lg"
@@ -225,7 +245,9 @@ const AddShow = () => {
                 id="time"
                 {...register(`showtimes.${showtimeIndex}.time`)}
               >
-                <option disabled selected>Pick a Time</option>
+                <option disabled selected>
+                  Pick a Time
+                </option>
                 <option value="T06:00">06.00 AM</option>
                 <option value="T09:00">09.00 AM</option>
                 <option value="T12:00">12.00 PM</option>
@@ -245,7 +267,11 @@ const AddShow = () => {
               </div>
             )}
             <div>
-              <button className="btn w-full btn-sm font-inter font-semibold bg-third text-primary hover:bg-primary hover:text-third mt-3" type="button" onClick={() => remove(showtimeIndex)}>
+              <button
+                className="btn w-full btn-sm font-inter font-semibold bg-third text-primary hover:bg-primary hover:text-third mt-3"
+                type="button"
+                onClick={() => remove(showtimeIndex)}
+              >
                 Remove show
               </button>
             </div>

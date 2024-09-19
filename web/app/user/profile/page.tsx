@@ -97,7 +97,7 @@ export default function Profile() {
                 Your Wallet Balance:
               </h5>
               <h6 className="text-xl sm:text-3xl text-center md:text-start font-inter font-semibold text-third">
-                {`Rp.${user?.wallet?.balance || "0"},00`}
+                {user ? `Rp.${user?.wallet?.balance},00` : null}
               </h6>
             </div>
             <div className="point content-center ms-0">

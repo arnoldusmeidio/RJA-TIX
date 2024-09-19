@@ -174,7 +174,7 @@ export default function page() {
       (initialPrice * Number(voucherValue)) / 100 -
       ((initialPrice - (initialPrice * Number(voucherValue)) / 100) *
         Number(adminVoucherDiscount)) /
-      100;
+        100;
   } else if (Number(point)) {
     totalPrice = initialPrice - Number(point);
   } else if (Number(voucherValue)) {
@@ -198,8 +198,18 @@ export default function page() {
                 className="flex flex-col gap-2"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <label className="font-inter font-medium text-fourth" htmlFor="points">Points</label>
-                <select className="select w-full bg-primary border-third focus:border-fourth border-2" defaultValue="" id="points" {...methods.register("points")}>
+                <label
+                  className="font-inter font-medium text-fourth"
+                  htmlFor="points"
+                >
+                  Points
+                </label>
+                <select
+                  className="select w-full bg-primary border-third focus:border-fourth border-2"
+                  defaultValue=""
+                  id="points"
+                  {...methods.register("points")}
+                >
                   {/* logic untuk cek punya point atau tdk*/}
                   {user?.totalPoints === 0 ? (
                     <option value="" disabled hidden>
@@ -222,12 +232,26 @@ export default function page() {
                     {errors.points.message}
                   </div>
                 )}
-                <button className="btn btn-sm bg-third font-inter font-semibold text-primary hover:bg-primary hover:text-third w-full" type="button" onClick={() => resetField("points")}>
+                <button
+                  className="btn btn-sm bg-third font-inter font-semibold text-primary hover:bg-primary hover:text-third w-full"
+                  type="button"
+                  onClick={() => resetField("points")}
+                >
                   Remove points
                 </button>
 
-                <label className="font-inter font-medium text-fourth" htmlFor="voucher">Voucher</label>
-                <select className="select w-full bg-primary border-third focus:border-fourth border-2" defaultValue="" id="voucher" {...methods.register("voucher")}>
+                <label
+                  className="font-inter font-medium text-fourth"
+                  htmlFor="voucher"
+                >
+                  Voucher
+                </label>
+                <select
+                  className="select w-full bg-primary border-third focus:border-fourth border-2"
+                  defaultValue=""
+                  id="voucher"
+                  {...methods.register("voucher")}
+                >
                   {/* logic untuk cek punya voucher atau tdk*/}
                   {user?.vouchers.length === 0 ? (
                     <option value="" disabled hidden>
@@ -253,12 +277,21 @@ export default function page() {
                     {errors.voucher.message}
                   </div>
                 )}
-                <button className="btn btn-sm bg-third font-inter font-semibold text-primary hover:bg-primary hover:text-third w-full" type="button" onClick={() => resetField("voucher")}>
+                <button
+                  className="btn btn-sm bg-third font-inter font-semibold text-primary hover:bg-primary hover:text-third w-full"
+                  type="button"
+                  onClick={() => resetField("voucher")}
+                >
                   Remove voucher
                 </button>
 
                 <div className="flex flex-col">
-                  <label className="font-inter font-medium text-fourth mb-2" htmlFor="promoCode">PROMO CODE</label>
+                  <label
+                    className="font-inter font-medium text-fourth mb-2"
+                    htmlFor="promoCode"
+                  >
+                    PROMO CODE
+                  </label>
                   <input
                     type="text"
                     id="promoCode"
@@ -268,13 +301,18 @@ export default function page() {
                   />
 
                   {/* Tombol untuk cek ketersediaan kode promo*/}
-                  <button className="btn btn-sm bg-third font-inter font-semibold text-primary hover:bg-primary hover:text-third w-full" type="button" onClick={handleClick}>
+                  <button
+                    className="btn btn-sm bg-third font-inter font-semibold text-primary hover:bg-primary hover:text-third w-full"
+                    type="button"
+                    onClick={handleClick}
+                  >
                     Check code
                   </button>
 
                   {/* Kalau ketemu vouchernya, akan keluar tombol "use discount"*/}
                   {adminVouchers ? (
                     <button
+                      className="btn btn-sm mt-2 bg-third font-inter font-semibold text-primary hover:bg-primary hover:text-third w-full"
                       type="button"
                       onClick={() =>
                         setValue(
@@ -306,39 +344,63 @@ export default function page() {
               </form>
             </div>
             <div className="seat-payment bg-primary h-fit rounded-lg p-3">
-              <h4 className="font-inter font-semibold text-lg text-third">Seat Payment:</h4>
-              <div className="font-inter font-medium text-base">Rp.{bookingData[0].price},00 x <span className="text-third">{bookingData.length}</span></div>
+              <h4 className="font-inter font-semibold text-lg text-third">
+                Seat Payment:
+              </h4>
+              <div className="font-inter font-medium text-base">
+                Rp.{bookingData[0].price},00 x{" "}
+                <span className="text-third">{bookingData.length}</span>
+              </div>
 
-              <div className="font-inter font-semibold mt-3">Selection Seat:</div>
+              <div className="font-inter font-semibold mt-3">
+                Selection Seat:
+              </div>
               <div className="flex gap-5">
                 {bookingData.map(({ row, column }) => (
-                  <div className="font-inter font-medium text-third" key={`${row}-${column}`}>{`${row}.${column}`}</div>
+                  <div
+                    className="font-inter font-medium text-third"
+                    key={`${row}-${column}`}
+                  >{`${row}.${column}`}</div>
                 ))}
+              </div>
+              <div className="font-inter font-semibold mt-3 text-third">
+                Your Balance:
+              </div>
+              <div className="font-inter font-medium text-base">
+                {user ? `Rp.${user?.wallet.balance},00` : `Loading...`}
               </div>
               <div className="mt-3">
                 <div className="font-inter font-semibold">Total Payment</div>
                 {/* Tampilan harga kalau ada diskon yg valid, maka harga awal akan dicoret, dan harga diskon muncul di bawahnya*/}
                 <div
-                  className={`${Number(point) ||
+                  className={`${
+                    Number(point) ||
                     Number(voucherValue) ||
                     Number(adminVoucherDiscount)
-                    ? "line-through"
-                    : null
-                    }`}
-                >Rp.{initialPrice},00</div>
+                      ? "line-through"
+                      : null
+                  }`}
+                >
+                  Rp.{initialPrice},00
+                </div>
 
                 {/* Kalau ada diskon, maka total diskon akan ditampilkan di sini */}
                 {Number(point) ||
-                  Number(voucherValue) ||
-                  Number(adminVoucherDiscount) ? (
+                Number(voucherValue) ||
+                Number(adminVoucherDiscount) ? (
                   <div>{`Rp.${totalPrice},00`}</div>
                 ) : null}
               </div>
               {Number(point) ? (
                 <div>{`You save ${initialPrice - totalPrice},00`}</div>
               ) : null}
-              <button className="btn btn-sm w-full bg-third text-primary hover:bg-primary hover:border-secondary hover:border-2 hover:text-third font-inter font-semibold mt-2" type="submit" form="payment">
-                PAY
+              <button
+                disabled={isSubmitting}
+                className="btn btn-sm w-full bg-third text-primary hover:bg-primary hover:border-secondary hover:border-2 hover:text-third font-inter font-semibold mt-2"
+                type="submit"
+                form="payment"
+              >
+                {isSubmitting ? "LOADING..." : "PAY"}
               </button>
             </div>
           </div>

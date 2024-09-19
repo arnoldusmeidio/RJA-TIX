@@ -16,7 +16,6 @@ export default function RegisterForm() {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormTypeRegister> = async (formData) => {
-    console.log(formData);
     try {
       const response = await fetch(
         `http://localhost:8000/api/v1/auth/register`,
