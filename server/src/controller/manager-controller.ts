@@ -15,12 +15,19 @@ export async function getAllManager(
 ) {
   try {
     const managers = await prisma.manager.findMany({
+      where: {
+        cinemaId: { not: null },
+      },
+
       include: {
         user: {
           select: {
             name: true,
             email: true,
           },
+        },
+        cinema: {
+          select: { name: true },
         },
       },
     });

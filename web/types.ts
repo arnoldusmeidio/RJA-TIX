@@ -44,10 +44,12 @@ export interface Manager {
     name: string;
     email: string;
   };
+  cinema: {
+    name: string;
+  }[];
 }
 
 export interface Admin {
-  cinemaId: number;
   id: string;
   user: {
     name: string;

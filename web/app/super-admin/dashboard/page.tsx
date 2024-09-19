@@ -1,23 +1,23 @@
 "use client";
 
-import { Admin } from "@/types";
+import { Admin, Manager } from "@/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function HighAdmin() {
   const [admins, setAdmins] = useState<Admin[]>([]);
-  const [managers, setManager] = useState<Admin[]>([]);
+  const [managers, setManager] = useState<Manager[]>([]);
 
   useEffect(() => {
     async function getAdmins() {
       try {
-        const movie = await fetch(
+        const response = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/admins/search`,
           {
             credentials: "include",
           }
         );
-        const data = await movie.json();
+        const data = await response.json();
         setAdmins(data.data);
       } catch (error) {
         console.error(error);
@@ -27,14 +27,13 @@ export default function HighAdmin() {
 
     async function getManagers() {
       try {
-        const movie = await fetch(
+        const response = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/managers/search`,
           {
             credentials: "include",
           }
         );
-        const data = await movie.json();
-        console.log(data);
+        const data = await response.json();
         setManager(data.data);
       } catch (error) {
         console.error(error);
@@ -42,6 +41,7 @@ export default function HighAdmin() {
     }
     getManagers();
   }, []);
+  console.log(managers);
 
   return (
     <main className="bg-primary">
@@ -107,7 +107,7 @@ export default function HighAdmin() {
                 <tbody>
                   {/* Map admin info */}
                   {admins.map((admin) => (
-                    <tr>
+                    <tr key={admin.id}>
                       <th>{admin?.id}</th>
                       <td>{admin?.user.name}</td>
                       <td>{admin?.user.email}</td>
@@ -144,10 +144,10 @@ export default function HighAdmin() {
                 <tbody>
                   {/* Map manager info */}
                   {managers.map((manager) => (
-                    <tr>
+                    <tr key={manager.id}>
                       <th>{manager?.id}</th>
                       <td>{manager?.user.name}</td>
-                      <td>{manager?.user.email}</td>
+                      <td>{manager?.cinema[0]?.name}</td>
                       <td>{manager?.user.email}</td>
                     </tr>
                   ))}

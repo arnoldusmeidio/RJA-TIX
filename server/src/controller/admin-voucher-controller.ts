@@ -1,8 +1,46 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import { ZodError } from "zod";
+import { voucherSchema } from "../schemas/admin-voucher-schema";
 
 const prisma = new PrismaClient();
+
+// POST METHOD --
+// Create Voucher
+export async function createAdminVoucher(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const parsedData = voucherSchema.parse(req.body);
+    const { voucherId, discount, availability, expiredAt } = parsedData;
+
+    const existingVoucher = await prisma.adminVoucher.findUnique({
+      where: {
+        id: voucherId,
+      },
+    });
+
+    if (existingVoucher)
+      return res.status(409).json({ message: "Voucher already exists" });
+
+    await prisma.adminVoucher.create({
+      data: {
+        id: voucherId,
+        discount: Number(discount),
+        availability: Number(availability),
+        expiredAt: new Date(expiredAt),
+      },
+    });
+
+    return res.status(200).json({
+      message: "Voucher successfully created",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 // GET METHOD --
 // Search Admin Voucher by ID
