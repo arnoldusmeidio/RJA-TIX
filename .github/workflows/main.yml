@@ -21,20 +21,27 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: Build Project
+            - name: Generate .env files for Web and Server
+              run: |
+                  echo CLIENT_PORT=${{ secrets.CLIENT_PORT }} >> server/.env
+                  echo NEXT_PUBLIC_SERVER_PORT=${{ secrets.NEXT_PUBLIC_SERVER_PORT }} >> web/.env.loval
+
+            - name: Build Web
               env:
-                  CLIENT_PORT: ${{ secrets.CLIENT_PORT }}
                   NEXT_PUBLIC_SERVER_PORT: ${{ secrets.NEXT_PUBLIC_SERVER_PORT }}
               run: |
                   cd web
                   npm ci
                   npm run build
-                  cd ..
+
+            - name: Build Server
+              env:
+                  CLIENT_PORT: ${{ secrets.CLIENT_PORT }}
+              run: |
                   cd server
                   npm ci
                   npx prisma generate --schema=./prisma/schema.prisma
                   npm run build
-                  cd ..
 
             - name: Copy Files to Server
               uses: appleboy/scp-action@master
