@@ -24,7 +24,7 @@ jobs:
             - name: Generate .env files for Web and Server
               run: |
                   echo CLIENT_PORT=${{ secrets.CLIENT_PORT }} >> server/.env
-                  echo NEXT_PUBLIC_SERVER_PORT=${{ secrets.NEXT_PUBLIC_SERVER_PORT }} >> web/.env.loval
+                  echo NEXT_PUBLIC_SERVER_PORT=${{ secrets.NEXT_PUBLIC_SERVER_PORT }} >> web/.env
 
             - name: Build Web
               env:
