@@ -35,7 +35,6 @@ jobs:
               run: |
                   cd server
                   npm ci
-                  npx prisma generate --schema=./prisma/schema.prisma
                   npm run build
 
             - name: Copy Files to Server
