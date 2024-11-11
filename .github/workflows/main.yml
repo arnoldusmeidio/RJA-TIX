@@ -25,7 +25,12 @@ jobs:
               run: |
                   npm ci
                   npx prisma generate --schema=./server/prisma/schema.prisma
+                  cd web
                   npm run build
+                  cd ..
+                  cd server
+                  npm run build
+                  cd ..
 
             - name: Copy Files to Server
               uses: appleboy/scp-action@master
