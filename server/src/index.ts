@@ -1,5 +1,7 @@
 import express from "express";
+import { Request, Response } from "express";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 
 import authRouter from "./routes/auth-route";
@@ -15,26 +17,31 @@ import ticketRouter from "./routes/ticket-route";
 import { notFoundMiddleware } from "./middlewares/not-found-middleware";
 import { error } from "./middlewares/error-middleware";
 
-import {
-  adminGuard,
-  managerGuard,
-  superAdminGuard,
-  userGuard,
-  verifyToken,
-} from "./middlewares/auth-middleware";
+import { adminGuard, managerGuard, superAdminGuard, userGuard, verifyToken } from "./middlewares/auth-middleware";
 
 const app = express();
 
-app.use(express.json());
-app.use(cookieParser());
+const limiter = rateLimit({
+    windowMs: 1000 * 60,
+    max: 50,
+});
+
 app.use(
-  cors({
-    origin: process.env.CLIENT_PORT,
-    credentials: true,
-  })
+    cors({
+        origin: process.env.CLIENT_PORT,
+        credentials: true,
+    })
 );
 
+app.use(limiter);
+app.use(express.json());
+app.use(cookieParser());
+
 const PORT = process.env.PORT || 8000;
+
+app.get("/api", (req: Request, res: Response) => {
+    res.send("Server is Running");
+});
 
 // Public Route
 app.use("/api/v1/movies", movieRouter);
@@ -58,5 +65,5 @@ app.use(notFoundMiddleware);
 app.use(error);
 
 app.listen(PORT, () => {
-  console.log("Server started and listening on port ", PORT);
+    console.log("Server started and listening on port ", PORT);
 });

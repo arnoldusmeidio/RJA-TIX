@@ -9,9 +9,9 @@ module.exports = {
         },
         {
             namespace: "RJA TIX",
-            name: "api",
+            name: "server",
             script: "npm run start",
-            cwd: "./api",
+            cwd: "./server",
             watch: ".",
         },
     ],
