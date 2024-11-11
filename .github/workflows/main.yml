@@ -23,12 +23,13 @@ jobs:
 
             - name: Build Project
               run: |
-                  npm ci
-                  npx prisma generate --schema=./server/prisma/schema.prisma
                   cd web
+                  npm ci
                   npm run build
                   cd ..
                   cd server
+                  npm ci
+                  npx prisma generate --schema=./prisma/schema.prisma
                   npm run build
                   cd ..
 
