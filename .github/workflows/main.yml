@@ -27,6 +27,7 @@ jobs:
                   npm ci
                   touch .env.local
                   echo "NEXT_PUBLIC_SERVER_PORT=${{ secrets.NEXT_PUBLIC_SERVER_PORT }}" >> .env.local
+                  echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> .env.local
                   cat .env.local  # This will print the .env.local file to the logs for debugging
                   npm run build
 
