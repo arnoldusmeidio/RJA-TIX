@@ -26,7 +26,8 @@ jobs:
                   cd web
                   npm ci
                   touch .env.local
-                  echo NEXT_PUBLIC_SERVER_PORT=${{ secrets.NEXT_PUBLIC_SERVER_PORT }} >> .env.local
+                  echo "NEXT_PUBLIC_SERVER_PORT=${{ secrets.NEXT_PUBLIC_SERVER_PORT }}" >> .env.local
+                  cat .env.local  # This will print the .env.local file to the logs for debugging
                   npm run build
 
             - name: Build Server
