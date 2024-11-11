@@ -21,22 +21,15 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: Generate .env files for Web and Server
-              run: |
-                  echo CLIENT_PORT=${{ secrets.CLIENT_PORT }} >> server/.env
-                  echo NEXT_PUBLIC_SERVER_PORT=${{ secrets.NEXT_PUBLIC_SERVER_PORT }} >> web/.env
-
             - name: Build Web
-              env:
-                  NEXT_PUBLIC_SERVER_PORT: ${{ secrets.NEXT_PUBLIC_SERVER_PORT }}
               run: |
                   cd web
                   npm ci
+                  touch .env.local
+                  echo NEXT_PUBLIC_SERVER_PORT=${{ secrets.NEXT_PUBLIC_SERVER_PORT }} >> .env.local
                   npm run build
 
             - name: Build Server
-              env:
-                  CLIENT_PORT: ${{ secrets.CLIENT_PORT }}
               run: |
                   cd server
                   npm ci
