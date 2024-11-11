@@ -13,7 +13,7 @@ export default function GetCinemaShowtimes({ params }: { params: { id: string } 
     useEffect(() => {
         async function getMovie() {
             try {
-                const movies = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies/search/${params.id}`, {
+                const movies = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/v1/movies/search/${params.id}`, {
                     credentials: "include",
                 });
                 const data = await movies.json();
@@ -27,7 +27,7 @@ export default function GetCinemaShowtimes({ params }: { params: { id: string } 
         async function getCinemas() {
             try {
                 const cinemas = await fetch(
-                    `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/cinemas/search/showtimes/${params.id}`,
+                    `${process.env.NEXT_PUBLIC_SERVER_PORT}/v1/cinemas/search/showtimes/${params.id}`,
                     { credentials: "include" }
                 );
                 const data = await cinemas.json();

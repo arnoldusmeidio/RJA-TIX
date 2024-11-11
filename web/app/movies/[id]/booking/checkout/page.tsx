@@ -47,7 +47,7 @@ export default function Page() {
 
     const onSubmit: SubmitHandler<FormTypeCreatePayment> = async (formData) => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/tickets`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/v1/tickets`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -85,15 +85,12 @@ export default function Page() {
 
     const handleClick = async () => {
         try {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/vouchers/${adminVoucherParam}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                }
-            );
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/v1/vouchers/${adminVoucherParam}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            });
             const data = await response.json();
             setAdminVouchers(data.data);
             if (!response.ok) {
@@ -111,7 +108,7 @@ export default function Page() {
     useEffect(() => {
         async function getUser() {
             try {
-                const movie = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/users`, {
+                const movie = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/v1/users`, {
                     credentials: "include",
                 });
                 const data = await movie.json();

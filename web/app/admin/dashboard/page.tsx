@@ -16,7 +16,7 @@ export default function Admin() {
     useEffect(() => {
         async function getVouchers() {
             try {
-                const movie = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/vouchers`, {
+                const movie = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/v1/vouchers`, {
                     credentials: "include",
                 });
                 const data = await movie.json();
@@ -29,7 +29,7 @@ export default function Admin() {
 
         async function getCinema() {
             try {
-                const movie = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/cinemas`, {
+                const movie = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/v1/cinemas`, {
                     credentials: "include",
                 });
                 const data = await movie.json();
@@ -42,7 +42,7 @@ export default function Admin() {
 
         async function getMovies() {
             try {
-                const movie = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/movies`, {
+                const movie = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/v1/movies`, {
                     credentials: "include",
                 });
                 const data = await movie.json();
@@ -55,7 +55,7 @@ export default function Admin() {
 
         async function getUsers() {
             try {
-                const movie = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/api/v1/users/search`, {
+                const movie = await fetch(`${process.env.NEXT_PUBLIC_SERVER_PORT}/v1/users/search`, {
                     credentials: "include",
                 });
                 const data = await movie.json();
